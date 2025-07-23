@@ -19,7 +19,10 @@ dependencies:
     - conda-forge::matplotlib
     - conda-forge::tensorboard
     - conda-forge::scikit-learn
-    - conda-forge::transformers
+    - conda-forge::transformers >=4.30
+    - conda-forge::tokenizers
+    - conda-forge::datasets
+    - conda-forge::huggingface_hub
     - conda-forge::pygrinder >=0.7
     - conda-forge::tsdb >=0.7.1
     - conda-forge::benchpots >=0.4

@@ -17,8 +17,10 @@ dependencies:
     - pyg::pyg
     - pyg::pytorch-sparse
     - pyg::pytorch-scatter
-    ## for some LLM-based models in PyPOTS, e.g. LLaMA-based TimeLLM
+    ## for some LLM-based models in PyPOTS, e.g. LLaMA-based TimeLLM, LLM4Imp
     - conda-forge::sentencepiece
+    - conda-forge::tokenizers
+    - conda-forge::datasets
 
     # test
     - conda-forge::coveralls
