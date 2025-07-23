@@ -14,7 +14,7 @@ Lab: Prof YU Keping's Lab
 """
 
 import numpy as np
-from pypots.nn.functional import calc_mae
+from pypots.nn.functional import calc_mae, calc_mse, calc_rmse, calc_mre
 from pypots.optim import Adam
 from pypots.imputation.llm4imp import LLM4IMP
 
@@ -69,4 +69,8 @@ def train_and_evaluate_llm4imp(dataset, args):
 
     # 5. Evaluate
     mae = calc_mae(imputation, test_X_ori, test_X_indicating_mask)
-    print(f"[LLM4IMP] Testing MAE: {mae:.4f}")
+    mse = calc_mse(imputation, test_X_ori, test_X_indicating_mask)
+    rmse = calc_rmse(imputation, test_X_ori, test_X_indicating_mask)
+    mre = calc_mre(imputation, test_X_ori, test_X_indicating_mask)
+    print(f"[LLM4IMP] Testing —— MAE: {mae:.4f}| MSE: {mse:.4f}| RMSE: {rmse:.4f}| MRE: {mre:.4f}| ")
+    return mae, mse, rmse, mre

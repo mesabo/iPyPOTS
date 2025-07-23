@@ -13,43 +13,60 @@ Dept: Science and Engineering
 Lab: Prof YU Keping's Lab
 """
 
-# main.py
+import os
+import json
 
 from argument_parser import get_args
-from pypots.utils.random import set_random_seed
-import benchpots
-
-# Pipelines
 from pipeline.imputations.llm4imp import train_and_evaluate_llm4imp
 from pipeline.imputations.saits import train_and_evaluate_saits
-from pipeline.imputations.timellm import train_and_evaluate_timellm  # ✅ NEW
+from pipeline.imputations.timellm import train_and_evaluate_timellm
+from pipeline.imputations.moment import train_and_evaluate_moment
+from pipeline.imputations.tefn import train_and_evaluate_tefn
+from pipeline.imputations.tslanet import train_and_evaluate_tslanet
+from pipeline.imputations.gpt4ts import train_and_evaluate_gpt4ts
 
+from pypots.data.dataset.load_prepare_dataset import DatasetPreparator
+from pypots.utils.random import set_random_seed
 
-def prepare_physionet_dataset(missing_rate=0.1):
-    set_random_seed()
-    dataset = benchpots.datasets.preprocess_physionet2012(
-        subset="set-a",
-        rate=missing_rate,
-    )
-    print("✅ Dataset loaded with keys:", dataset.keys())
-    return dataset
+MODEL_PIPELINES = {
+    # LLM (Large Language Model)
+    "llm4imp": train_and_evaluate_llm4imp,
+    "timellm": train_and_evaluate_timellm,
+    "gpt4ts": train_and_evaluate_gpt4ts,
+    # TSFM (Time-Series Foundation Model)
+    "moment": train_and_evaluate_moment,
+    # NN (Neural Networks)
+    "tslanet": train_and_evaluate_tslanet,
+    "tefn": train_and_evaluate_tefn,
+    "saits": train_and_evaluate_saits,
+}
+
 
 
 def main(args):
     print(f"🚀 Running imputation pipeline for model: {args.model}")
-    dataset = prepare_physionet_dataset(args.missing_rate)
+    dataset = DatasetPreparator().prepare(args)
 
     model_name = args.model.lower()
-    if model_name == "llm4imp":
-        train_and_evaluate_llm4imp(dataset, args)
-    elif model_name == "saits":
-        train_and_evaluate_saits(dataset,args)
-    elif model_name == "timellm":
-        train_and_evaluate_timellm(dataset,args)
-    else:
+    if model_name not in MODEL_PIPELINES:
         raise ValueError(f"❌ Unknown model: {args.model}")
+
+    mae, mse, rmse, mre = MODEL_PIPELINES[model_name](dataset, args)
+
+    # ✅ Save metrics
+    metrics_dir = os.path.join(args.saving_path, "metrics")
+    os.makedirs(metrics_dir, exist_ok=True)
+    metrics_file = os.path.join(metrics_dir, f"{model_name}_metrics.json")
+    with open(metrics_file, "w") as f:
+        json.dump(
+            {"MAE": mae, "MSE": mse, "RMSE": rmse, "MRE": mre},
+            f,
+            indent=4
+        )
+    print(f"📊 Metrics saved to: {metrics_file}")
 
 
 if __name__ == "__main__":
     args = get_args()
+    set_random_seed(2025)
     main(args)

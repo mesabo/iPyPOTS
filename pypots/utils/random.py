@@ -13,7 +13,7 @@ import torch
 from .logging import logger
 
 # Take the birth year of PyPOTS as the default random seed
-RANDOM_SEED: int = 2022
+RANDOM_SEED: int = 2025
 
 
 def set_random_seed(random_seed: int = RANDOM_SEED) -> None:

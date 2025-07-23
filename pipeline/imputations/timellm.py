@@ -16,7 +16,7 @@ Lab: Prof YU Keping's Lab
 # pipeline/imputations/timellm.py
 
 import numpy as np
-from pypots.nn.functional import calc_mae
+from pypots.nn.functional import calc_mae, calc_mse, calc_rmse, calc_mre
 from pypots.optim import Adam
 from pypots.imputation import TimeLLM
 
@@ -69,12 +69,12 @@ def train_and_evaluate_timellm(dataset: dict, args):
 
     # 4. Test the model
     timellm_results = timellm.predict(dataset_for_IMPU_testing)
-    timellm_imputation = timellm_results["imputation"]
+    imputations = timellm_results["imputation"]
 
-    # 5. Evaluate the model
-    testing_mae = calc_mae(
-        timellm_imputation,
-        test_X_ori,
-        test_X_indicating_mask,
-    )
-    print(f"[TimeLLM] Testing MAE: {testing_mae:.4f}")
+    # 5. Evaluate
+    mae = calc_mae(imputations, test_X_ori, test_X_indicating_mask)
+    mse = calc_mse(imputations, test_X_ori, test_X_indicating_mask)
+    rmse = calc_rmse(imputations, test_X_ori, test_X_indicating_mask)
+    mre = calc_mre(imputations, test_X_ori, test_X_indicating_mask)
+    print(f"[LLM4IMP] Testing —— MAE: {mae:.4f}| MSE: {mse:.4f}| RMSE: {rmse:.4f}| MRE: {mre:.4f}| ")
+    return mae, mse, rmse, mre

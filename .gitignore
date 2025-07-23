@@ -7,7 +7,7 @@
 dist
 build
 docs/_build
-*.egg-info
+*.egg-info‹
 
 # ignore all testing/running results
 .run
@@ -16,12 +16,12 @@ docs/_build
 *__pycache__*
 *test*
 
-# ignore specific kinds of files like all PDFs
+# ignore specific kinds of files like all PDFs‹
 *.pdf
 *.ipynb
 *TODO*
 
-# ignore executable and config files
+# ignore executable and config files‹
 *.sh
 *.yml
 
@@ -30,4 +30,3 @@ docs/_build
 
 output/
 datasets/
-output/
