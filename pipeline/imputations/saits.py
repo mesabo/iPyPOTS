@@ -20,7 +20,8 @@ from pypots.nn.functional import calc_mae
 from pypots.optim import Adam
 from pypots.imputation import SAITS
 
-def train_and_evaluate_saits(dataset, saving_path="output/imputation/saits", device=None):
+
+def train_and_evaluate_saits(dataset, args):
     print("🚀 Starting SAITS training pipeline...")
 
     # 1. Assemble train/val/test datasets
@@ -37,22 +38,22 @@ def train_and_evaluate_saits(dataset, saving_path="output/imputation/saits", dev
     saits = SAITS(
         n_steps=dataset["n_steps"],
         n_features=dataset["n_features"],
-        n_layers=1,
-        d_model=256,
-        d_ffn=128,
-        n_heads=4,
-        d_k=64,
-        d_v=64,
-        dropout=0.1,
-        ORT_weight=1,
-        MIT_weight=1,
-        batch_size=32,
-        epochs=10,
-        patience=3,
+        n_layers=args.n_layers,
+        d_model=args.d_model,
+        d_ffn=args.d_ffn,
+        n_heads=args.n_heads,
+        d_k=args.d_k,
+        d_v=args.d_v,
+        dropout=args.dropout ,
+        ORT_weight=args.ORT_weight ,
+        MIT_weight=args.MIT_weight ,
+        batch_size=args.batch_size ,
+        epochs=args.epochs ,
+        patience=args.patience ,
         optimizer=Adam(lr=1e-3),
         num_workers=0,
-        device=device,
-        saving_path=saving_path,
+        device=args.device,
+        saving_path=args.saving_path,
         model_saving_strategy="best",
     )
 

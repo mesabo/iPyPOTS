@@ -21,7 +21,7 @@ from pypots.optim import Adam
 from pypots.imputation import TimeLLM
 
 
-def train_and_evaluate_timellm(dataset: dict, saving_path: str = None, device: str = None):
+def train_and_evaluate_timellm(dataset: dict, args):
     # 1. Assemble train/val/test datasets
     dataset_for_IMPU_training = {"X": dataset["train_X"]}
     dataset_for_IMPU_validating = {
@@ -32,7 +32,7 @@ def train_and_evaluate_timellm(dataset: dict, saving_path: str = None, device: s
 
     test_X_ori = np.nan_to_num(dataset["test_X_ori"])
     test_X_indicating_mask = (
-        np.isnan(dataset["test_X_ori"]) ^ np.isnan(dataset["test_X"])
+            np.isnan(dataset["test_X_ori"]) ^ np.isnan(dataset["test_X"])
     )
 
     # 2. Initialize TimeLLM model
@@ -40,24 +40,24 @@ def train_and_evaluate_timellm(dataset: dict, saving_path: str = None, device: s
         n_steps=dataset["n_steps"],
         n_features=dataset["n_features"],
         llm_model_type="GPT2",
-        n_layers=1,
-        patch_size=8,
-        patch_stride=4,
-        d_llm=768,
-        d_model=256,
-        d_ffn=128,
-        n_heads=4,
-        dropout=0.1,
+        n_layers=args.n_layers,
+        patch_size=args.patch_size,
+        patch_stride=args.patch_stride,
+        d_llm=args.d_llm,
+        d_model=args.d_model,
+        d_ffn=args.d_ffn,
+        n_heads=args.n_heads,
+        dropout=args.dropout,
+        ORT_weight=args.ORT_weight,
+        MIT_weight=args.MIT_weight,
+        batch_size=args.batch_size,
+        epochs=args.epochs,
+        patience=args.patience,
         domain_prompt_content="PhysioNet ICU",
-        ORT_weight=1,
-        MIT_weight=1,
-        batch_size=32,
-        epochs=10,
-        patience=3,
         optimizer=Adam(lr=1e-3),
         num_workers=0,
-        device=device,
-        saving_path=saving_path,
+        device=args.device,
+        saving_path=args.saving_path,
         model_saving_strategy="best",
     )
 

@@ -19,7 +19,7 @@ from pypots.optim import Adam
 from pypots.imputation.llm4imp import LLM4IMP
 
 
-def train_and_evaluate_llm4imp(dataset, saving_path="output/imputation/llm4imp", device=None):
+def train_and_evaluate_llm4imp(dataset, args):
     # 1. Assemble train/val/test datasets
     dataset_for_IMPU_training = {
         "X": dataset["train_X"],
@@ -41,19 +41,19 @@ def train_and_evaluate_llm4imp(dataset, saving_path="output/imputation/llm4imp",
     model = LLM4IMP(
         n_steps=dataset["n_steps"],
         n_features=dataset["n_features"],
-        patch_size=12,
-        patch_stride=6,
-        d_model=64,
-        d_ffn=128,
-        d_llm=768,
-        n_heads=4,
-        dropout=0.1,
-        batch_size=32,
-        epochs=10,
-        patience=3,
+        patch_size=args.patch_size,
+        patch_stride=args.patch_stride,
+        d_model=args.d_model,
+        d_ffn=args.d_ffn,
+        d_llm=args.d_llm,
+        n_heads=args.n_heads,
+        dropout=args.dropout,
+        batch_size=args.batch_size,
+        epochs=args.epochs,
+        patience=args.patience,
         optimizer=Adam(lr=1e-3),
-        device=device,
-        saving_path=saving_path,
+        device=args.device,
+        saving_path=args.saving_path,
         model_saving_strategy="best",
     )
 

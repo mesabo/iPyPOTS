@@ -37,7 +37,7 @@ class LLM4IMP(BaseNNImputer):
         dropout: float = 0.1,
         prompt_template: str = "Impute missing values at time steps where mask=0",
         batch_size: int = 32,
-        epochs: int = 10,
+        epochs: int = 5,
         patience: Optional[int] = None,
         training_loss: Union[Criterion, type] = MAE,
         validation_metric: Union[Criterion, type] = MSE,
