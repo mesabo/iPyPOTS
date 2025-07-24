@@ -1,15 +1,10 @@
-"""
-The backbone of LLM4IMP: a prompted, reprogrammed large language model
-for time-series imputation using frozen LLM (GPT2), FFT patching,
-and instructional token prompts.
-"""
-
 # Created by Franck Junior Aboya <mesabo18@gmail.com / messouaboya17@gmail.com>
 # License: BSD-3-Clause
 
 import torch
 import torch.nn as nn
 from transformers import GPT2Model, GPT2Tokenizer
+from peft import get_peft_model, LoraConfig, TaskType
 
 from ..patchtst.layers import PatchEmbedding, FlattenHead
 from .layers import ReprogrammingLayer
@@ -29,6 +24,8 @@ class BackboneLLM4IMP(nn.Module):
         n_heads,
         dropout,
         prompt_template: str = "Impute missing values at time steps where mask=0",
+        train_gpt_mlp: bool = True,
+        use_lora: bool = True,
     ):
         super().__init__()
 
@@ -41,17 +38,38 @@ class BackboneLLM4IMP(nn.Module):
         self.d_llm = d_llm
         self.n_heads = n_heads
         self.prompt_template = prompt_template
+        self.train_gpt_mlp = train_gpt_mlp
+        self.use_lora = use_lora
 
         self.tokenizer = GPT2Tokenizer.from_pretrained("openai-community/gpt2")
-        self.tokenizer.pad_token = self.tokenizer.eos_token  # To fix padding issue
+        self.tokenizer.pad_token = self.tokenizer.eos_token
         self.llm = GPT2Model.from_pretrained(
             "openai-community/gpt2",
             output_hidden_states=True,
         )
 
-        # Freeze LLM weights
-        for param in self.llm.parameters():
-            param.requires_grad = False
+        if self.use_lora:
+            lora_config = LoraConfig(
+                r=8,
+                lora_alpha=32,
+                target_modules=["c_fc", "c_proj"],
+                lora_dropout=0.05,
+                bias="none",
+                task_type=TaskType.FEATURE_EXTRACTION,
+            )
+            self.llm = get_peft_model(self.llm, lora_config)
+
+        if not self.train_gpt_mlp:
+            for param in self.llm.parameters():
+                param.requires_grad = False
+        elif self.use_lora:
+            for name, param in self.llm.named_parameters():
+                if "lora" not in name:
+                    param.requires_grad = False
+        else:
+            for block in self.llm.h:
+                for name, param in block.mlp.named_parameters():
+                    param.requires_grad = True
 
         self.patch_embedding = PatchEmbedding(
             d_model=d_model,
@@ -72,47 +90,133 @@ class BackboneLLM4IMP(nn.Module):
         self.prompt_proj = nn.Linear(self.llm.config.n_embd, d_model)
         self.revin = RevIN(n_features=n_features, affine=False)
 
-        # lazy initialization of output head
         self.output_head = None
         self.output_head_dropout = dropout
 
-    def build_prompts(self, X, missing_mask):
+    # def build_prompts(self, X: torch.Tensor, missing_mask: torch.Tensor) -> torch.Tensor:
+    #     assert X.dim() == 3, f"Expected [B, T, D], got {X.shape}"
+    #     B, T, D = X.shape
+    #     prompts = []
+    #
+    #     for b in range(B):
+    #         x_sample = X[b].cpu()
+    #         mask_sample = missing_mask[b].cpu()
+    #
+    #         min_vals = torch.min(x_sample, dim=0).values
+    #         max_vals = torch.max(x_sample, dim=0).values
+    #         median_vals = torch.median(x_sample, dim=0).values
+    #
+    #         trend = torch.sum(x_sample[1:] - x_sample[:-1]).item()
+    #         trend_desc = "upward" if trend > 0 else "downward"
+    #
+    #         fft = torch.fft.rfft(x_sample, dim=0)
+    #         corr = fft * torch.conj(fft)
+    #         autocorr = torch.fft.irfft(corr, dim=0)
+    #         lag_scores = torch.mean(autocorr, dim=1)
+    #         top_lags = torch.topk(lag_scores, k=min(5, T)).indices.tolist()
+    #
+    #         miss_idx_flat = (missing_mask[b] == 0).nonzero(as_tuple=False)
+    #         miss_idx_str = ", ".join([f"({t},{d})" for t, d in miss_idx_flat.tolist()])
+    #
+    #         prompt = (
+    #             f"<|start_prompt|>Task: {self.prompt_template} "
+    #             f"Missing indices: {miss_idx_str}. "
+    #             f"Min values: {min_vals.mean().item():.2f}, "
+    #             f"Max values: {max_vals.mean().item():.2f}, "
+    #             f"Median: {median_vals.mean().item():.2f}, "
+    #             f"Trend is {trend_desc}, "
+    #             f"Top 5 lags: {top_lags}.<|end_prompt|>"
+    #         )
+    #
+    #         prompts.append(prompt)
+    #
+    #     tokenized = self.tokenizer(prompts, return_tensors="pt", padding=True, truncation=True, max_length=512)
+    #     embeds = self.llm.get_input_embeddings()(tokenized.input_ids.to(X.device))
+    #     return embeds
+    def build_prompts(self, X: torch.Tensor, missing_mask: torch.Tensor) -> torch.Tensor:
+        """
+        Builds rich prompts for each sample using domain, task, and statistical information.
+        Returns: prompt_embeddings [B, prompt_len, hidden_dim]
+        """
         assert X.dim() == 3, f"Expected [B, T, D], got {X.shape}"
         B, T, D = X.shape
         prompts = []
+
         for b in range(B):
-            for d in range(D):
-                missing_indices = (missing_mask[b, :, d] == 0).nonzero(as_tuple=True)[0]
-                idx_str = ",".join(map(str, missing_indices.tolist()))
-                prompt = f"{self.prompt_template}. Missing indices: {idx_str}."
-                prompts.append(prompt)
-        tokenized = self.tokenizer(prompts, return_tensors="pt", padding=True, truncation=True)
-        embeds = self.llm.get_input_embeddings()(tokenized.input_ids.to(X.device)).view(B, D, -1, self.llm.config.n_embd)
+            x_sample = X[b].cpu()
+            mask_sample = missing_mask[b].cpu()
+
+            # Z-score normalization
+            mean = x_sample.mean(dim=0, keepdim=True)
+            std = x_sample.std(dim=0, keepdim=True) + 1e-6
+            x_norm = (x_sample - mean) / std
+
+            # Apply Hann window
+            window = torch.hann_window(T).unsqueeze(1)
+            x_windowed = x_norm * window
+
+            # Select top-k variable dimensions
+            var_per_dim = x_sample.var(dim=0)
+            top_dims = torch.topk(var_per_dim, k=min(5, D)).indices
+            x_top = x_windowed[:, top_dims]  # [T, k]
+
+            # FFT + autocorrelation for lag analysis
+            fft = torch.fft.rfft(x_top, dim=0)
+            power = fft * torch.conj(fft)
+            autocorr = torch.fft.irfft(power, dim=0)
+            lag_scores = torch.mean(autocorr, dim=1)
+            top_lags = torch.topk(lag_scores, k=min(5, T)).indices.tolist()
+
+            # Min/Max/Median trend description
+            min_vals = torch.min(x_sample, dim=0).values
+            max_vals = torch.max(x_sample, dim=0).values
+            median_vals = torch.median(x_sample, dim=0).values
+            trend = torch.sum(x_sample[1:] - x_sample[:-1]).item()
+            trend_desc = "upward" if trend > 0 else "downward"
+
+            # Missing index summary
+            miss_idx_flat = (missing_mask[b] == 0).nonzero(as_tuple=False)
+            miss_idx_str = ", ".join([f"({t},{d})" for t, d in miss_idx_flat.tolist()])
+
+            # Construct prompt
+            prompt = (
+                f"<|start_prompt|>Task: {self.prompt_template} "
+                f"Missing indices: {miss_idx_str}. "
+                f"Min values: {min_vals.mean().item():.2f}, "
+                f"Max values: {max_vals.mean().item():.2f}, "
+                f"Median: {median_vals.mean().item():.2f}, "
+                f"Trend is {trend_desc}, "
+                f"Top 5 lags: {top_lags}.<|end_prompt|>"
+            )
+
+            prompts.append(prompt)
+
+        tokenized = self.tokenizer(prompts, return_tensors="pt", padding=True, truncation=True, max_length=512)
+        embeds = self.llm.get_input_embeddings()(tokenized.input_ids.to(X.device))  # [B, prompt_len, 768]
         return embeds
 
     def forward(self, X, missing_mask):
-        X = self.revin(X, mode="norm")  # Normalize
+        X = self.revin(X, mode="norm")
         B, T, D = X.shape
 
-        # Build prompt embeddings
-        llm_embeds = self.build_prompts(X, missing_mask)         # [B, D, prompt_len, 768]
-        prompts_proj = self.prompt_proj(llm_embeds)              # [B, D, prompt_len, d_model]
+        llm_embeds = self.build_prompts(X, missing_mask)
+        llm_embeds = llm_embeds.unsqueeze(1).expand(-1, D, -1, -1)
+        prompts_proj = self.prompt_proj(llm_embeds)
 
-        X = X.permute(0, 2, 1).contiguous()     # [B, D, T]
-        X = X.view(B * D, 1, T)                 # [B*D, 1, T]
-        X = self.patch_embedding(X)             # [B*D, P, d_model]
-        P = X.shape[1]                          # actual patch count
-        X = X.view(B, D, P, self.d_model)       # [B, D, P, d_model]
+        X = X.permute(0, 2, 1).contiguous()
+        X = X.view(B * D, 1, T)
+        X = self.patch_embedding(X)
+        P = X.shape[1]
+        X = X.view(B, D, P, self.d_model)
 
         reprogrammed = self.reprogramming(
-            X.flatten(0, 1),              # [B*D, P, d_model]
-            llm_embeds.flatten(0, 1),     # [B*D, prompt_len, 768] as keys
-            llm_embeds.flatten(0, 1)      # [B*D, prompt_len, 768] as values
+            X.flatten(0, 1),
+            llm_embeds.flatten(0, 1),
+            llm_embeds.flatten(0, 1)
         )
 
-        input_repr = reprogrammed.view(B, D, self.d_llm, P).permute(0, 1, 3, 2).contiguous()  # [B, D, P, d_llm]
+        input_repr = reprogrammed.view(B, D, self.d_llm, P).permute(0, 1, 3, 2).contiguous()
 
-        # Initialize output head lazily with true patch count
         if self.output_head is None:
             self.output_head = FlattenHead(
                 d_input=self.d_llm * P,
@@ -121,7 +225,7 @@ class BackboneLLM4IMP(nn.Module):
                 head_dropout=self.output_head_dropout,
             )
 
-        output = self.output_head(input_repr)   # [B, D, T]
-        output = output.permute(0, 2, 1).contiguous()  # [B, T, D]
-        output = self.revin(output, mode="denorm")     # Denormalize
+        output = self.output_head(input_repr)
+        output = output.permute(0, 2, 1).contiguous()
+        output = self.revin(output, mode="denorm")
         return output

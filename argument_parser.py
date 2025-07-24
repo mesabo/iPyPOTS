@@ -39,7 +39,7 @@ def get_args():
 
     # LLM-based models
     parser.add_argument("--patch_size", type=int, default=12, help="Patch length for patch embedding")
-    parser.add_argument("--patch_stride", type=int, default=6, help="Patch stride")
+    parser.add_argument("--patch_stride", type=int, default=4, help="Patch stride")
     parser.add_argument("--d_llm", type=int, default=768, help="LLM hidden dimension (GPT2: 768, LLaMA: 4096)")
     parser.add_argument("--prompt_template", type=str,
                         default="Impute missing values at time steps where mask=0",

@@ -28,3 +28,9 @@ dependencies:
     - conda-forge::benchpots >=0.4
     - conda-forge::ai4ts
     - pytorch::pytorch >=1.10.0
+pip:
+    # building
+    - build
+    # doc
+    - sphinxcontrib-gtagjs
+    - peft

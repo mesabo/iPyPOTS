@@ -46,3 +46,4 @@ dependencies:
         - build
         # doc
         - sphinxcontrib-gtagjs
+        - peft
