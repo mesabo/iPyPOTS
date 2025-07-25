@@ -68,5 +68,8 @@ def main(args):
 
 if __name__ == "__main__":
     args = get_args()
+    print(f"Use Train GPT: {args.train_gpt_mlp}")
+    print(f"Use Lora: {args.use_lora}")
+    print(f"Use Profiling: {args.enable_profiling}")
     set_random_seed(2025)
     main(args)

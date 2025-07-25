@@ -28,6 +28,11 @@ class _LLM4IMP(ModelCore):
         device: str,
         training_loss: Criterion,
         validation_metric: Criterion,
+        train_gpt_mlp: bool = False,
+        use_lora: bool = False,
+        enable_profiling: bool = False,
+        profiling_path: str = "./output/imputation/profiling",
+        profiling_prefix: str = "backbone_llm4imp",
     ):
         super().__init__()
         self.n_steps = n_steps
@@ -49,6 +54,11 @@ class _LLM4IMP(ModelCore):
             n_heads=n_heads,
             dropout=dropout,
             prompt_template=prompt_template,
+            train_gpt_mlp=train_gpt_mlp,
+            use_lora=use_lora,
+            enable_profiling=enable_profiling,
+            profiling_prefix=profiling_prefix,
+            profiling_path=profiling_path,
         ).to(device)
 
     def forward(
@@ -68,11 +78,11 @@ class _LLM4IMP(ModelCore):
         }
 
         if calc_criterion:
+            X_ori = inputs["X_ori"]
+            indicating_mask = inputs["indicating_mask"]
             if self.training:
-                X_ori, indicating_mask = inputs["X_ori"], inputs["indicating_mask"]
                 results["loss"] = self.training_loss(reconstruction, X_ori, indicating_mask)
             else:
-                X_ori, indicating_mask = inputs["X_ori"], inputs["indicating_mask"]
                 results["metric"] = self.validation_metric(reconstruction, X_ori, indicating_mask)
 
         return results

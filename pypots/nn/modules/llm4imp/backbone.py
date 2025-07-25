@@ -5,10 +5,11 @@ import torch
 import torch.nn as nn
 from transformers import GPT2Model, GPT2Tokenizer
 from peft import get_peft_model, LoraConfig, TaskType
-
+import os
 from ..patchtst.layers import PatchEmbedding, FlattenHead
 from .layers import ReprogrammingLayer
 from ..revin import RevIN
+from pypots.utils.profiling import measure_runtime_memory
 
 
 class BackboneLLM4IMP(nn.Module):
@@ -24,8 +25,11 @@ class BackboneLLM4IMP(nn.Module):
         n_heads,
         dropout,
         prompt_template: str = "Impute missing values at time steps where mask=0",
-        train_gpt_mlp: bool = True,
-        use_lora: bool = True,
+        train_gpt_mlp: bool = False,
+        use_lora: bool = False,
+        enable_profiling: bool = False,
+        profiling_prefix: str = "backbone_llm4imp",
+        profiling_path: str = "./output/imputation/profiling"
     ):
         super().__init__()
 
@@ -40,6 +44,9 @@ class BackboneLLM4IMP(nn.Module):
         self.prompt_template = prompt_template
         self.train_gpt_mlp = train_gpt_mlp
         self.use_lora = use_lora
+        self.enable_profiling = enable_profiling
+        self.profiling_prefix = profiling_prefix
+        self.profiling_path = profiling_path
 
         self.tokenizer = GPT2Tokenizer.from_pretrained("openai-community/gpt2")
         self.tokenizer.pad_token = self.tokenizer.eos_token
@@ -48,7 +55,13 @@ class BackboneLLM4IMP(nn.Module):
             output_hidden_states=True,
         )
 
+        # Always freeze all parameters first
+        for param in self.llm.parameters():
+            param.requires_grad = False
+
+        # Apply LoRA adapters if enabled
         if self.use_lora:
+            print("LoRA is compiling")
             lora_config = LoraConfig(
                 r=8,
                 lora_alpha=32,
@@ -59,14 +72,9 @@ class BackboneLLM4IMP(nn.Module):
             )
             self.llm = get_peft_model(self.llm, lora_config)
 
-        if not self.train_gpt_mlp:
-            for param in self.llm.parameters():
-                param.requires_grad = False
-        elif self.use_lora:
-            for name, param in self.llm.named_parameters():
-                if "lora" not in name:
-                    param.requires_grad = False
-        else:
+        # If not using LoRA, allow training MLPs if requested
+        if self.train_gpt_mlp and not self.use_lora:
+            print("GTP is training")
             for block in self.llm.h:
                 for name, param in block.mlp.named_parameters():
                     param.requires_grad = True
@@ -93,51 +101,7 @@ class BackboneLLM4IMP(nn.Module):
         self.output_head = None
         self.output_head_dropout = dropout
 
-    # def build_prompts(self, X: torch.Tensor, missing_mask: torch.Tensor) -> torch.Tensor:
-    #     assert X.dim() == 3, f"Expected [B, T, D], got {X.shape}"
-    #     B, T, D = X.shape
-    #     prompts = []
-    #
-    #     for b in range(B):
-    #         x_sample = X[b].cpu()
-    #         mask_sample = missing_mask[b].cpu()
-    #
-    #         min_vals = torch.min(x_sample, dim=0).values
-    #         max_vals = torch.max(x_sample, dim=0).values
-    #         median_vals = torch.median(x_sample, dim=0).values
-    #
-    #         trend = torch.sum(x_sample[1:] - x_sample[:-1]).item()
-    #         trend_desc = "upward" if trend > 0 else "downward"
-    #
-    #         fft = torch.fft.rfft(x_sample, dim=0)
-    #         corr = fft * torch.conj(fft)
-    #         autocorr = torch.fft.irfft(corr, dim=0)
-    #         lag_scores = torch.mean(autocorr, dim=1)
-    #         top_lags = torch.topk(lag_scores, k=min(5, T)).indices.tolist()
-    #
-    #         miss_idx_flat = (missing_mask[b] == 0).nonzero(as_tuple=False)
-    #         miss_idx_str = ", ".join([f"({t},{d})" for t, d in miss_idx_flat.tolist()])
-    #
-    #         prompt = (
-    #             f"<|start_prompt|>Task: {self.prompt_template} "
-    #             f"Missing indices: {miss_idx_str}. "
-    #             f"Min values: {min_vals.mean().item():.2f}, "
-    #             f"Max values: {max_vals.mean().item():.2f}, "
-    #             f"Median: {median_vals.mean().item():.2f}, "
-    #             f"Trend is {trend_desc}, "
-    #             f"Top 5 lags: {top_lags}.<|end_prompt|>"
-    #         )
-    #
-    #         prompts.append(prompt)
-    #
-    #     tokenized = self.tokenizer(prompts, return_tensors="pt", padding=True, truncation=True, max_length=512)
-    #     embeds = self.llm.get_input_embeddings()(tokenized.input_ids.to(X.device))
-    #     return embeds
     def build_prompts(self, X: torch.Tensor, missing_mask: torch.Tensor) -> torch.Tensor:
-        """
-        Builds rich prompts for each sample using domain, task, and statistical information.
-        Returns: prompt_embeddings [B, prompt_len, hidden_dim]
-        """
         assert X.dim() == 3, f"Expected [B, T, D], got {X.shape}"
         B, T, D = X.shape
         prompts = []
@@ -146,39 +110,32 @@ class BackboneLLM4IMP(nn.Module):
             x_sample = X[b].cpu()
             mask_sample = missing_mask[b].cpu()
 
-            # Z-score normalization
             mean = x_sample.mean(dim=0, keepdim=True)
             std = x_sample.std(dim=0, keepdim=True) + 1e-6
             x_norm = (x_sample - mean) / std
 
-            # Apply Hann window
             window = torch.hann_window(T).unsqueeze(1)
             x_windowed = x_norm * window
 
-            # Select top-k variable dimensions
             var_per_dim = x_sample.var(dim=0)
             top_dims = torch.topk(var_per_dim, k=min(5, D)).indices
-            x_top = x_windowed[:, top_dims]  # [T, k]
+            x_top = x_windowed[:, top_dims]
 
-            # FFT + autocorrelation for lag analysis
             fft = torch.fft.rfft(x_top, dim=0)
             power = fft * torch.conj(fft)
             autocorr = torch.fft.irfft(power, dim=0)
             lag_scores = torch.mean(autocorr, dim=1)
             top_lags = torch.topk(lag_scores, k=min(5, T)).indices.tolist()
 
-            # Min/Max/Median trend description
             min_vals = torch.min(x_sample, dim=0).values
             max_vals = torch.max(x_sample, dim=0).values
             median_vals = torch.median(x_sample, dim=0).values
             trend = torch.sum(x_sample[1:] - x_sample[:-1]).item()
             trend_desc = "upward" if trend > 0 else "downward"
 
-            # Missing index summary
             miss_idx_flat = (missing_mask[b] == 0).nonzero(as_tuple=False)
             miss_idx_str = ", ".join([f"({t},{d})" for t, d in miss_idx_flat.tolist()])
 
-            # Construct prompt
             prompt = (
                 f"<|start_prompt|>Task: {self.prompt_template} "
                 f"Missing indices: {miss_idx_str}. "
@@ -192,10 +149,27 @@ class BackboneLLM4IMP(nn.Module):
             prompts.append(prompt)
 
         tokenized = self.tokenizer(prompts, return_tensors="pt", padding=True, truncation=True, max_length=512)
-        embeds = self.llm.get_input_embeddings()(tokenized.input_ids.to(X.device))  # [B, prompt_len, 768]
+        embeds = self.llm.get_input_embeddings()(tokenized.input_ids.to(X.device))
         return embeds
 
     def forward(self, X, missing_mask):
+        if self.enable_profiling:
+            result_container = {}
+
+            def forward_wrapper(x, m):
+                out = self._forward_internal(x, m)
+                result_container["output"] = out
+                return out
+
+            profiling_result = measure_runtime_memory(forward_wrapper, X, missing_mask,
+                                                      save_path=self.profiling_path,
+                                                      prefix=self.profiling_prefix)
+            self._last_profiling_result = profiling_result
+            return result_container["output"]
+        else:
+            return self._forward_internal(X, missing_mask)
+
+    def _forward_internal(self, X, missing_mask):
         X = self.revin(X, mode="norm")
         B, T, D = X.shape
 

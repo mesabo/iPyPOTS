@@ -25,28 +25,34 @@ class LLM4IMP(BaseNNImputer):
     """The PyTorch implementation of the LLM4IMP model."""
 
     def __init__(
-        self,
-        n_steps: int,
-        n_features: int,
-        patch_size: int = 12,
-        patch_stride: int = 6,
-        d_model: int = 64,
-        d_ffn: int = 128,
-        d_llm: int = 768,
-        n_heads: int = 4,
-        dropout: float = 0.1,
-        prompt_template: str = "Impute missing values at time steps where mask=0",
-        batch_size: int = 32,
-        epochs: int = 5,
-        patience: Optional[int] = None,
-        training_loss: Union[Criterion, type] = MAE,
-        validation_metric: Union[Criterion, type] = MSE,
-        optimizer: Union[Optimizer, type] = Adam,
-        num_workers: int = 0,
-        device: Optional[Union[str, torch.device, list]] = None,
-        saving_path: Optional[str] = None,
-        model_saving_strategy: Optional[str] = "best",
-        verbose: bool = True,
+            self,
+            n_steps: int,
+            n_features: int,
+            patch_size: int = 12,
+            patch_stride: int = 6,
+            d_model: int = 64,
+            d_ffn: int = 128,
+            d_llm: int = 768,
+            n_heads: int = 4,
+            dropout: float = 0.1,
+            prompt_template: str = "Impute missing values at time steps where mask=0",
+            batch_size: int = 32,
+            epochs: int = 5,
+            patience: Optional[int] = None,
+            training_loss: Union[Criterion, type] = MAE,
+            validation_metric: Union[Criterion, type] = MSE,
+            optimizer: Union[Optimizer, type] = Adam,
+            num_workers: int = 0,
+            device: Optional[Union[str, torch.device, list]] = None,
+            saving_path: Optional[str] = None,
+            model_saving_strategy: Optional[str] = "best",
+            verbose: bool = True,
+            # ✅ NEW: Feature flags & profiling
+            train_gpt_mlp: bool = False,
+            use_lora: bool = False,
+            enable_profiling: bool = False,
+            profiling_path: str = "./output/imputation/profiling",
+            profiling_prefix: str = "backbone_llm4imp",
     ):
         super().__init__(
             training_loss=training_loss,
@@ -78,6 +84,13 @@ class LLM4IMP(BaseNNImputer):
             device=self.device,
             training_loss=self.training_loss,
             validation_metric=self.validation_metric,
+
+            # ✅ Pass through additional arguments
+            train_gpt_mlp=train_gpt_mlp,
+            use_lora=use_lora,
+            enable_profiling=enable_profiling,
+            profiling_path=profiling_path,
+            profiling_prefix=profiling_prefix,
         )
         self._send_model_to_given_device()
         self._print_model_size()
@@ -118,10 +131,10 @@ class LLM4IMP(BaseNNImputer):
         }
 
     def fit(
-        self,
-        train_set: Union[dict, str],
-        val_set: Optional[Union[dict, str]] = None,
-        file_type: str = "hdf5",
+            self,
+            train_set: Union[dict, str],
+            val_set: Optional[Union[dict, str]] = None,
+            file_type: str = "hdf5",
     ) -> None:
         train_dataset = DatasetForSAITS(train_set, return_X_ori=False, return_y=False, file_type=file_type)
         train_dataloader = DataLoader(
