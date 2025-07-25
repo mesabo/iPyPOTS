@@ -29,7 +29,8 @@ class BackboneLLM4IMP(nn.Module):
         use_lora: bool = False,
         enable_profiling: bool = False,
         profiling_prefix: str = "backbone_llm4imp",
-        profiling_path: str = "./output/imputation/profiling"
+        profiling_path: str = "./output/imputation/profiling",
+        use_hann_window: bool = False,
     ):
         super().__init__()
 
@@ -47,6 +48,7 @@ class BackboneLLM4IMP(nn.Module):
         self.enable_profiling = enable_profiling
         self.profiling_prefix = profiling_prefix
         self.profiling_path = profiling_path
+        self.use_hann_window = use_hann_window
 
         self.tokenizer = GPT2Tokenizer.from_pretrained("openai-community/gpt2")
         self.tokenizer.pad_token = self.tokenizer.eos_token
@@ -114,8 +116,13 @@ class BackboneLLM4IMP(nn.Module):
             std = x_sample.std(dim=0, keepdim=True) + 1e-6
             x_norm = (x_sample - mean) / std
 
-            window = torch.hann_window(T).unsqueeze(1)
-            x_windowed = x_norm * window
+            # window = torch.hann_window(T).unsqueeze(1)
+            # x_windowed = x_norm * window
+            if self.use_hann_window:
+                window = torch.hann_window(T).unsqueeze(1).to(x_norm.device)
+                x_windowed = x_norm * window
+            else:
+                x_windowed = x_norm
 
             var_per_dim = x_sample.var(dim=0)
             top_dims = torch.topk(var_per_dim, k=min(5, D)).indices

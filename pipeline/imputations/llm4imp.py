@@ -61,6 +61,7 @@ def train_and_evaluate_llm4imp(dataset, args):
         device=args.device,
         saving_path=args.saving_path,
         model_saving_strategy="best",
+        use_hann_window=args.use_hann_window,
     )
 
     # 3. Train

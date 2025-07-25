@@ -51,6 +51,7 @@ class LLM4IMP(BaseNNImputer):
             train_gpt_mlp: bool = False,
             use_lora: bool = False,
             enable_profiling: bool = False,
+            use_hann_window: bool = False,
             profiling_path: str = "./output/imputation/profiling",
             profiling_prefix: str = "backbone_llm4imp",
     ):
@@ -91,6 +92,7 @@ class LLM4IMP(BaseNNImputer):
             enable_profiling=enable_profiling,
             profiling_path=profiling_path,
             profiling_prefix=profiling_prefix,
+            use_hann_window=use_hann_window
         )
         self._send_model_to_given_device()
         self._print_model_size()

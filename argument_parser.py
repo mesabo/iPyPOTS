@@ -47,11 +47,18 @@ def get_args():
                         default="Impute missing values at time steps where mask=0",
                         help="Instruction prompt template")
     parser.add_argument("--llm_model_type", type=str, default="GPT2", help="LLM model type: GPT2 | LLaMA | BERT")
-    parser.add_argument("--train_gpt_mlp", type=lambda x: bool(strtobool(x)), default=False, help="Whether to train the MLP layers in GPT2.")
-    parser.add_argument("--use_lora", type=lambda x: bool(strtobool(x)), default=False, help="Enable LoRA adaptation for GPT2.")  # ✅ New
-    parser.add_argument("--enable_profiling", type=lambda x: bool(strtobool(x)), default=False, help="Enable runtime/memory profiling.")  # ✅ New
-    parser.add_argument("--profiling_path", type=str, default="./output/imputation/profiling", help="Path to save profiling results.")  # ✅ New
-    parser.add_argument("--profiling_prefix", type=str, default="backbone_llm4imp", help="Prefix for profiling output files.")  # ✅ New
+    parser.add_argument("--train_gpt_mlp", type=lambda x: bool(strtobool(x)), default=False,
+                        help="Whether to train the MLP layers in GPT2.")
+    parser.add_argument("--use_lora", type=lambda x: bool(strtobool(x)), default=False,
+                        help="Enable LoRA adaptation for GPT2.")
+    parser.add_argument("--enable_profiling", type=lambda x: bool(strtobool(x)), default=False,
+                        help="Enable runtime/memory profiling.")
+    parser.add_argument("--profiling_path", type=str, default="./output/imputation/profiling",
+                        help="Path to save profiling results.")
+    parser.add_argument("--profiling_prefix", type=str, default="backbone_llm4imp",
+                        help="Prefix for profiling output files.")
+    parser.add_argument("--use_hann_window",type=lambda x: bool(strtobool(x)), default=True,
+                        help="Apply Hann window before FFT in prompt builder.")
 
     # SAITS-specific
     parser.add_argument("--d_k", type=int, default=16, help="Key/query dimension for SAITS")

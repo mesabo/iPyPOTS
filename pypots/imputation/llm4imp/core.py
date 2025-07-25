@@ -33,6 +33,7 @@ class _LLM4IMP(ModelCore):
         enable_profiling: bool = False,
         profiling_path: str = "./output/imputation/profiling",
         profiling_prefix: str = "backbone_llm4imp",
+        use_hann_window: bool = False,
     ):
         super().__init__()
         self.n_steps = n_steps
@@ -59,6 +60,7 @@ class _LLM4IMP(ModelCore):
             enable_profiling=enable_profiling,
             profiling_prefix=profiling_prefix,
             profiling_path=profiling_path,
+            use_hann_window=use_hann_window,
         ).to(device)
 
     def forward(
