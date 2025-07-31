@@ -36,6 +36,8 @@ class _LLM4IMP(ModelCore):
         profiling_prefix: str = "backbone_llm4imp",
         use_hann_window: bool = False,
         llm_model_type: str = "gpt2",
+        use_prompt: bool = True,      
+        use_reprogramming: bool = True,
     ):
         super().__init__()
         self.n_steps = n_steps
@@ -65,6 +67,8 @@ class _LLM4IMP(ModelCore):
             profiling_path=profiling_path,
             use_hann_window=use_hann_window,
             llm_model_type=llm_model_type,
+            use_prompt=use_prompt,
+            use_reprogramming=use_reprogramming,
         ).to(device)
 
     def forward(

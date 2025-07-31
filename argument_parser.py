@@ -59,6 +59,10 @@ def get_args():
                         help="Prefix for profiling output files.")
     parser.add_argument("--use_hann_window",type=lambda x: bool(strtobool(x)), default=True,
                         help="Apply Hann window before FFT in prompt builder.")
+    parser.add_argument("--use_prompt", type=lambda x: bool(strtobool(x)), default=True,
+                        help="Enable use of prompt embeddings in LLM4IMP.")
+    parser.add_argument("--use_reprogramming", type=lambda x: bool(strtobool(x)), default=True,
+                        help="Enable use of reprogramming layer in LLM4IMP.")
 
     # SAITS-specific
     parser.add_argument("--d_k", type=int, default=16, help="Key/query dimension for SAITS")

@@ -34,6 +34,8 @@ class BackboneLLM4IMP(nn.Module):
         llm_model_type: str = "gpt2",
         n_layers: int = 2,
         num_soft_prompt_tokens: int = 30,
+        use_prompt: bool = True,      
+        use_reprogramming: bool = True,
     ):
         super().__init__()
 
@@ -55,24 +57,23 @@ class BackboneLLM4IMP(nn.Module):
         self.use_hann_window = use_hann_window
         self.llm_model_type = llm_model_type
         self.num_soft_prompt_tokens = num_soft_prompt_tokens
+        self.use_prompt = use_prompt
+        self.use_reprogramming = use_reprogramming
 
         model_name = "distilgpt2" if llm_model_type == "distilgpt2" else "openai-community/gpt2"
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.tokenizer.pad_token = self.tokenizer.eos_token
         self.llm = AutoModel.from_pretrained(model_name, output_hidden_states=True)
 
-        # Always freeze all parameters first
         for param in self.llm.parameters():
             param.requires_grad = False
 
-        # Unfreeze last N layers
         blocks = getattr(self.llm, "transformer", self.llm).h
         for i, block in enumerate(reversed(blocks)):
             if i < n_layers:
                 for name, param in block.named_parameters():
                     param.requires_grad = True
 
-        # Apply LoRA adapters if enabled
         if self.use_lora:
             print("LoRA is compiling")
             lora_config = LoraConfig(
@@ -85,7 +86,6 @@ class BackboneLLM4IMP(nn.Module):
             )
             self.llm = get_peft_model(self.llm, lora_config)
 
-        # Add soft prompt embeddings if enabled
         if num_soft_prompt_tokens > 0:
             self.soft_prompt = nn.Parameter(
                 torch.randn(num_soft_prompt_tokens, self.llm.config.n_embd)
@@ -110,12 +110,19 @@ class BackboneLLM4IMP(nn.Module):
         )
 
         self.prompt_proj = nn.Linear(self.llm.config.n_embd, d_model)
+        self.reprogramming_proj = nn.Linear(d_model, d_llm)  # used if reprogramming is disabled
         self.revin = RevIN(n_features=n_features, affine=False)
 
         self.output_head = None
         self.output_head_dropout = dropout
 
     def build_prompts(self, X: torch.Tensor, missing_mask: torch.Tensor) -> torch.Tensor:
+        if not self.use_prompt:
+            B = X.size(0)
+            L = self.num_soft_prompt_tokens
+            E = self.llm.config.n_embd
+            return torch.zeros(B, L, E, device=X.device)
+
         assert X.dim() == 3, f"Expected [B, T, D], got {X.shape}"
         B, T, D = X.shape
 
@@ -188,6 +195,7 @@ class BackboneLLM4IMP(nn.Module):
             return self._forward_internal(X, missing_mask)
 
     def _forward_internal(self, X, missing_mask):
+        #print(f"USE REPROGRAMMING: {self.use_reprogramming}  |  USE PROMPT: {self.use_prompt}")
         X = self.revin(X, mode="norm")
         B, T, D = X.shape
 
@@ -201,11 +209,14 @@ class BackboneLLM4IMP(nn.Module):
         P = X.shape[1]
         X = X.view(B, D, P, self.d_model)
 
-        reprogrammed = self.reprogramming(
-            X.flatten(0, 1),
-            llm_embeds.flatten(0, 1),
-            llm_embeds.flatten(0, 1)
-        )
+        if self.use_reprogramming:
+            reprogrammed = self.reprogramming(
+                X.flatten(0, 1),
+                llm_embeds.flatten(0, 1),
+                llm_embeds.flatten(0, 1)
+            )
+        else:
+            reprogrammed = self.reprogramming_proj(X.flatten(0, 1))
 
         input_repr = reprogrammed.view(B, D, self.d_llm, P).permute(0, 1, 3, 2).contiguous()
 

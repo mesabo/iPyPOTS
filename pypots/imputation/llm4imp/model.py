@@ -56,6 +56,8 @@ class LLM4IMP(BaseNNImputer):
             llm_model_type: str = "gpt2",
             profiling_path: str = "./output/imputation/profiling",
             profiling_prefix: str = "backbone_llm4imp",
+            use_prompt: bool = True,      
+            use_reprogramming: bool = True,
     ):
         super().__init__(
             training_loss=training_loss,
@@ -97,6 +99,8 @@ class LLM4IMP(BaseNNImputer):
             profiling_prefix=profiling_prefix,
             use_hann_window=use_hann_window,
             llm_model_type=llm_model_type,
+            use_prompt=use_prompt,
+            use_reprogramming=use_reprogramming,
         )
         self._send_model_to_given_device()
         self._print_model_size()

@@ -62,6 +62,8 @@ def train_and_evaluate_llm4imp(dataset, args):
         model_saving_strategy="best",
         use_hann_window=args.use_hann_window,
         llm_model_type=args.llm_model_type,
+        use_prompt=args.use_prompt,
+        use_reprogramming=args.use_reprogramming,
     )
 
     # 3. Train
