@@ -44,6 +44,7 @@ class DatasetPreparator:
             Dict: Dataset dictionary with keys like 'train', 'val', 'test'.
         """
         name = args.dataset_name.lower()
+        dataset_name = args.dataset_name
         rate = args.missing_rate
         n_steps = getattr(args, "n_steps", 48)
 
@@ -56,7 +57,7 @@ class DatasetPreparator:
                 subset="set-a", rate=rate, data_path=rate_cache_dir
             )
 
-        elif name in ["italy_air_quality", "italy", "air_quality_italy"]:
+        elif name in ["italy", "italy_air_quality"]:
             dataset = benchpots.datasets.preprocess_italy_air_quality(
                 rate=rate, n_steps=n_steps, data_path=rate_cache_dir
             )
@@ -84,8 +85,23 @@ class DatasetPreparator:
             )
 
         elif name in ["pems", "pems_traffic"]:
-            dataset = benchpots.datasets.preprocess_pems(
-                rate=rate, data_path=rate_cache_dir
+            dataset = benchpots.datasets.preprocess_pems_traffic(
+                rate=rate, data_path=rate_cache_dir,  n_steps=n_steps,
+            )
+
+        elif name in ["solar", "solar_alabama"]:
+            dataset = benchpots.datasets.preprocess_solar_alabama(
+                rate=rate, data_path=rate_cache_dir,  n_steps=n_steps,
+            )
+        elif name in ["eld", "electricity_load_diagrams"]:
+            dataset = benchpots.datasets.preprocess_electricity_load_diagrams(
+                rate=rate, data_path=rate_cache_dir,  n_steps=n_steps,
+            )
+        
+        elif "ucr_uea_" in name:
+            dataset = benchpots.datasets.preprocess_ucr_uea_datasets(
+                rate=rate, data_path=rate_cache_dir,  n_steps=n_steps,
+                dataset_name=dataset_name,
             )
 
         elif tsdb.has(name):
