@@ -69,7 +69,7 @@ class _LLM4IMP(ModelCore):
             llm_model_type=llm_model_type,
             use_prompt=use_prompt,
             use_reprogramming=use_reprogramming,
-        ).to(device)
+        )
 
     def forward(
         self,

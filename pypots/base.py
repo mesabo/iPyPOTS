@@ -111,78 +111,70 @@ class BaseModel(ABC):
         # set up saving_path to save the trained model and training logs
         self._setup_path(saving_path)
 
-    def _setup_device(self, device: Union[None, str, torch.device, list]) -> None:
-        if device is None:
-            # if it is None, then use the first cuda device if cuda is available, otherwise use cpu
+    def _setup_device(self, device):
+        # Helper: normalize to list[str]
+        def _to_str_list(dev):
+            if dev is None:
+                return None
+            if isinstance(dev, str):
+                # allow "cuda:0,cuda:2" or "cuda:0 cuda:2"
+                dev = dev.replace(",", " ").split()
+                return dev
+            if isinstance(dev, torch.device):
+                return [str(dev)]
+            if isinstance(dev, (list, tuple)):
+                out = []
+                for d in dev:
+                    if isinstance(d, torch.device):
+                        out.append(str(d))
+                    elif isinstance(d, str):
+                        out.append(d)
+                    else:
+                        raise TypeError(f"Unsupported device entry type: {type(d)}")
+                return out
+            raise TypeError(f"device must be None/str/torch.device/list/tuple, got {type(dev)}")
+
+        dev_list = _to_str_list(device)
+        logger.info(f"🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: {dev_list}")
+
+        if dev_list is None:
+            # default selection
             if torch.cuda.is_available() and torch.cuda.device_count() > 0:
-                self.device = torch.device("cuda")
+                self.device = torch.device("cuda")  # maps to cuda:0
             else:
                 self.device = torch.device("cpu")
-            logger.info(f"No given device, using default device: {self.device}")
+            logger.info(f"🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥No given device, using default device: {self.device}")
         else:
-            if isinstance(device, str):
-                self.device = torch.device(device.lower())
-            elif isinstance(device, torch.device):
-                self.device = device
-            elif isinstance(device, list):
-                if len(device) == 0:
-                    raise ValueError("The list of devices should have at least 1 device, but got 0.")
-                elif len(device) == 1:
-                    return self._setup_device(device[0])
-                # parallely training on multiple CUDA devices
-
-                # ensure the list is not empty
-                device_list = []
-                for idx, d in enumerate(device):
-                    if isinstance(d, str):
-                        d = d.lower()
-                        assert (
-                            "cuda" in d
-                        ), "The feature of training on multiple devices currently only support CUDA devices."
-                        device_list.append(torch.device(d))
-                    elif isinstance(d, torch.device):
-                        assert (
-                            "cuda" in d.type
-                        ), "The feature of training on multiple devices currently only support CUDA devices."
-                        device_list.append(d)
-                    else:
-                        raise TypeError(
-                            f"Devices in the list should be str or torch.device, "
-                            f"but the device with index {idx} is {type(d)}."
-                        )
-                if len(device_list) > 1:
-                    self.device = device_list
+            # Filter/validate
+            dev_objs = []
+            for idx, d in enumerate(dev_list):
+                d = d.lower()
+                if d == "cpu":
+                    dev_objs.append(torch.device("cpu"))
                 else:
-                    self.device = device_list[0]
-            else:
-                raise TypeError(
-                    f"device should be str/torch.device/a list containing str or torch.device, but got {type(device)}"
-                )
+                    assert d.startswith("cuda"), "Only CUDA devices supported for multi-device training."
+                    dev_objs.append(torch.device(d))
 
-            logger.info(f"Using the given device: {self.device}")
+            # If more than one => keep as list; else a single device
+            self.device = dev_objs if len(dev_objs) > 1 else dev_objs[0]
+            logger.info(f"🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: {self.device}")
 
-        # check CUDA availability if using CUDA
-        if (isinstance(self.device, list) and "cuda" in self.device[0].type) or (
-            isinstance(self.device, torch.device) and "cuda" in self.device.type
-        ):
-            assert (
-                torch.cuda.is_available() and torch.cuda.device_count() > 0
-            ), "You are trying to use CUDA for model training, but CUDA is not available in your environment."
+        # CUDA sanity check(s)
+        if (isinstance(self.device, list) and self.device and self.device[0].type == "cuda") or \
+        (isinstance(self.device, torch.device) and self.device.type == "cuda"):
+            assert torch.cuda.is_available() and torch.cuda.device_count() > 0, \
+                "CUDA requested but not available."
 
+        # AMP gate
         if os.getenv("ENABLE_AMP", False):
             if self.enable_amp:
-                if not torch.cuda.is_available() or torch.cuda.device_count() == 0:
-                    logger.warning(
-                        "‼️ You are trying to use AMP, but CUDA is not available in your environment. "
-                        "AMP will be disabled."
-                    )
+                if not (torch.cuda.is_available() and torch.cuda.device_count() > 0):
+                    logger.warning("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥AMP requested but CUDA not available. Disabling AMP.")
                 else:
                     self.amp_enabled = True
             else:
-                logger.warning(
-                    f"‼️ You are trying to use AMP, but the model {self.__class__.__name__} "
-                    "does not support AMP operation. AMP will be disabled."
-                )
+                logger.warning(f"🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥AMP env var set but {self.__class__.__name__} doesn't enable AMP; disabling.")
+
 
     def _setup_path(self, saving_path) -> None:
         MODEL_NO_NEED_TO_SAVE = [
@@ -215,19 +207,30 @@ class BaseModel(ABC):
         else:
             logger.warning("‼️ saving_path not given. Model files and tensorboard file will not be saved.")
 
+    
     def _send_model_to_given_device(self) -> None:
         if isinstance(self.model, torch.nn.DataParallel):
-            # in this case, the model has been sent to multi-gpu previously,
-            # and we have to turn the model from nn.DataParallel to nn.Module first
             self.model = self.model.module
 
         if isinstance(self.device, list):
-            # parallely training on multiple devices
-            self.model = torch.nn.DataParallel(self.model, device_ids=self.device)
+            # Convert torch.device('cuda:k') -> k
+            device_ids = []
+            for d in self.device:
+                if not isinstance(d, torch.device):
+                    d = torch.device(d)
+                assert d.type == "cuda", "Multi-device training only supports CUDA."
+                assert d.index is not None, f"Device has no index: {d}"
+                device_ids.append(d.index)
+
+            self.model = torch.nn.DataParallel(self.model, device_ids=device_ids)
+            # Move the root module to the first cuda
             self.model = self.model.to(self.device[0])
-            logger.info(f"Model has been allocated to the given multiple devices: {self.device}")
+            logger.info(f"Model placed on CUDA devices {device_ids}")
         else:
             self.model = self.model.to(self.device)
+            logger.info(f"Model placed on {self.device}")
+    
+    
 
     def _send_data_to_given_device(self, data) -> Iterable:
         if isinstance(self.device, (torch.device, list)):  # single device or parallely training on multiple devices
