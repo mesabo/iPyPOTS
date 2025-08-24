@@ -9,7 +9,7 @@ export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 
 # Pick a subset of the visible GPUs by their logical indices (comma-separated).
 # Leave empty to force CPU.
-USE_GPUS="0"
+USE_GPUS="3"
 
 DEVICE=()
 BACKEND="cpu"
@@ -47,7 +47,7 @@ ROOT_OUT="output/imputation/${BACKEND}"
 mkdir -p "${ROOT_OUT}"
 
 # Fixed train config
-EPOCH=10
+EPOCH=15
 PATIENCE=5
 
 # Session log

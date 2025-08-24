@@ -9,7 +9,7 @@ export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 
 # 2) Choose a subset of the visible GPUs by their logical indices.
 #    Leave empty to force CPU.
-USE_GPUS="0,2,3,4,5"               # e.g., "0" or "0,1" or "" for CPU
+USE_GPUS="2"               # e.g., "0" or "0,1" or "" for CPU
 
 # 3) Build DEVICE (list) + BACKEND ("cuda" | "cpu")
 DEVICE=()
@@ -40,18 +40,18 @@ if [[ -z "$CONDA_DEFAULT_ENV" || "$CONDA_DEFAULT_ENV" != "$ENV_NAME" ]]; then
 fi
 
 # ===================== EXPERIMENT CONFIGS =====================
-MODEL="llm4imp"
+MODEL="llmsaits"
 LLM_MODELS=("gpt2")
 PROMPTS=("Impute missing values where mask is zero.")
 
 # Datasets & grid
 DATASETS=("physionet_2012" "electricity_load_diagrams" "beijing_multisite_air_quality" "italy_air_quality" "pems_traffic" "solar_alabama")
 MISSING_RATES=("0.1" "0.2" "0.3" "0.4" "0.5")
-BATCH_SIZES=("32" "16")
+BATCH_SIZES=("32")
 
 # Architecture (adjust as needed)
 D_MODELS=("64")
-D_FFNS=("128")
+D_FFNS=("128" "96" "64")
 N_HEADS=("6")
 N_LAYERS=("1" "2")
 
@@ -64,7 +64,7 @@ USE_REPROGRAMMING_VALUES=("true" "false")
 ENABLE_PROFILING_VALUES=("false")
 ROOT_OUT="output/imputation/${BACKEND}"
 PROFILING_PATH="${ROOT_OUT}/profiling"
-PROFILING_PREFIX="backbone_llm4imp"
+PROFILING_PREFIX="backbone_llmsaits"
 mkdir -p "${ROOT_OUT}" "${PROFILING_PATH}"
 
 # Fixed training config
@@ -116,11 +116,11 @@ for DATASET in "${DATASETS[@]}"; do
                       for USE_PROMPT in "${USE_PROMPT_VALUES[@]}"; do
                         for USE_REPROGRAMMING in "${USE_REPROGRAMMING_VALUES[@]}"; do
 
-                          SAVE_DIR="${ROOT_OUT}/${MODEL}/${LLM_MODEL}/${DATASET}/epoch${EPOCH}/h${N_HEAD}_ly${N_LAYER}/mr${MISSING_RATE}_bs${BATCH_SIZE}_dm${D_MODEL}_ffn${D_FFN}/hann${USE_HANN}/prompt${USE_PROMPT}_reprog${USE_REPROGRAMMING}"
+                          SAVE_DIR="${ROOT_OUT}/${MODEL}/${LLM_MODEL}/${DATASET}/epoch${EPOCH}/mr${MISSING_RATE}_bs${BATCH_SIZE}_dm${D_MODEL}_ffn${D_FFN}/h${N_HEAD}_ly${N_LAYER}/hann${USE_HANN}/prompt${USE_PROMPT}_reprog${USE_REPROGRAMMING}"
                           LOG_DIR="${SAVE_DIR}/logs"
                           mkdir -p "${SAVE_DIR}" "${LOG_DIR}"
 
-                          RUN_TAG="h${N_HEAD}_ly${N_LAYER}/mr${MISSING_RATE}_bs${BATCH_SIZE}_dm${D_MODEL}_ffn${D_FFN}/hann${USE_HANN}_prompt${USE_PROMPT}_reprog${USE_REPROGRAMMING}"
+                          RUN_TAG="mr${MISSING_RATE}_bs${BATCH_SIZE}_dm${D_MODEL}_ffn${D_FFN}/h${N_HEAD}_ly${N_LAYER}/hann${USE_HANN}_prompt${USE_PROMPT}_reprog${USE_REPROGRAMMING}"
                           RUN_LOG="${LOG_DIR}/run_${RUN_TAG}.log"
                           DONE_MARK="${SAVE_DIR}/.done"
 

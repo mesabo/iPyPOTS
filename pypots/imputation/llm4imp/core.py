@@ -26,7 +26,6 @@ class _LLM4IMP(ModelCore):
         n_layers: int,
         dropout: float,
         prompt_template: str,
-        device: str,
         training_loss: Criterion,
         validation_metric: Criterion,
         train_gpt_mlp: bool = False,

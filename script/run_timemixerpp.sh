@@ -8,7 +8,7 @@ hostname
 export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 
 # Choose a subset of the visible GPUs by *logical* indices ("" → CPU)
-USE_GPUS="0,1,2"        # e.g., "0" or "0,1"; set "" to force CPU
+USE_GPUS="0,6"        # e.g., "0" or "0,1"; set "" to force CPU
 
 # Build DEVICE list and BACKEND tag
 DEVICE=()
@@ -35,26 +35,26 @@ MODEL="timemixerpp"
 
 DATASETS=("physionet_2012" "beijing_multisite_air_quality" "italy_air_quality" "pems_traffic" "solar_alabama")
 MISSING_RATES=("0.1" "0.2" "0.3" "0.4" "0.5")
-BATCH_SIZES=("16")
+BATCH_SIZES=("32")
 
 D_MODELS=("64")
-D_FFNS=("128")
-N_HEADS=("4")
-N_LAYERS=("3")
+D_FFNS=("64")
+N_HEADS=("2")
+N_LAYERS=("1")
 
 TOP_KS=("5")
-N_KERNELS=("6")
-CHANNEL_MIXING_VALUES=("true")
-CHANNEL_INDEPENDENCE_VALUES=("true")
-DOWNSAMPLE_LAYERS=("3")
-DOWNSAMPLE_WINDOWS=("2")
+N_KERNELS=("3")
+CHANNEL_MIXING_VALUES=("true" "false")
+CHANNEL_INDEPENDENCE_VALUES=("true" "false")
+DOWNSAMPLE_LAYERS=("1")
+DOWNSAMPLE_WINDOWS=("1")
 
 # Paths (device-aware)
 ROOT_OUT="output/imputation/${BACKEND}"
 mkdir -p "${ROOT_OUT}"
 
 # Fixed train config
-EPOCH=10
+EPOCH=15
 PATIENCE=5
 
 # Global session log

@@ -1,0 +1,2186 @@
+ai-gpgpu14
+Visible GPUs: 0,1,2,3,4,5,6,7
+Using devices: cuda:1 cuda:6
+Session log: output/imputation/cuda/session_tefn_20250823T103638.log
+⏭️  Skip (done): physionet_2012 | mr0.1_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | physionet_2012 | mr0.2_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=48, N_FEATURES=35)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-23 10:37:05 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 10:37:05 [INFO]: You're using dataset physionet_2012, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/physionet_2012
+2025-08-23 10:37:05 [INFO]: Dataset physionet_2012 has already been downloaded. Processing directly...
+2025-08-23 10:37:05 [INFO]: Dataset physionet_2012 has already been cached. Loading from cache directly...
+2025-08-23 10:37:05 [INFO]: Loaded successfully!
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/physionet_2012.py:109: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  X = X.groupby("RecordID").apply(apply_func)
+2025-08-23 10:37:22 [WARNING]: Note that physionet_2012 has sparse observations in the time series, hence we don't add additional missing values to the training dataset. 
+2025-08-23 10:37:22 [INFO]: 46041 values masked out in the val set as ground truth, take 19.88% of the original observed values
+2025-08-23 10:37:22 [INFO]: 57450 values masked out in the test set as ground truth, take 20.16% of the original observed values
+2025-08-23 10:37:22 [INFO]: Total sample number: 3997
+2025-08-23 10:37:22 [INFO]: Training set size: 2557 (63.97%)
+2025-08-23 10:37:22 [INFO]: Validation set size: 640 (16.01%)
+2025-08-23 10:37:22 [INFO]: Test set size: 800 (20.02%)
+2025-08-23 10:37:22 [INFO]: Number of steps: 48
+2025-08-23 10:37:22 [INFO]: Number of features: 37
+2025-08-23 10:37:22 [INFO]: Train set missing rate: 79.68%
+2025-08-23 10:37:22 [INFO]: Validating set missing rate: 83.68%
+2025-08-23 10:37:22 [INFO]: Test set missing rate: 83.99%
+✅ Dataset 'physionet_2012' with missing rate 0.2 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.2
+🚀 Starting TEFN training pipeline...
+2025-08-23 10:37:22 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 10:37:22 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 10:37:23 [INFO]: Model files will be saved to output/imputation/cuda/tefn/physionet_2012/epoch15/mr0.2_bs32_fod2_mit1.0_ort0.1
+2025-08-23 10:37:23 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/physionet_2012/epoch15/mr0.2_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 10:37:23 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 10:37:23 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 10:37:24 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 10:37:24 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 3,455
+ ├─ Trainable parameters: 3,455
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 10:37:33 [INFO]: Epoch 001 - training loss (MAE): 5.2955, validation MSE: 13.7567
+2025-08-23 10:37:39 [INFO]: Epoch 002 - training loss (MAE): 3.8052, validation MSE: 7.9033
+2025-08-23 10:37:46 [INFO]: Epoch 003 - training loss (MAE): 2.8618, validation MSE: 5.2587
+2025-08-23 10:37:53 [INFO]: Epoch 004 - training loss (MAE): 2.2999, validation MSE: 3.9417
+2025-08-23 10:37:58 [INFO]: Epoch 005 - training loss (MAE): 1.9596, validation MSE: 3.1885
+2025-08-23 10:38:04 [INFO]: Epoch 006 - training loss (MAE): 1.7445, validation MSE: 2.7253
+2025-08-23 10:38:08 [INFO]: Epoch 007 - training loss (MAE): 1.5868, validation MSE: 2.3899
+2025-08-23 10:38:12 [INFO]: Epoch 008 - training loss (MAE): 1.4742, validation MSE: 2.1581
+2025-08-23 10:38:17 [INFO]: Epoch 009 - training loss (MAE): 1.3804, validation MSE: 1.9821
+2025-08-23 10:38:23 [INFO]: Epoch 010 - training loss (MAE): 1.3018, validation MSE: 1.8544
+2025-08-23 10:38:30 [INFO]: Epoch 011 - training loss (MAE): 1.2506, validation MSE: 1.7639
+2025-08-23 10:38:36 [INFO]: Epoch 012 - training loss (MAE): 1.1900, validation MSE: 1.6931
+2025-08-23 10:38:42 [INFO]: Epoch 013 - training loss (MAE): 1.1641, validation MSE: 1.6461
+2025-08-23 10:38:47 [INFO]: Epoch 014 - training loss (MAE): 1.1294, validation MSE: 1.6187
+2025-08-23 10:38:52 [INFO]: Epoch 015 - training loss (MAE): 1.1103, validation MSE: 1.6049
+2025-08-23 10:38:52 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 10:38:52 [ERROR]: ❌ File output/imputation/cuda/tefn/physionet_2012/epoch15/mr0.2_bs32_fod2_mit1.0_ort0.1/TEFN.pypots exists. Saving operation aborted. Use the arg `overwrite=True` to force overwrite.
+[TEFN] Testing —— MAE: 0.5412| MSE: 0.8108| RMSE: 0.9004| MRE: 0.7641| 
+📊 Metrics saved to: output/imputation/cuda/tefn/physionet_2012/epoch15/mr0.2_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: physionet_2012 | mr0.2_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | physionet_2012 | mr0.3_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=48, N_FEATURES=35)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-23 10:39:10 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 10:39:10 [INFO]: You're using dataset physionet_2012, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/physionet_2012
+2025-08-23 10:39:10 [INFO]: Dataset physionet_2012 has already been downloaded. Processing directly...
+2025-08-23 10:39:10 [INFO]: Dataset physionet_2012 has already been cached. Loading from cache directly...
+2025-08-23 10:39:10 [INFO]: Loaded successfully!
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/physionet_2012.py:109: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  X = X.groupby("RecordID").apply(apply_func)
+2025-08-23 10:39:24 [WARNING]: Note that physionet_2012 has sparse observations in the time series, hence we don't add additional missing values to the training dataset. 
+2025-08-23 10:39:24 [INFO]: 69227 values masked out in the val set as ground truth, take 29.90% of the original observed values
+2025-08-23 10:39:24 [INFO]: 85805 values masked out in the test set as ground truth, take 30.11% of the original observed values
+2025-08-23 10:39:24 [INFO]: Total sample number: 3997
+2025-08-23 10:39:24 [INFO]: Training set size: 2557 (63.97%)
+2025-08-23 10:39:24 [INFO]: Validation set size: 640 (16.01%)
+2025-08-23 10:39:24 [INFO]: Test set size: 800 (20.02%)
+2025-08-23 10:39:24 [INFO]: Number of steps: 48
+2025-08-23 10:39:24 [INFO]: Number of features: 37
+2025-08-23 10:39:24 [INFO]: Train set missing rate: 79.68%
+2025-08-23 10:39:24 [INFO]: Validating set missing rate: 85.72%
+2025-08-23 10:39:24 [INFO]: Test set missing rate: 85.98%
+✅ Dataset 'physionet_2012' with missing rate 0.3 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.3
+🚀 Starting TEFN training pipeline...
+2025-08-23 10:39:24 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 10:39:24 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 10:39:25 [INFO]: Model files will be saved to output/imputation/cuda/tefn/physionet_2012/epoch15/mr0.3_bs32_fod2_mit1.0_ort0.1
+2025-08-23 10:39:25 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/physionet_2012/epoch15/mr0.3_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 10:39:25 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 10:39:25 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 10:39:25 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 10:39:25 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 3,455
+ ├─ Trainable parameters: 3,455
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 10:39:33 [INFO]: Epoch 001 - training loss (MAE): 5.2955, validation MSE: 14.1393
+2025-08-23 10:39:38 [INFO]: Epoch 002 - training loss (MAE): 3.8052, validation MSE: 8.2049
+2025-08-23 10:39:45 [INFO]: Epoch 003 - training loss (MAE): 2.8618, validation MSE: 5.4700
+2025-08-23 10:39:50 [INFO]: Epoch 004 - training loss (MAE): 2.2999, validation MSE: 4.1550
+2025-08-23 10:39:56 [INFO]: Epoch 005 - training loss (MAE): 1.9596, validation MSE: 3.3864
+2025-08-23 10:40:02 [INFO]: Epoch 006 - training loss (MAE): 1.7445, validation MSE: 2.9096
+2025-08-23 10:40:08 [INFO]: Epoch 007 - training loss (MAE): 1.5868, validation MSE: 2.5654
+2025-08-23 10:40:13 [INFO]: Epoch 008 - training loss (MAE): 1.4742, validation MSE: 2.3147
+2025-08-23 10:40:19 [INFO]: Epoch 009 - training loss (MAE): 1.3804, validation MSE: 2.1155
+2025-08-23 10:40:24 [INFO]: Epoch 010 - training loss (MAE): 1.3018, validation MSE: 1.9740
+2025-08-23 10:40:30 [INFO]: Epoch 011 - training loss (MAE): 1.2506, validation MSE: 1.8631
+2025-08-23 10:40:36 [INFO]: Epoch 012 - training loss (MAE): 1.1900, validation MSE: 1.7746
+2025-08-23 10:40:42 [INFO]: Epoch 013 - training loss (MAE): 1.1641, validation MSE: 1.7144
+2025-08-23 10:40:49 [INFO]: Epoch 014 - training loss (MAE): 1.1294, validation MSE: 1.6784
+2025-08-23 10:40:55 [INFO]: Epoch 015 - training loss (MAE): 1.1103, validation MSE: 1.6578
+2025-08-23 10:40:55 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 10:40:55 [INFO]: Saved the model to output/imputation/cuda/tefn/physionet_2012/epoch15/mr0.3_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 0.5665| MSE: 0.8360| RMSE: 0.9143| MRE: 0.8017| 
+📊 Metrics saved to: output/imputation/cuda/tefn/physionet_2012/epoch15/mr0.3_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: physionet_2012 | mr0.3_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | physionet_2012 | mr0.4_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=48, N_FEATURES=35)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+🚀 Running imputation pipeline for model: tefn
+2025-08-23 10:41:31 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 10:41:31 [INFO]: You're using dataset physionet_2012, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/physionet_2012
+2025-08-23 10:41:31 [INFO]: Dataset physionet_2012 has already been downloaded. Processing directly...
+2025-08-23 10:41:31 [INFO]: Dataset physionet_2012 has already been cached. Loading from cache directly...
+2025-08-23 10:41:32 [INFO]: Loaded successfully!
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/physionet_2012.py:109: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  X = X.groupby("RecordID").apply(apply_func)
+2025-08-23 10:41:53 [WARNING]: Note that physionet_2012 has sparse observations in the time series, hence we don't add additional missing values to the training dataset. 
+2025-08-23 10:41:54 [INFO]: 92507 values masked out in the val set as ground truth, take 39.95% of the original observed values
+2025-08-23 10:41:54 [INFO]: 114242 values masked out in the test set as ground truth, take 40.09% of the original observed values
+2025-08-23 10:41:54 [INFO]: Total sample number: 3997
+2025-08-23 10:41:54 [INFO]: Training set size: 2557 (63.97%)
+2025-08-23 10:41:54 [INFO]: Validation set size: 640 (16.01%)
+2025-08-23 10:41:54 [INFO]: Test set size: 800 (20.02%)
+2025-08-23 10:41:54 [INFO]: Number of steps: 48
+2025-08-23 10:41:54 [INFO]: Number of features: 37
+2025-08-23 10:41:54 [INFO]: Train set missing rate: 79.68%
+2025-08-23 10:41:54 [INFO]: Validating set missing rate: 87.77%
+2025-08-23 10:41:54 [INFO]: Test set missing rate: 87.98%
+✅ Dataset 'physionet_2012' with missing rate 0.4 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.4
+🚀 Starting TEFN training pipeline...
+2025-08-23 10:41:54 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 10:41:54 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 10:41:54 [INFO]: Model files will be saved to output/imputation/cuda/tefn/physionet_2012/epoch15/mr0.4_bs32_fod2_mit1.0_ort0.1
+2025-08-23 10:41:54 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/physionet_2012/epoch15/mr0.4_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 10:41:54 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 10:41:54 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 10:41:55 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 10:41:55 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 3,455
+ ├─ Trainable parameters: 3,455
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 10:42:03 [INFO]: Epoch 001 - training loss (MAE): 5.2955, validation MSE: 14.6146
+2025-08-23 10:42:11 [INFO]: Epoch 002 - training loss (MAE): 3.8052, validation MSE: 8.6526
+2025-08-23 10:42:17 [INFO]: Epoch 003 - training loss (MAE): 2.8618, validation MSE: 5.8372
+2025-08-23 10:42:23 [INFO]: Epoch 004 - training loss (MAE): 2.2999, validation MSE: 4.5075
+2025-08-23 10:42:32 [INFO]: Epoch 005 - training loss (MAE): 1.9596, validation MSE: 3.7120
+2025-08-23 10:42:38 [INFO]: Epoch 006 - training loss (MAE): 1.7445, validation MSE: 3.2068
+2025-08-23 10:42:45 [INFO]: Epoch 007 - training loss (MAE): 1.5868, validation MSE: 2.8374
+2025-08-23 10:42:52 [INFO]: Epoch 008 - training loss (MAE): 1.4742, validation MSE: 2.5566
+2025-08-23 10:42:58 [INFO]: Epoch 009 - training loss (MAE): 1.3804, validation MSE: 2.3234
+2025-08-23 10:43:03 [INFO]: Epoch 010 - training loss (MAE): 1.3018, validation MSE: 2.1571
+2025-08-23 10:43:09 [INFO]: Epoch 011 - training loss (MAE): 1.2506, validation MSE: 2.0181
+2025-08-23 10:43:15 [INFO]: Epoch 012 - training loss (MAE): 1.1900, validation MSE: 1.9040
+2025-08-23 10:43:21 [INFO]: Epoch 013 - training loss (MAE): 1.1641, validation MSE: 1.8238
+2025-08-23 10:43:28 [INFO]: Epoch 014 - training loss (MAE): 1.1294, validation MSE: 1.7746
+2025-08-23 10:43:34 [INFO]: Epoch 015 - training loss (MAE): 1.1103, validation MSE: 1.7423
+2025-08-23 10:43:34 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 10:43:34 [INFO]: Saved the model to output/imputation/cuda/tefn/physionet_2012/epoch15/mr0.4_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 0.5942| MSE: 0.8856| RMSE: 0.9410| MRE: 0.8422| 
+📊 Metrics saved to: output/imputation/cuda/tefn/physionet_2012/epoch15/mr0.4_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: physionet_2012 | mr0.4_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | physionet_2012 | mr0.5_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=48, N_FEATURES=35)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-23 10:43:58 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 10:43:58 [INFO]: You're using dataset physionet_2012, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/physionet_2012
+2025-08-23 10:43:58 [INFO]: Dataset physionet_2012 has already been downloaded. Processing directly...
+2025-08-23 10:43:58 [INFO]: Dataset physionet_2012 has already been cached. Loading from cache directly...
+2025-08-23 10:43:58 [INFO]: Loaded successfully!
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/physionet_2012.py:109: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  X = X.groupby("RecordID").apply(apply_func)
+2025-08-23 10:44:20 [WARNING]: Note that physionet_2012 has sparse observations in the time series, hence we don't add additional missing values to the training dataset. 
+2025-08-23 10:44:20 [INFO]: 115521 values masked out in the val set as ground truth, take 49.89% of the original observed values
+2025-08-23 10:44:20 [INFO]: 142704 values masked out in the test set as ground truth, take 50.08% of the original observed values
+2025-08-23 10:44:20 [INFO]: Total sample number: 3997
+2025-08-23 10:44:20 [INFO]: Training set size: 2557 (63.97%)
+2025-08-23 10:44:20 [INFO]: Validation set size: 640 (16.01%)
+2025-08-23 10:44:20 [INFO]: Test set size: 800 (20.02%)
+2025-08-23 10:44:20 [INFO]: Number of steps: 48
+2025-08-23 10:44:20 [INFO]: Number of features: 37
+2025-08-23 10:44:20 [INFO]: Train set missing rate: 79.68%
+2025-08-23 10:44:20 [INFO]: Validating set missing rate: 89.79%
+2025-08-23 10:44:20 [INFO]: Test set missing rate: 89.99%
+✅ Dataset 'physionet_2012' with missing rate 0.5 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.5
+🚀 Starting TEFN training pipeline...
+2025-08-23 10:44:20 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 10:44:20 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 10:44:21 [INFO]: Model files will be saved to output/imputation/cuda/tefn/physionet_2012/epoch15/mr0.5_bs32_fod2_mit1.0_ort0.1
+2025-08-23 10:44:21 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/physionet_2012/epoch15/mr0.5_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 10:44:21 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 10:44:21 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 10:44:21 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 10:44:21 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 3,455
+ ├─ Trainable parameters: 3,455
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 10:44:30 [INFO]: Epoch 001 - training loss (MAE): 5.2955, validation MSE: 15.1381
+2025-08-23 10:44:37 [INFO]: Epoch 002 - training loss (MAE): 3.8052, validation MSE: 9.2567
+2025-08-23 10:44:45 [INFO]: Epoch 003 - training loss (MAE): 2.8618, validation MSE: 6.3955
+2025-08-23 10:44:52 [INFO]: Epoch 004 - training loss (MAE): 2.2999, validation MSE: 5.0408
+2025-08-23 10:44:57 [INFO]: Epoch 005 - training loss (MAE): 1.9596, validation MSE: 4.1982
+2025-08-23 10:45:02 [INFO]: Epoch 006 - training loss (MAE): 1.7445, validation MSE: 3.6424
+2025-08-23 10:45:05 [INFO]: Epoch 007 - training loss (MAE): 1.5868, validation MSE: 3.2277
+2025-08-23 10:45:08 [INFO]: Epoch 008 - training loss (MAE): 1.4742, validation MSE: 2.8975
+2025-08-23 10:45:11 [INFO]: Epoch 009 - training loss (MAE): 1.3804, validation MSE: 2.6144
+2025-08-23 10:45:14 [INFO]: Epoch 010 - training loss (MAE): 1.3018, validation MSE: 2.4057
+2025-08-23 10:45:18 [INFO]: Epoch 011 - training loss (MAE): 1.2506, validation MSE: 2.2240
+2025-08-23 10:45:22 [INFO]: Epoch 012 - training loss (MAE): 1.1900, validation MSE: 2.0739
+2025-08-23 10:45:25 [INFO]: Epoch 013 - training loss (MAE): 1.1641, validation MSE: 1.9641
+2025-08-23 10:45:33 [INFO]: Epoch 014 - training loss (MAE): 1.1294, validation MSE: 1.8934
+2025-08-23 10:45:39 [INFO]: Epoch 015 - training loss (MAE): 1.1103, validation MSE: 1.8447
+2025-08-23 10:45:39 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 10:45:39 [INFO]: Saved the model to output/imputation/cuda/tefn/physionet_2012/epoch15/mr0.5_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 0.6257| MSE: 0.9627| RMSE: 0.9812| MRE: 0.8868| 
+📊 Metrics saved to: output/imputation/cuda/tefn/physionet_2012/epoch15/mr0.5_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: physionet_2012 | mr0.5_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | beijing_multisite_air_quality | mr0.1_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=48, N_FEATURES=36)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-23 10:45:59 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 10:45:59 [INFO]: You're using dataset beijing_multisite_air_quality, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/beijing_multisite_air_quality
+2025-08-23 10:45:59 [INFO]: Dataset beijing_multisite_air_quality has already been downloaded. Processing directly...
+2025-08-23 10:45:59 [INFO]: Dataset beijing_multisite_air_quality has already been cached. Loading from cache directly...
+2025-08-23 10:45:59 [INFO]: Loaded successfully!
+2025-08-23 10:45:59 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:45:59 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:45:59 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:45:59 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:45:59 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:45:59 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:45:59 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:45:59 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:45:59 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:45:59 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:45:59 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:45:59 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:45:59 [INFO]: There are total 12 stations, they are ['Aotizhongxin', 'Changping', 'Dingling', 'Dongsi', 'Guanyuan', 'Gucheng', 'Huairou', 'Nongzhanguan', 'Shunyi', 'Tiantan', 'Wanliu', 'Wanshouxigong']
+2025-08-23 10:45:59 [INFO]: Original df missing rate: 0.016
+2025-08-23 10:45:59 [INFO]: months selected as train set are <PeriodArray>
+['2013-03', '2013-04', '2013-05', '2013-06', '2013-07', '2013-08', '2013-09',
+ '2013-10', '2013-11', '2013-12', '2014-01', '2014-02', '2014-03', '2014-04',
+ '2014-05', '2014-06', '2014-07', '2014-08', '2014-09', '2014-10', '2014-11',
+ '2014-12', '2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06']
+Length: 28, dtype: period[M]
+2025-08-23 10:45:59 [INFO]: months selected as val set are <PeriodArray>
+['2015-07', '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01',
+ '2016-02', '2016-03', '2016-04']
+Length: 10, dtype: period[M]
+2025-08-23 10:45:59 [INFO]: months selected as test set are <PeriodArray>
+['2016-05', '2016-06', '2016-07', '2016-08', '2016-09', '2016-10', '2016-11',
+ '2016-12', '2017-01', '2017-02']
+Length: 10, dtype: period[M]
+2025-08-23 10:46:00 [INFO]: Total sample number: 730
+2025-08-23 10:46:00 [INFO]: Training set size: 426 (58.36%)
+2025-08-23 10:46:00 [INFO]: Validation set size: 152 (20.82%)
+2025-08-23 10:46:00 [INFO]: Test set size: 152 (20.82%)
+2025-08-23 10:46:00 [INFO]: Number of steps: 48
+2025-08-23 10:46:00 [INFO]: Number of features: 132
+2025-08-23 10:46:00 [INFO]: Train set missing rate: 11.67%
+2025-08-23 10:46:00 [INFO]: Validating set missing rate: 10.80%
+2025-08-23 10:46:00 [INFO]: Test set missing rate: 11.13%
+✅ Dataset 'beijing_multisite_air_quality' with missing rate 0.1 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.1
+🚀 Starting TEFN training pipeline...
+2025-08-23 10:46:00 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 10:46:00 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 10:46:00 [INFO]: Model files will be saved to output/imputation/cuda/tefn/beijing_multisite_air_quality/epoch15/mr0.1_bs32_fod2_mit1.0_ort0.1
+2025-08-23 10:46:00 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/beijing_multisite_air_quality/epoch15/mr0.1_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 10:46:00 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 10:46:00 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 10:46:01 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 10:46:01 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 36,420
+ ├─ Trainable parameters: 36,420
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 10:46:04 [INFO]: Epoch 001 - training loss (MAE): 4.9732, validation MSE: 16.0863
+2025-08-23 10:46:05 [INFO]: Epoch 002 - training loss (MAE): 4.6255, validation MSE: 14.3685
+2025-08-23 10:46:06 [INFO]: Epoch 003 - training loss (MAE): 4.4233, validation MSE: 13.3086
+2025-08-23 10:46:07 [INFO]: Epoch 004 - training loss (MAE): 4.2581, validation MSE: 12.5388
+2025-08-23 10:46:08 [INFO]: Epoch 005 - training loss (MAE): 4.1096, validation MSE: 11.7721
+2025-08-23 10:46:09 [INFO]: Epoch 006 - training loss (MAE): 3.9736, validation MSE: 11.0489
+2025-08-23 10:46:10 [INFO]: Epoch 007 - training loss (MAE): 3.8326, validation MSE: 10.4223
+2025-08-23 10:46:12 [INFO]: Epoch 008 - training loss (MAE): 3.6940, validation MSE: 9.8553
+2025-08-23 10:46:13 [INFO]: Epoch 009 - training loss (MAE): 3.5519, validation MSE: 9.2911
+2025-08-23 10:46:14 [INFO]: Epoch 010 - training loss (MAE): 3.4254, validation MSE: 8.8077
+2025-08-23 10:46:15 [INFO]: Epoch 011 - training loss (MAE): 3.3036, validation MSE: 8.2950
+2025-08-23 10:46:16 [INFO]: Epoch 012 - training loss (MAE): 3.1676, validation MSE: 7.7937
+2025-08-23 10:46:18 [INFO]: Epoch 013 - training loss (MAE): 3.0500, validation MSE: 7.3525
+2025-08-23 10:46:19 [INFO]: Epoch 014 - training loss (MAE): 2.9284, validation MSE: 6.9093
+2025-08-23 10:46:20 [INFO]: Epoch 015 - training loss (MAE): 2.8134, validation MSE: 6.4788
+2025-08-23 10:46:20 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 10:46:20 [INFO]: Saved the model to output/imputation/cuda/tefn/beijing_multisite_air_quality/epoch15/mr0.1_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 1.2733| MSE: 3.2664| RMSE: 1.8073| MRE: 1.6916| 
+📊 Metrics saved to: output/imputation/cuda/tefn/beijing_multisite_air_quality/epoch15/mr0.1_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: beijing_multisite_air_quality | mr0.1_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | beijing_multisite_air_quality | mr0.2_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=48, N_FEATURES=36)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-23 10:46:59 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 10:46:59 [INFO]: You're using dataset beijing_multisite_air_quality, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/beijing_multisite_air_quality
+2025-08-23 10:46:59 [INFO]: Dataset beijing_multisite_air_quality has already been downloaded. Processing directly...
+2025-08-23 10:46:59 [INFO]: Dataset beijing_multisite_air_quality has already been cached. Loading from cache directly...
+2025-08-23 10:46:59 [INFO]: Loaded successfully!
+2025-08-23 10:46:59 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:46:59 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:46:59 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:46:59 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:46:59 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:47:00 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:47:00 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:47:00 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:47:00 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:47:00 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:47:00 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:47:00 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:47:00 [INFO]: There are total 12 stations, they are ['Aotizhongxin', 'Changping', 'Dingling', 'Dongsi', 'Guanyuan', 'Gucheng', 'Huairou', 'Nongzhanguan', 'Shunyi', 'Tiantan', 'Wanliu', 'Wanshouxigong']
+2025-08-23 10:47:00 [INFO]: Original df missing rate: 0.016
+2025-08-23 10:47:00 [INFO]: months selected as train set are <PeriodArray>
+['2013-03', '2013-04', '2013-05', '2013-06', '2013-07', '2013-08', '2013-09',
+ '2013-10', '2013-11', '2013-12', '2014-01', '2014-02', '2014-03', '2014-04',
+ '2014-05', '2014-06', '2014-07', '2014-08', '2014-09', '2014-10', '2014-11',
+ '2014-12', '2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06']
+Length: 28, dtype: period[M]
+2025-08-23 10:47:00 [INFO]: months selected as val set are <PeriodArray>
+['2015-07', '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01',
+ '2016-02', '2016-03', '2016-04']
+Length: 10, dtype: period[M]
+2025-08-23 10:47:00 [INFO]: months selected as test set are <PeriodArray>
+['2016-05', '2016-06', '2016-07', '2016-08', '2016-09', '2016-10', '2016-11',
+ '2016-12', '2017-01', '2017-02']
+Length: 10, dtype: period[M]
+2025-08-23 10:47:00 [INFO]: Total sample number: 730
+2025-08-23 10:47:00 [INFO]: Training set size: 426 (58.36%)
+2025-08-23 10:47:00 [INFO]: Validation set size: 152 (20.82%)
+2025-08-23 10:47:00 [INFO]: Test set size: 152 (20.82%)
+2025-08-23 10:47:00 [INFO]: Number of steps: 48
+2025-08-23 10:47:00 [INFO]: Number of features: 132
+2025-08-23 10:47:00 [INFO]: Train set missing rate: 21.51%
+2025-08-23 10:47:00 [INFO]: Validating set missing rate: 20.70%
+2025-08-23 10:47:00 [INFO]: Test set missing rate: 20.98%
+✅ Dataset 'beijing_multisite_air_quality' with missing rate 0.2 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.2
+🚀 Starting TEFN training pipeline...
+2025-08-23 10:47:00 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 10:47:00 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 10:47:01 [INFO]: Model files will be saved to output/imputation/cuda/tefn/beijing_multisite_air_quality/epoch15/mr0.2_bs32_fod2_mit1.0_ort0.1
+2025-08-23 10:47:01 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/beijing_multisite_air_quality/epoch15/mr0.2_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 10:47:01 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 10:47:01 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 10:47:02 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 10:47:02 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 36,420
+ ├─ Trainable parameters: 36,420
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 10:47:06 [INFO]: Epoch 001 - training loss (MAE): 4.9786, validation MSE: 16.0854
+2025-08-23 10:47:07 [INFO]: Epoch 002 - training loss (MAE): 4.6374, validation MSE: 14.5734
+2025-08-23 10:47:09 [INFO]: Epoch 003 - training loss (MAE): 4.4400, validation MSE: 13.4802
+2025-08-23 10:47:10 [INFO]: Epoch 004 - training loss (MAE): 4.2718, validation MSE: 12.6947
+2025-08-23 10:47:12 [INFO]: Epoch 005 - training loss (MAE): 4.1181, validation MSE: 11.8974
+2025-08-23 10:47:13 [INFO]: Epoch 006 - training loss (MAE): 3.9810, validation MSE: 11.1474
+2025-08-23 10:47:14 [INFO]: Epoch 007 - training loss (MAE): 3.8358, validation MSE: 10.5392
+2025-08-23 10:47:16 [INFO]: Epoch 008 - training loss (MAE): 3.6971, validation MSE: 9.8923
+2025-08-23 10:47:17 [INFO]: Epoch 009 - training loss (MAE): 3.5524, validation MSE: 9.3229
+2025-08-23 10:47:18 [INFO]: Epoch 010 - training loss (MAE): 3.4227, validation MSE: 8.8253
+2025-08-23 10:47:20 [INFO]: Epoch 011 - training loss (MAE): 3.3006, validation MSE: 8.2794
+2025-08-23 10:47:21 [INFO]: Epoch 012 - training loss (MAE): 3.1621, validation MSE: 7.7679
+2025-08-23 10:47:23 [INFO]: Epoch 013 - training loss (MAE): 3.0438, validation MSE: 7.3459
+2025-08-23 10:47:24 [INFO]: Epoch 014 - training loss (MAE): 2.9203, validation MSE: 6.8698
+2025-08-23 10:47:25 [INFO]: Epoch 015 - training loss (MAE): 2.8089, validation MSE: 6.4353
+2025-08-23 10:47:25 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 10:47:25 [INFO]: Saved the model to output/imputation/cuda/tefn/beijing_multisite_air_quality/epoch15/mr0.2_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 1.2774| MSE: 3.2749| RMSE: 1.8097| MRE: 1.6935| 
+📊 Metrics saved to: output/imputation/cuda/tefn/beijing_multisite_air_quality/epoch15/mr0.2_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: beijing_multisite_air_quality | mr0.2_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | beijing_multisite_air_quality | mr0.3_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=48, N_FEATURES=36)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-23 10:47:52 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 10:47:52 [INFO]: You're using dataset beijing_multisite_air_quality, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/beijing_multisite_air_quality
+2025-08-23 10:47:52 [INFO]: Dataset beijing_multisite_air_quality has already been downloaded. Processing directly...
+2025-08-23 10:47:52 [INFO]: Dataset beijing_multisite_air_quality has already been cached. Loading from cache directly...
+2025-08-23 10:47:52 [INFO]: Loaded successfully!
+2025-08-23 10:47:52 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:47:52 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:47:52 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:47:52 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:47:52 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:47:52 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:47:52 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:47:52 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:47:52 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:47:52 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:47:52 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:47:52 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:47:52 [INFO]: There are total 12 stations, they are ['Aotizhongxin', 'Changping', 'Dingling', 'Dongsi', 'Guanyuan', 'Gucheng', 'Huairou', 'Nongzhanguan', 'Shunyi', 'Tiantan', 'Wanliu', 'Wanshouxigong']
+2025-08-23 10:47:52 [INFO]: Original df missing rate: 0.016
+2025-08-23 10:47:52 [INFO]: months selected as train set are <PeriodArray>
+['2013-03', '2013-04', '2013-05', '2013-06', '2013-07', '2013-08', '2013-09',
+ '2013-10', '2013-11', '2013-12', '2014-01', '2014-02', '2014-03', '2014-04',
+ '2014-05', '2014-06', '2014-07', '2014-08', '2014-09', '2014-10', '2014-11',
+ '2014-12', '2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06']
+Length: 28, dtype: period[M]
+2025-08-23 10:47:52 [INFO]: months selected as val set are <PeriodArray>
+['2015-07', '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01',
+ '2016-02', '2016-03', '2016-04']
+Length: 10, dtype: period[M]
+2025-08-23 10:47:52 [INFO]: months selected as test set are <PeriodArray>
+['2016-05', '2016-06', '2016-07', '2016-08', '2016-09', '2016-10', '2016-11',
+ '2016-12', '2017-01', '2017-02']
+Length: 10, dtype: period[M]
+2025-08-23 10:47:53 [INFO]: Total sample number: 730
+2025-08-23 10:47:53 [INFO]: Training set size: 426 (58.36%)
+2025-08-23 10:47:53 [INFO]: Validation set size: 152 (20.82%)
+2025-08-23 10:47:53 [INFO]: Test set size: 152 (20.82%)
+2025-08-23 10:47:53 [INFO]: Number of steps: 48
+2025-08-23 10:47:53 [INFO]: Number of features: 132
+2025-08-23 10:47:53 [INFO]: Train set missing rate: 31.34%
+2025-08-23 10:47:53 [INFO]: Validating set missing rate: 30.61%
+2025-08-23 10:47:53 [INFO]: Test set missing rate: 30.86%
+✅ Dataset 'beijing_multisite_air_quality' with missing rate 0.3 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.3
+🚀 Starting TEFN training pipeline...
+2025-08-23 10:47:53 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 10:47:53 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 10:47:53 [INFO]: Model files will be saved to output/imputation/cuda/tefn/beijing_multisite_air_quality/epoch15/mr0.3_bs32_fod2_mit1.0_ort0.1
+2025-08-23 10:47:53 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/beijing_multisite_air_quality/epoch15/mr0.3_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 10:47:53 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 10:47:53 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 10:47:54 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 10:47:54 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 36,420
+ ├─ Trainable parameters: 36,420
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 10:47:57 [INFO]: Epoch 001 - training loss (MAE): 4.9778, validation MSE: 16.0991
+2025-08-23 10:47:58 [INFO]: Epoch 002 - training loss (MAE): 4.6382, validation MSE: 14.8071
+2025-08-23 10:47:59 [INFO]: Epoch 003 - training loss (MAE): 4.4406, validation MSE: 13.6603
+2025-08-23 10:48:00 [INFO]: Epoch 004 - training loss (MAE): 4.2742, validation MSE: 12.8115
+2025-08-23 10:48:02 [INFO]: Epoch 005 - training loss (MAE): 4.1235, validation MSE: 12.0525
+2025-08-23 10:48:03 [INFO]: Epoch 006 - training loss (MAE): 3.9818, validation MSE: 11.2988
+2025-08-23 10:48:04 [INFO]: Epoch 007 - training loss (MAE): 3.8315, validation MSE: 10.6494
+2025-08-23 10:48:05 [INFO]: Epoch 008 - training loss (MAE): 3.6922, validation MSE: 9.9994
+2025-08-23 10:48:06 [INFO]: Epoch 009 - training loss (MAE): 3.5474, validation MSE: 9.4023
+2025-08-23 10:48:07 [INFO]: Epoch 010 - training loss (MAE): 3.4170, validation MSE: 8.9094
+2025-08-23 10:48:08 [INFO]: Epoch 011 - training loss (MAE): 3.2945, validation MSE: 8.3160
+2025-08-23 10:48:09 [INFO]: Epoch 012 - training loss (MAE): 3.1581, validation MSE: 7.8405
+2025-08-23 10:48:10 [INFO]: Epoch 013 - training loss (MAE): 3.0380, validation MSE: 7.3946
+2025-08-23 10:48:12 [INFO]: Epoch 014 - training loss (MAE): 2.9175, validation MSE: 6.9037
+2025-08-23 10:48:13 [INFO]: Epoch 015 - training loss (MAE): 2.8056, validation MSE: 6.5241
+2025-08-23 10:48:13 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 10:48:13 [INFO]: Saved the model to output/imputation/cuda/tefn/beijing_multisite_air_quality/epoch15/mr0.3_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 1.2844| MSE: 3.2797| RMSE: 1.8110| MRE: 1.7066| 
+📊 Metrics saved to: output/imputation/cuda/tefn/beijing_multisite_air_quality/epoch15/mr0.3_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: beijing_multisite_air_quality | mr0.3_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | beijing_multisite_air_quality | mr0.4_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=48, N_FEATURES=36)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-23 10:48:37 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 10:48:37 [INFO]: You're using dataset beijing_multisite_air_quality, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/beijing_multisite_air_quality
+2025-08-23 10:48:37 [INFO]: Dataset beijing_multisite_air_quality has already been downloaded. Processing directly...
+2025-08-23 10:48:37 [INFO]: Dataset beijing_multisite_air_quality has already been cached. Loading from cache directly...
+2025-08-23 10:48:37 [INFO]: Loaded successfully!
+2025-08-23 10:48:38 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:48:38 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:48:38 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:48:38 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:48:38 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:48:38 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:48:38 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:48:38 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:48:38 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:48:38 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:48:38 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:48:38 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:48:38 [INFO]: There are total 12 stations, they are ['Aotizhongxin', 'Changping', 'Dingling', 'Dongsi', 'Guanyuan', 'Gucheng', 'Huairou', 'Nongzhanguan', 'Shunyi', 'Tiantan', 'Wanliu', 'Wanshouxigong']
+2025-08-23 10:48:38 [INFO]: Original df missing rate: 0.016
+2025-08-23 10:48:38 [INFO]: months selected as train set are <PeriodArray>
+['2013-03', '2013-04', '2013-05', '2013-06', '2013-07', '2013-08', '2013-09',
+ '2013-10', '2013-11', '2013-12', '2014-01', '2014-02', '2014-03', '2014-04',
+ '2014-05', '2014-06', '2014-07', '2014-08', '2014-09', '2014-10', '2014-11',
+ '2014-12', '2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06']
+Length: 28, dtype: period[M]
+2025-08-23 10:48:38 [INFO]: months selected as val set are <PeriodArray>
+['2015-07', '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01',
+ '2016-02', '2016-03', '2016-04']
+Length: 10, dtype: period[M]
+2025-08-23 10:48:38 [INFO]: months selected as test set are <PeriodArray>
+['2016-05', '2016-06', '2016-07', '2016-08', '2016-09', '2016-10', '2016-11',
+ '2016-12', '2017-01', '2017-02']
+Length: 10, dtype: period[M]
+2025-08-23 10:48:38 [INFO]: Total sample number: 730
+2025-08-23 10:48:38 [INFO]: Training set size: 426 (58.36%)
+2025-08-23 10:48:38 [INFO]: Validation set size: 152 (20.82%)
+2025-08-23 10:48:38 [INFO]: Test set size: 152 (20.82%)
+2025-08-23 10:48:38 [INFO]: Number of steps: 48
+2025-08-23 10:48:38 [INFO]: Number of features: 132
+2025-08-23 10:48:38 [INFO]: Train set missing rate: 41.13%
+2025-08-23 10:48:38 [INFO]: Validating set missing rate: 40.51%
+2025-08-23 10:48:38 [INFO]: Test set missing rate: 40.77%
+✅ Dataset 'beijing_multisite_air_quality' with missing rate 0.4 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.4
+🚀 Starting TEFN training pipeline...
+2025-08-23 10:48:38 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 10:48:38 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 10:48:39 [INFO]: Model files will be saved to output/imputation/cuda/tefn/beijing_multisite_air_quality/epoch15/mr0.4_bs32_fod2_mit1.0_ort0.1
+2025-08-23 10:48:39 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/beijing_multisite_air_quality/epoch15/mr0.4_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 10:48:39 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 10:48:39 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 10:48:39 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 10:48:39 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 36,420
+ ├─ Trainable parameters: 36,420
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 10:48:43 [INFO]: Epoch 001 - training loss (MAE): 4.9719, validation MSE: 15.9384
+2025-08-23 10:48:43 [INFO]: Epoch 002 - training loss (MAE): 4.6330, validation MSE: 14.8777
+2025-08-23 10:48:44 [INFO]: Epoch 003 - training loss (MAE): 4.4385, validation MSE: 13.7370
+2025-08-23 10:48:45 [INFO]: Epoch 004 - training loss (MAE): 4.2726, validation MSE: 12.8757
+2025-08-23 10:48:47 [INFO]: Epoch 005 - training loss (MAE): 4.1241, validation MSE: 12.1359
+2025-08-23 10:48:48 [INFO]: Epoch 006 - training loss (MAE): 3.9808, validation MSE: 11.3890
+2025-08-23 10:48:49 [INFO]: Epoch 007 - training loss (MAE): 3.8327, validation MSE: 10.7016
+2025-08-23 10:48:50 [INFO]: Epoch 008 - training loss (MAE): 3.6922, validation MSE: 10.0614
+2025-08-23 10:48:52 [INFO]: Epoch 009 - training loss (MAE): 3.5464, validation MSE: 9.4679
+2025-08-23 10:48:53 [INFO]: Epoch 010 - training loss (MAE): 3.4162, validation MSE: 8.9290
+2025-08-23 10:48:54 [INFO]: Epoch 011 - training loss (MAE): 3.2918, validation MSE: 8.3635
+2025-08-23 10:48:55 [INFO]: Epoch 012 - training loss (MAE): 3.1637, validation MSE: 7.8837
+2025-08-23 10:48:56 [INFO]: Epoch 013 - training loss (MAE): 3.0416, validation MSE: 7.4667
+2025-08-23 10:48:57 [INFO]: Epoch 014 - training loss (MAE): 2.9218, validation MSE: 6.9560
+2025-08-23 10:48:58 [INFO]: Epoch 015 - training loss (MAE): 2.8139, validation MSE: 6.5955
+2025-08-23 10:48:58 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 10:48:58 [INFO]: Saved the model to output/imputation/cuda/tefn/beijing_multisite_air_quality/epoch15/mr0.4_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 1.2952| MSE: 3.3155| RMSE: 1.8209| MRE: 1.7219| 
+📊 Metrics saved to: output/imputation/cuda/tefn/beijing_multisite_air_quality/epoch15/mr0.4_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: beijing_multisite_air_quality | mr0.4_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | beijing_multisite_air_quality | mr0.5_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=48, N_FEATURES=36)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-23 10:49:21 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 10:49:21 [INFO]: You're using dataset beijing_multisite_air_quality, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/beijing_multisite_air_quality
+2025-08-23 10:49:21 [INFO]: Dataset beijing_multisite_air_quality has already been downloaded. Processing directly...
+2025-08-23 10:49:21 [INFO]: Dataset beijing_multisite_air_quality has already been cached. Loading from cache directly...
+2025-08-23 10:49:21 [INFO]: Loaded successfully!
+2025-08-23 10:49:21 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:49:21 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:49:21 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:49:21 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:49:21 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:49:21 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:49:21 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:49:21 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:49:21 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:49:22 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:49:22 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:49:22 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-23 10:49:22 [INFO]: There are total 12 stations, they are ['Aotizhongxin', 'Changping', 'Dingling', 'Dongsi', 'Guanyuan', 'Gucheng', 'Huairou', 'Nongzhanguan', 'Shunyi', 'Tiantan', 'Wanliu', 'Wanshouxigong']
+2025-08-23 10:49:22 [INFO]: Original df missing rate: 0.016
+2025-08-23 10:49:22 [INFO]: months selected as train set are <PeriodArray>
+['2013-03', '2013-04', '2013-05', '2013-06', '2013-07', '2013-08', '2013-09',
+ '2013-10', '2013-11', '2013-12', '2014-01', '2014-02', '2014-03', '2014-04',
+ '2014-05', '2014-06', '2014-07', '2014-08', '2014-09', '2014-10', '2014-11',
+ '2014-12', '2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06']
+Length: 28, dtype: period[M]
+2025-08-23 10:49:22 [INFO]: months selected as val set are <PeriodArray>
+['2015-07', '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01',
+ '2016-02', '2016-03', '2016-04']
+Length: 10, dtype: period[M]
+2025-08-23 10:49:22 [INFO]: months selected as test set are <PeriodArray>
+['2016-05', '2016-06', '2016-07', '2016-08', '2016-09', '2016-10', '2016-11',
+ '2016-12', '2017-01', '2017-02']
+Length: 10, dtype: period[M]
+2025-08-23 10:49:22 [INFO]: Total sample number: 730
+2025-08-23 10:49:22 [INFO]: Training set size: 426 (58.36%)
+2025-08-23 10:49:22 [INFO]: Validation set size: 152 (20.82%)
+2025-08-23 10:49:22 [INFO]: Test set size: 152 (20.82%)
+2025-08-23 10:49:22 [INFO]: Number of steps: 48
+2025-08-23 10:49:22 [INFO]: Number of features: 132
+2025-08-23 10:49:22 [INFO]: Train set missing rate: 50.93%
+2025-08-23 10:49:22 [INFO]: Validating set missing rate: 50.44%
+2025-08-23 10:49:22 [INFO]: Test set missing rate: 50.71%
+✅ Dataset 'beijing_multisite_air_quality' with missing rate 0.5 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.5
+🚀 Starting TEFN training pipeline...
+2025-08-23 10:49:22 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 10:49:22 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 10:49:23 [INFO]: Model files will be saved to output/imputation/cuda/tefn/beijing_multisite_air_quality/epoch15/mr0.5_bs32_fod2_mit1.0_ort0.1
+2025-08-23 10:49:23 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/beijing_multisite_air_quality/epoch15/mr0.5_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 10:49:23 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 10:49:23 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 10:49:23 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 10:49:23 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 36,420
+ ├─ Trainable parameters: 36,420
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 10:49:27 [INFO]: Epoch 001 - training loss (MAE): 4.9717, validation MSE: 15.6713
+2025-08-23 10:49:28 [INFO]: Epoch 002 - training loss (MAE): 4.6239, validation MSE: 14.8534
+2025-08-23 10:49:29 [INFO]: Epoch 003 - training loss (MAE): 4.4321, validation MSE: 13.7555
+2025-08-23 10:49:30 [INFO]: Epoch 004 - training loss (MAE): 4.2677, validation MSE: 12.8795
+2025-08-23 10:49:31 [INFO]: Epoch 005 - training loss (MAE): 4.1180, validation MSE: 12.1118
+2025-08-23 10:49:32 [INFO]: Epoch 006 - training loss (MAE): 3.9799, validation MSE: 11.4059
+2025-08-23 10:49:37 [INFO]: Epoch 007 - training loss (MAE): 3.8276, validation MSE: 10.7317
+2025-08-23 10:49:41 [INFO]: Epoch 008 - training loss (MAE): 3.6936, validation MSE: 10.1076
+2025-08-23 10:49:42 [INFO]: Epoch 009 - training loss (MAE): 3.5426, validation MSE: 9.4938
+2025-08-23 10:49:44 [INFO]: Epoch 010 - training loss (MAE): 3.4172, validation MSE: 8.9675
+2025-08-23 10:49:45 [INFO]: Epoch 011 - training loss (MAE): 3.2949, validation MSE: 8.4038
+2025-08-23 10:49:46 [INFO]: Epoch 012 - training loss (MAE): 3.1707, validation MSE: 7.9316
+2025-08-23 10:49:47 [INFO]: Epoch 013 - training loss (MAE): 3.0531, validation MSE: 7.4815
+2025-08-23 10:49:48 [INFO]: Epoch 014 - training loss (MAE): 2.9333, validation MSE: 7.0086
+2025-08-23 10:49:49 [INFO]: Epoch 015 - training loss (MAE): 2.8282, validation MSE: 6.6142
+2025-08-23 10:49:49 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 10:49:49 [INFO]: Saved the model to output/imputation/cuda/tefn/beijing_multisite_air_quality/epoch15/mr0.5_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 1.3022| MSE: 3.3306| RMSE: 1.8250| MRE: 1.7305| 
+📊 Metrics saved to: output/imputation/cuda/tefn/beijing_multisite_air_quality/epoch15/mr0.5_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: beijing_multisite_air_quality | mr0.5_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | italy_air_quality | mr0.1_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=48, N_FEATURES=36)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-23 10:50:14 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 10:50:14 [INFO]: You're using dataset italy_air_quality, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/italy_air_quality
+2025-08-23 10:50:14 [INFO]: Dataset italy_air_quality has already been downloaded. Processing directly...
+2025-08-23 10:50:14 [INFO]: Dataset italy_air_quality has already been cached. Loading from cache directly...
+2025-08-23 10:50:14 [INFO]: Loaded successfully!
+2025-08-23 10:50:14 [INFO]: Total sample number: 192
+2025-08-23 10:50:14 [INFO]: Training set size: 116 (60.42%)
+2025-08-23 10:50:14 [INFO]: Validation set size: 38 (19.79%)
+2025-08-23 10:50:14 [INFO]: Test set size: 38 (19.79%)
+2025-08-23 10:50:14 [INFO]: Number of steps: 48
+2025-08-23 10:50:14 [INFO]: Number of features: 13
+2025-08-23 10:50:14 [INFO]: Train set missing rate: 9.87%
+2025-08-23 10:50:14 [INFO]: Validating set missing rate: 9.86%
+2025-08-23 10:50:14 [INFO]: Test set missing rate: 9.87%
+✅ Dataset 'italy_air_quality' with missing rate 0.1 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.1
+🚀 Starting TEFN training pipeline...
+2025-08-23 10:50:14 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 10:50:14 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 10:50:15 [INFO]: Model files will be saved to output/imputation/cuda/tefn/italy_air_quality/epoch15/mr0.1_bs32_fod2_mit1.0_ort0.1
+2025-08-23 10:50:15 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/italy_air_quality/epoch15/mr0.1_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 10:50:15 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 10:50:15 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 10:50:15 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 10:50:15 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 839
+ ├─ Trainable parameters: 839
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 10:50:17 [INFO]: Epoch 001 - training loss (MAE): 6.1935, validation MSE: 27.5554
+2025-08-23 10:50:17 [INFO]: Epoch 002 - training loss (MAE): 5.9592, validation MSE: 26.5113
+2025-08-23 10:50:18 [INFO]: Epoch 003 - training loss (MAE): 5.8632, validation MSE: 25.5296
+2025-08-23 10:50:18 [INFO]: Epoch 004 - training loss (MAE): 5.8297, validation MSE: 24.6467
+2025-08-23 10:50:18 [INFO]: Epoch 005 - training loss (MAE): 5.5912, validation MSE: 23.8259
+2025-08-23 10:50:19 [INFO]: Epoch 006 - training loss (MAE): 5.6014, validation MSE: 23.0462
+2025-08-23 10:50:19 [INFO]: Epoch 007 - training loss (MAE): 5.4790, validation MSE: 22.3244
+2025-08-23 10:50:19 [INFO]: Epoch 008 - training loss (MAE): 5.3630, validation MSE: 21.6512
+2025-08-23 10:50:20 [INFO]: Epoch 009 - training loss (MAE): 5.2703, validation MSE: 21.0256
+2025-08-23 10:50:20 [INFO]: Epoch 010 - training loss (MAE): 5.1689, validation MSE: 20.4273
+2025-08-23 10:50:20 [INFO]: Epoch 011 - training loss (MAE): 5.0433, validation MSE: 19.8765
+2025-08-23 10:50:20 [INFO]: Epoch 012 - training loss (MAE): 5.0372, validation MSE: 19.3452
+2025-08-23 10:50:21 [INFO]: Epoch 013 - training loss (MAE): 4.9825, validation MSE: 18.8487
+2025-08-23 10:50:21 [INFO]: Epoch 014 - training loss (MAE): 4.8224, validation MSE: 18.3825
+2025-08-23 10:50:21 [INFO]: Epoch 015 - training loss (MAE): 4.7886, validation MSE: 17.9468
+2025-08-23 10:50:21 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 10:50:21 [INFO]: Saved the model to output/imputation/cuda/tefn/italy_air_quality/epoch15/mr0.1_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 2.1031| MSE: 7.7656| RMSE: 2.7867| MRE: 2.7372| 
+📊 Metrics saved to: output/imputation/cuda/tefn/italy_air_quality/epoch15/mr0.1_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: italy_air_quality | mr0.1_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | italy_air_quality | mr0.2_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=48, N_FEATURES=36)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-23 10:50:50 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 10:50:50 [INFO]: You're using dataset italy_air_quality, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/italy_air_quality
+2025-08-23 10:50:50 [INFO]: Dataset italy_air_quality has already been downloaded. Processing directly...
+2025-08-23 10:50:50 [INFO]: Dataset italy_air_quality has already been cached. Loading from cache directly...
+2025-08-23 10:50:50 [INFO]: Loaded successfully!
+2025-08-23 10:50:50 [INFO]: Total sample number: 192
+2025-08-23 10:50:50 [INFO]: Training set size: 116 (60.42%)
+2025-08-23 10:50:50 [INFO]: Validation set size: 38 (19.79%)
+2025-08-23 10:50:50 [INFO]: Test set size: 38 (19.79%)
+2025-08-23 10:50:50 [INFO]: Number of steps: 48
+2025-08-23 10:50:50 [INFO]: Number of features: 13
+2025-08-23 10:50:50 [INFO]: Train set missing rate: 19.79%
+2025-08-23 10:50:50 [INFO]: Validating set missing rate: 19.86%
+2025-08-23 10:50:50 [INFO]: Test set missing rate: 19.88%
+✅ Dataset 'italy_air_quality' with missing rate 0.2 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.2
+🚀 Starting TEFN training pipeline...
+2025-08-23 10:50:50 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 10:50:50 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 10:50:51 [INFO]: Model files will be saved to output/imputation/cuda/tefn/italy_air_quality/epoch15/mr0.2_bs32_fod2_mit1.0_ort0.1
+2025-08-23 10:50:51 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/italy_air_quality/epoch15/mr0.2_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 10:50:51 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 10:50:51 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 10:50:51 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 10:50:51 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 839
+ ├─ Trainable parameters: 839
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 10:50:54 [INFO]: Epoch 001 - training loss (MAE): 6.1418, validation MSE: 28.4217
+2025-08-23 10:50:55 [INFO]: Epoch 002 - training loss (MAE): 5.9164, validation MSE: 27.4527
+2025-08-23 10:50:55 [INFO]: Epoch 003 - training loss (MAE): 5.8565, validation MSE: 26.5403
+2025-08-23 10:50:55 [INFO]: Epoch 004 - training loss (MAE): 5.8277, validation MSE: 25.7070
+2025-08-23 10:50:56 [INFO]: Epoch 005 - training loss (MAE): 5.5795, validation MSE: 24.9183
+2025-08-23 10:50:56 [INFO]: Epoch 006 - training loss (MAE): 5.6031, validation MSE: 24.1740
+2025-08-23 10:50:56 [INFO]: Epoch 007 - training loss (MAE): 5.4935, validation MSE: 23.4785
+2025-08-23 10:50:57 [INFO]: Epoch 008 - training loss (MAE): 5.3734, validation MSE: 22.8221
+2025-08-23 10:50:57 [INFO]: Epoch 009 - training loss (MAE): 5.3008, validation MSE: 22.2159
+2025-08-23 10:50:58 [INFO]: Epoch 010 - training loss (MAE): 5.1963, validation MSE: 21.6388
+2025-08-23 10:50:58 [INFO]: Epoch 011 - training loss (MAE): 5.0663, validation MSE: 21.0958
+2025-08-23 10:50:58 [INFO]: Epoch 012 - training loss (MAE): 5.0705, validation MSE: 20.5656
+2025-08-23 10:50:58 [INFO]: Epoch 013 - training loss (MAE): 4.9937, validation MSE: 20.0568
+2025-08-23 10:50:59 [INFO]: Epoch 014 - training loss (MAE): 4.8673, validation MSE: 19.5743
+2025-08-23 10:50:59 [INFO]: Epoch 015 - training loss (MAE): 4.8602, validation MSE: 19.1190
+2025-08-23 10:50:59 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 10:50:59 [INFO]: Saved the model to output/imputation/cuda/tefn/italy_air_quality/epoch15/mr0.2_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 2.1664| MSE: 8.1202| RMSE: 2.8496| MRE: 2.7952| 
+📊 Metrics saved to: output/imputation/cuda/tefn/italy_air_quality/epoch15/mr0.2_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: italy_air_quality | mr0.2_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | italy_air_quality | mr0.3_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=48, N_FEATURES=36)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-23 10:51:23 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 10:51:23 [INFO]: You're using dataset italy_air_quality, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/italy_air_quality
+2025-08-23 10:51:23 [INFO]: Dataset italy_air_quality has already been downloaded. Processing directly...
+2025-08-23 10:51:23 [INFO]: Dataset italy_air_quality has already been cached. Loading from cache directly...
+2025-08-23 10:51:23 [INFO]: Loaded successfully!
+2025-08-23 10:51:23 [INFO]: Total sample number: 192
+2025-08-23 10:51:23 [INFO]: Training set size: 116 (60.42%)
+2025-08-23 10:51:23 [INFO]: Validation set size: 38 (19.79%)
+2025-08-23 10:51:23 [INFO]: Test set size: 38 (19.79%)
+2025-08-23 10:51:23 [INFO]: Number of steps: 48
+2025-08-23 10:51:23 [INFO]: Number of features: 13
+2025-08-23 10:51:23 [INFO]: Train set missing rate: 29.80%
+2025-08-23 10:51:23 [INFO]: Validating set missing rate: 29.90%
+2025-08-23 10:51:23 [INFO]: Test set missing rate: 30.05%
+✅ Dataset 'italy_air_quality' with missing rate 0.3 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.3
+🚀 Starting TEFN training pipeline...
+2025-08-23 10:51:23 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 10:51:23 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 10:51:23 [INFO]: Model files will be saved to output/imputation/cuda/tefn/italy_air_quality/epoch15/mr0.3_bs32_fod2_mit1.0_ort0.1
+2025-08-23 10:51:23 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/italy_air_quality/epoch15/mr0.3_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 10:51:23 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 10:51:23 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 10:51:24 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 10:51:24 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 839
+ ├─ Trainable parameters: 839
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 10:51:27 [INFO]: Epoch 001 - training loss (MAE): 6.0781, validation MSE: 28.3933
+2025-08-23 10:51:27 [INFO]: Epoch 002 - training loss (MAE): 5.8732, validation MSE: 27.5226
+2025-08-23 10:51:28 [INFO]: Epoch 003 - training loss (MAE): 5.8239, validation MSE: 26.6981
+2025-08-23 10:51:28 [INFO]: Epoch 004 - training loss (MAE): 5.8074, validation MSE: 25.9385
+2025-08-23 10:51:28 [INFO]: Epoch 005 - training loss (MAE): 5.5833, validation MSE: 25.2078
+2025-08-23 10:51:28 [INFO]: Epoch 006 - training loss (MAE): 5.6209, validation MSE: 24.5159
+2025-08-23 10:51:29 [INFO]: Epoch 007 - training loss (MAE): 5.5144, validation MSE: 23.8708
+2025-08-23 10:51:29 [INFO]: Epoch 008 - training loss (MAE): 5.3949, validation MSE: 23.2576
+2025-08-23 10:51:29 [INFO]: Epoch 009 - training loss (MAE): 5.3174, validation MSE: 22.6773
+2025-08-23 10:51:30 [INFO]: Epoch 010 - training loss (MAE): 5.2188, validation MSE: 22.1223
+2025-08-23 10:51:30 [INFO]: Epoch 011 - training loss (MAE): 5.0984, validation MSE: 21.5973
+2025-08-23 10:51:30 [INFO]: Epoch 012 - training loss (MAE): 5.1116, validation MSE: 21.0859
+2025-08-23 10:51:31 [INFO]: Epoch 013 - training loss (MAE): 5.0449, validation MSE: 20.5932
+2025-08-23 10:51:31 [INFO]: Epoch 014 - training loss (MAE): 4.9161, validation MSE: 20.1173
+2025-08-23 10:51:31 [INFO]: Epoch 015 - training loss (MAE): 4.8872, validation MSE: 19.6643
+2025-08-23 10:51:31 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 10:51:31 [INFO]: Saved the model to output/imputation/cuda/tefn/italy_air_quality/epoch15/mr0.3_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 2.1931| MSE: 8.2575| RMSE: 2.8736| MRE: 2.8060| 
+📊 Metrics saved to: output/imputation/cuda/tefn/italy_air_quality/epoch15/mr0.3_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: italy_air_quality | mr0.3_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | italy_air_quality | mr0.4_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=48, N_FEATURES=36)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 10:51:56 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+2025-08-23 10:51:56 [INFO]: You're using dataset italy_air_quality, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/italy_air_quality
+2025-08-23 10:51:56 [INFO]: Dataset italy_air_quality has already been downloaded. Processing directly...
+2025-08-23 10:51:56 [INFO]: Dataset italy_air_quality has already been cached. Loading from cache directly...
+2025-08-23 10:51:56 [INFO]: Loaded successfully!
+2025-08-23 10:51:56 [INFO]: Total sample number: 192
+2025-08-23 10:51:56 [INFO]: Training set size: 116 (60.42%)
+2025-08-23 10:51:56 [INFO]: Validation set size: 38 (19.79%)
+2025-08-23 10:51:56 [INFO]: Test set size: 38 (19.79%)
+2025-08-23 10:51:56 [INFO]: Number of steps: 48
+2025-08-23 10:51:56 [INFO]: Number of features: 13
+2025-08-23 10:51:56 [INFO]: Train set missing rate: 39.84%
+2025-08-23 10:51:56 [INFO]: Validating set missing rate: 39.87%
+2025-08-23 10:51:56 [INFO]: Test set missing rate: 40.52%
+✅ Dataset 'italy_air_quality' with missing rate 0.4 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.4
+🚀 Starting TEFN training pipeline...
+2025-08-23 10:51:56 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 10:51:56 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 10:51:57 [INFO]: Model files will be saved to output/imputation/cuda/tefn/italy_air_quality/epoch15/mr0.4_bs32_fod2_mit1.0_ort0.1
+2025-08-23 10:51:57 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/italy_air_quality/epoch15/mr0.4_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 10:51:57 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 10:51:57 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 10:51:57 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 10:51:57 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 839
+ ├─ Trainable parameters: 839
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 10:51:59 [INFO]: Epoch 001 - training loss (MAE): 6.0040, validation MSE: 27.9185
+2025-08-23 10:51:59 [INFO]: Epoch 002 - training loss (MAE): 5.8273, validation MSE: 27.1472
+2025-08-23 10:52:00 [INFO]: Epoch 003 - training loss (MAE): 5.8145, validation MSE: 26.4153
+2025-08-23 10:52:00 [INFO]: Epoch 004 - training loss (MAE): 5.7780, validation MSE: 25.7300
+2025-08-23 10:52:00 [INFO]: Epoch 005 - training loss (MAE): 5.5596, validation MSE: 25.0644
+2025-08-23 10:52:01 [INFO]: Epoch 006 - training loss (MAE): 5.6150, validation MSE: 24.4315
+2025-08-23 10:52:01 [INFO]: Epoch 007 - training loss (MAE): 5.5145, validation MSE: 23.8390
+2025-08-23 10:52:01 [INFO]: Epoch 008 - training loss (MAE): 5.3915, validation MSE: 23.2714
+2025-08-23 10:52:02 [INFO]: Epoch 009 - training loss (MAE): 5.3243, validation MSE: 22.7299
+2025-08-23 10:52:02 [INFO]: Epoch 010 - training loss (MAE): 5.2262, validation MSE: 22.2088
+2025-08-23 10:52:02 [INFO]: Epoch 011 - training loss (MAE): 5.1017, validation MSE: 21.7118
+2025-08-23 10:52:03 [INFO]: Epoch 012 - training loss (MAE): 5.1259, validation MSE: 21.2274
+2025-08-23 10:52:03 [INFO]: Epoch 013 - training loss (MAE): 5.0558, validation MSE: 20.7594
+2025-08-23 10:52:03 [INFO]: Epoch 014 - training loss (MAE): 4.9831, validation MSE: 20.2990
+2025-08-23 10:52:03 [INFO]: Epoch 015 - training loss (MAE): 4.8905, validation MSE: 19.8567
+2025-08-23 10:52:03 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 10:52:03 [INFO]: Saved the model to output/imputation/cuda/tefn/italy_air_quality/epoch15/mr0.4_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 2.2431| MSE: 8.6076| RMSE: 2.9339| MRE: 2.8796| 
+📊 Metrics saved to: output/imputation/cuda/tefn/italy_air_quality/epoch15/mr0.4_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: italy_air_quality | mr0.4_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | italy_air_quality | mr0.5_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=48, N_FEATURES=36)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 10:52:15 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+2025-08-23 10:52:15 [INFO]: You're using dataset italy_air_quality, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/italy_air_quality
+2025-08-23 10:52:15 [INFO]: Dataset italy_air_quality has already been downloaded. Processing directly...
+2025-08-23 10:52:15 [INFO]: Dataset italy_air_quality has already been cached. Loading from cache directly...
+2025-08-23 10:52:15 [INFO]: Loaded successfully!
+✅ Dataset 'italy_air_quality' with missing rate 0.5 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.5
+🚀 Starting TEFN training pipeline...
+2025-08-23 10:52:15 [INFO]: Total sample number: 192
+2025-08-23 10:52:15 [INFO]: Training set size: 116 (60.42%)
+2025-08-23 10:52:15 [INFO]: Validation set size: 38 (19.79%)
+2025-08-23 10:52:15 [INFO]: Test set size: 38 (19.79%)
+2025-08-23 10:52:15 [INFO]: Number of steps: 48
+2025-08-23 10:52:15 [INFO]: Number of features: 13
+2025-08-23 10:52:15 [INFO]: Train set missing rate: 50.11%
+2025-08-23 10:52:15 [INFO]: Validating set missing rate: 50.03%
+2025-08-23 10:52:15 [INFO]: Test set missing rate: 50.12%
+2025-08-23 10:52:15 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 10:52:15 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 10:52:16 [INFO]: Model files will be saved to output/imputation/cuda/tefn/italy_air_quality/epoch15/mr0.5_bs32_fod2_mit1.0_ort0.1
+2025-08-23 10:52:16 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/italy_air_quality/epoch15/mr0.5_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 10:52:16 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 10:52:16 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 10:52:16 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 10:52:16 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 839
+ ├─ Trainable parameters: 839
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 10:52:18 [INFO]: Epoch 001 - training loss (MAE): 5.9727, validation MSE: 27.8843
+2025-08-23 10:52:18 [INFO]: Epoch 002 - training loss (MAE): 5.8014, validation MSE: 27.1965
+2025-08-23 10:52:18 [INFO]: Epoch 003 - training loss (MAE): 5.8237, validation MSE: 26.5383
+2025-08-23 10:52:18 [INFO]: Epoch 004 - training loss (MAE): 5.7666, validation MSE: 25.9183
+2025-08-23 10:52:18 [INFO]: Epoch 005 - training loss (MAE): 5.5648, validation MSE: 25.3156
+2025-08-23 10:52:18 [INFO]: Epoch 006 - training loss (MAE): 5.6155, validation MSE: 24.7393
+2025-08-23 10:52:19 [INFO]: Epoch 007 - training loss (MAE): 5.5079, validation MSE: 24.1958
+2025-08-23 10:52:19 [INFO]: Epoch 008 - training loss (MAE): 5.4169, validation MSE: 23.6688
+2025-08-23 10:52:19 [INFO]: Epoch 009 - training loss (MAE): 5.3594, validation MSE: 23.1652
+2025-08-23 10:52:19 [INFO]: Epoch 010 - training loss (MAE): 5.2524, validation MSE: 22.6805
+2025-08-23 10:52:20 [INFO]: Epoch 011 - training loss (MAE): 5.1304, validation MSE: 22.2088
+2025-08-23 10:52:20 [INFO]: Epoch 012 - training loss (MAE): 5.1514, validation MSE: 21.7479
+2025-08-23 10:52:20 [INFO]: Epoch 013 - training loss (MAE): 5.0717, validation MSE: 21.3034
+2025-08-23 10:52:20 [INFO]: Epoch 014 - training loss (MAE): 5.0635, validation MSE: 20.8724
+2025-08-23 10:52:21 [INFO]: Epoch 015 - training loss (MAE): 4.9371, validation MSE: 20.4545
+2025-08-23 10:52:21 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 10:52:21 [INFO]: Saved the model to output/imputation/cuda/tefn/italy_air_quality/epoch15/mr0.5_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 2.2626| MSE: 8.7794| RMSE: 2.9630| MRE: 2.9140| 
+📊 Metrics saved to: output/imputation/cuda/tefn/italy_air_quality/epoch15/mr0.5_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: italy_air_quality | mr0.5_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | pems_traffic | mr0.1_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=96, N_FEATURES=228)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+🚀 Running imputation pipeline for model: tefn
+2025-08-23 10:52:34 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 10:52:34 [INFO]: You're using dataset pems_traffic, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/pems_traffic
+2025-08-23 10:52:34 [INFO]: Dataset pems_traffic has already been downloaded. Processing directly...
+2025-08-23 10:52:34 [INFO]: Dataset pems_traffic has already been cached. Loading from cache directly...
+2025-08-23 10:52:34 [INFO]: Loaded successfully!
+2025-08-23 10:52:34 [INFO]: months selected as train set are <PeriodArray>
+['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06', '2015-07',
+ '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01', '2016-02',
+ '2016-03']
+Length: 15, dtype: period[M]
+2025-08-23 10:52:34 [INFO]: months selected as val set are <PeriodArray>
+['2016-04', '2016-05', '2016-06', '2016-07']
+Length: 4, dtype: period[M]
+2025-08-23 10:52:34 [INFO]: months selected as test set are <PeriodArray>
+['2016-08', '2016-09', '2016-10', '2016-11', '2016-12']
+Length: 5, dtype: period[M]
+2025-08-23 10:52:34 [INFO]: Total sample number: 182
+2025-08-23 10:52:34 [INFO]: Training set size: 114 (62.64%)
+2025-08-23 10:52:34 [INFO]: Validation set size: 30 (16.48%)
+2025-08-23 10:52:34 [INFO]: Test set size: 38 (20.88%)
+2025-08-23 10:52:34 [INFO]: Number of steps: 96
+2025-08-23 10:52:34 [INFO]: Number of features: 862
+2025-08-23 10:52:34 [INFO]: Train set missing rate: 9.98%
+2025-08-23 10:52:34 [INFO]: Validating set missing rate: 10.03%
+2025-08-23 10:52:34 [INFO]: Test set missing rate: 10.00%
+✅ Dataset 'pems_traffic' with missing rate 0.1 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.1
+🚀 Starting TEFN training pipeline...
+2025-08-23 10:52:34 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 10:52:34 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 10:52:35 [INFO]: Model files will be saved to output/imputation/cuda/tefn/pems_traffic/epoch15/mr0.1_bs32_fod2_mit1.0_ort0.1
+2025-08-23 10:52:35 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/pems_traffic/epoch15/mr0.1_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 10:52:35 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 10:52:35 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 10:52:35 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 10:52:35 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 1,494,614
+ ├─ Trainable parameters: 1,494,614
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 10:52:48 [INFO]: Epoch 001 - training loss (MAE): 5.7539, validation MSE: 24.5653
+2025-08-23 10:52:55 [INFO]: Epoch 002 - training loss (MAE): 5.4487, validation MSE: 21.0934
+2025-08-23 10:53:08 [INFO]: Epoch 003 - training loss (MAE): 5.2962, validation MSE: 19.7133
+2025-08-23 10:53:17 [INFO]: Epoch 004 - training loss (MAE): 5.1893, validation MSE: 19.4053
+2025-08-23 10:53:22 [INFO]: Epoch 005 - training loss (MAE): 5.1033, validation MSE: 19.0567
+2025-08-23 10:53:28 [INFO]: Epoch 006 - training loss (MAE): 5.0468, validation MSE: 18.4939
+2025-08-23 10:53:34 [INFO]: Epoch 007 - training loss (MAE): 4.9805, validation MSE: 18.1133
+2025-08-23 10:53:42 [INFO]: Epoch 008 - training loss (MAE): 4.9170, validation MSE: 17.8134
+2025-08-23 10:53:49 [INFO]: Epoch 009 - training loss (MAE): 4.8682, validation MSE: 17.4975
+2025-08-23 10:53:56 [INFO]: Epoch 010 - training loss (MAE): 4.8156, validation MSE: 17.2587
+2025-08-23 10:54:06 [INFO]: Epoch 011 - training loss (MAE): 4.7664, validation MSE: 16.9243
+2025-08-23 10:54:17 [INFO]: Epoch 012 - training loss (MAE): 4.7136, validation MSE: 16.6871
+2025-08-23 10:54:27 [INFO]: Epoch 013 - training loss (MAE): 4.6652, validation MSE: 16.4781
+2025-08-23 10:54:35 [INFO]: Epoch 014 - training loss (MAE): 4.6206, validation MSE: 16.1703
+2025-08-23 10:54:40 [INFO]: Epoch 015 - training loss (MAE): 4.5731, validation MSE: 15.9744
+2025-08-23 10:54:40 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 10:54:40 [INFO]: Saved the model to output/imputation/cuda/tefn/pems_traffic/epoch15/mr0.1_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 2.1736| MSE: 8.4138| RMSE: 2.9006| MRE: 2.6957| 
+📊 Metrics saved to: output/imputation/cuda/tefn/pems_traffic/epoch15/mr0.1_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: pems_traffic | mr0.1_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | pems_traffic | mr0.2_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=96, N_FEATURES=228)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 10:55:06 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+2025-08-23 10:55:06 [INFO]: You're using dataset pems_traffic, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/pems_traffic
+2025-08-23 10:55:06 [INFO]: Dataset pems_traffic has already been downloaded. Processing directly...
+2025-08-23 10:55:06 [INFO]: Dataset pems_traffic has already been cached. Loading from cache directly...
+2025-08-23 10:55:06 [INFO]: Loaded successfully!
+2025-08-23 10:55:06 [INFO]: months selected as train set are <PeriodArray>
+['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06', '2015-07',
+ '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01', '2016-02',
+ '2016-03']
+Length: 15, dtype: period[M]
+2025-08-23 10:55:06 [INFO]: months selected as val set are <PeriodArray>
+['2016-04', '2016-05', '2016-06', '2016-07']
+Length: 4, dtype: period[M]
+2025-08-23 10:55:06 [INFO]: months selected as test set are <PeriodArray>
+['2016-08', '2016-09', '2016-10', '2016-11', '2016-12']
+Length: 5, dtype: period[M]
+2025-08-23 10:55:07 [INFO]: Total sample number: 182
+2025-08-23 10:55:07 [INFO]: Training set size: 114 (62.64%)
+2025-08-23 10:55:07 [INFO]: Validation set size: 30 (16.48%)
+2025-08-23 10:55:07 [INFO]: Test set size: 38 (20.88%)
+2025-08-23 10:55:07 [INFO]: Number of steps: 96
+2025-08-23 10:55:07 [INFO]: Number of features: 862
+2025-08-23 10:55:07 [INFO]: Train set missing rate: 20.00%
+2025-08-23 10:55:07 [INFO]: Validating set missing rate: 20.00%
+2025-08-23 10:55:07 [INFO]: Test set missing rate: 20.01%
+✅ Dataset 'pems_traffic' with missing rate 0.2 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.2
+🚀 Starting TEFN training pipeline...
+2025-08-23 10:55:07 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 10:55:07 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 10:55:07 [INFO]: Model files will be saved to output/imputation/cuda/tefn/pems_traffic/epoch15/mr0.2_bs32_fod2_mit1.0_ort0.1
+2025-08-23 10:55:07 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/pems_traffic/epoch15/mr0.2_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 10:55:07 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 10:55:07 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 10:55:08 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 10:55:08 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 1,494,614
+ ├─ Trainable parameters: 1,494,614
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 10:55:20 [INFO]: Epoch 001 - training loss (MAE): 5.7095, validation MSE: 24.1989
+2025-08-23 10:55:30 [INFO]: Epoch 002 - training loss (MAE): 5.4314, validation MSE: 21.2399
+2025-08-23 10:55:43 [INFO]: Epoch 003 - training loss (MAE): 5.2910, validation MSE: 19.8586
+2025-08-23 10:55:56 [INFO]: Epoch 004 - training loss (MAE): 5.1845, validation MSE: 19.5586
+2025-08-23 10:56:08 [INFO]: Epoch 005 - training loss (MAE): 5.1024, validation MSE: 19.2012
+2025-08-23 10:56:14 [INFO]: Epoch 006 - training loss (MAE): 5.0453, validation MSE: 18.7324
+2025-08-23 10:56:19 [INFO]: Epoch 007 - training loss (MAE): 4.9789, validation MSE: 18.3124
+2025-08-23 10:56:29 [INFO]: Epoch 008 - training loss (MAE): 4.9156, validation MSE: 17.9898
+2025-08-23 10:56:44 [INFO]: Epoch 009 - training loss (MAE): 4.8655, validation MSE: 17.7554
+2025-08-23 10:56:54 [INFO]: Epoch 010 - training loss (MAE): 4.8114, validation MSE: 17.4441
+2025-08-23 10:57:09 [INFO]: Epoch 011 - training loss (MAE): 4.7584, validation MSE: 17.1682
+2025-08-23 10:57:23 [INFO]: Epoch 012 - training loss (MAE): 4.7022, validation MSE: 16.9118
+2025-08-23 10:57:32 [INFO]: Epoch 013 - training loss (MAE): 4.6522, validation MSE: 16.6798
+2025-08-23 10:57:39 [INFO]: Epoch 014 - training loss (MAE): 4.6044, validation MSE: 16.4062
+2025-08-23 10:57:44 [INFO]: Epoch 015 - training loss (MAE): 4.5583, validation MSE: 16.2226
+2025-08-23 10:57:44 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 10:57:45 [INFO]: Saved the model to output/imputation/cuda/tefn/pems_traffic/epoch15/mr0.2_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 2.1908| MSE: 8.5452| RMSE: 2.9232| MRE: 2.7211| 
+📊 Metrics saved to: output/imputation/cuda/tefn/pems_traffic/epoch15/mr0.2_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: pems_traffic | mr0.2_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | pems_traffic | mr0.3_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=96, N_FEATURES=228)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 10:58:02 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+2025-08-23 10:58:02 [INFO]: You're using dataset pems_traffic, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/pems_traffic
+2025-08-23 10:58:02 [INFO]: Dataset pems_traffic has already been downloaded. Processing directly...
+2025-08-23 10:58:02 [INFO]: Dataset pems_traffic has already been cached. Loading from cache directly...
+2025-08-23 10:58:02 [INFO]: Loaded successfully!
+2025-08-23 10:58:02 [INFO]: months selected as train set are <PeriodArray>
+['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06', '2015-07',
+ '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01', '2016-02',
+ '2016-03']
+Length: 15, dtype: period[M]
+2025-08-23 10:58:02 [INFO]: months selected as val set are <PeriodArray>
+['2016-04', '2016-05', '2016-06', '2016-07']
+Length: 4, dtype: period[M]
+2025-08-23 10:58:02 [INFO]: months selected as test set are <PeriodArray>
+['2016-08', '2016-09', '2016-10', '2016-11', '2016-12']
+Length: 5, dtype: period[M]
+2025-08-23 10:58:03 [INFO]: Total sample number: 182
+2025-08-23 10:58:03 [INFO]: Training set size: 114 (62.64%)
+2025-08-23 10:58:03 [INFO]: Validation set size: 30 (16.48%)
+2025-08-23 10:58:03 [INFO]: Test set size: 38 (20.88%)
+2025-08-23 10:58:03 [INFO]: Number of steps: 96
+2025-08-23 10:58:03 [INFO]: Number of features: 862
+2025-08-23 10:58:03 [INFO]: Train set missing rate: 30.01%
+2025-08-23 10:58:03 [INFO]: Validating set missing rate: 29.97%
+2025-08-23 10:58:03 [INFO]: Test set missing rate: 30.02%
+✅ Dataset 'pems_traffic' with missing rate 0.3 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.3
+🚀 Starting TEFN training pipeline...
+2025-08-23 10:58:03 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 10:58:03 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 10:58:03 [INFO]: Model files will be saved to output/imputation/cuda/tefn/pems_traffic/epoch15/mr0.3_bs32_fod2_mit1.0_ort0.1
+2025-08-23 10:58:03 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/pems_traffic/epoch15/mr0.3_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 10:58:03 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 10:58:03 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 10:58:04 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 10:58:04 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 1,494,614
+ ├─ Trainable parameters: 1,494,614
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 10:58:11 [INFO]: Epoch 001 - training loss (MAE): 5.6662, validation MSE: 23.7864
+2025-08-23 10:58:16 [INFO]: Epoch 002 - training loss (MAE): 5.4122, validation MSE: 21.3743
+2025-08-23 10:58:18 [INFO]: Epoch 003 - training loss (MAE): 5.2770, validation MSE: 19.9065
+2025-08-23 10:58:20 [INFO]: Epoch 004 - training loss (MAE): 5.1770, validation MSE: 19.5432
+2025-08-23 10:58:24 [INFO]: Epoch 005 - training loss (MAE): 5.0980, validation MSE: 19.1924
+2025-08-23 10:58:28 [INFO]: Epoch 006 - training loss (MAE): 5.0356, validation MSE: 18.7881
+2025-08-23 10:58:32 [INFO]: Epoch 007 - training loss (MAE): 4.9691, validation MSE: 18.4552
+2025-08-23 10:58:37 [INFO]: Epoch 008 - training loss (MAE): 4.9023, validation MSE: 18.0140
+2025-08-23 10:58:42 [INFO]: Epoch 009 - training loss (MAE): 4.8511, validation MSE: 17.8028
+2025-08-23 10:58:46 [INFO]: Epoch 010 - training loss (MAE): 4.7924, validation MSE: 17.5655
+2025-08-23 10:58:50 [INFO]: Epoch 011 - training loss (MAE): 4.7379, validation MSE: 17.2155
+2025-08-23 10:58:54 [INFO]: Epoch 012 - training loss (MAE): 4.6813, validation MSE: 17.0101
+2025-08-23 10:59:03 [INFO]: Epoch 013 - training loss (MAE): 4.6263, validation MSE: 16.7779
+2025-08-23 10:59:16 [INFO]: Epoch 014 - training loss (MAE): 4.5793, validation MSE: 16.4740
+2025-08-23 10:59:27 [INFO]: Epoch 015 - training loss (MAE): 4.5329, validation MSE: 16.2891
+2025-08-23 10:59:27 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 10:59:27 [INFO]: Saved the model to output/imputation/cuda/tefn/pems_traffic/epoch15/mr0.3_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 2.2017| MSE: 8.6084| RMSE: 2.9340| MRE: 2.7325| 
+📊 Metrics saved to: output/imputation/cuda/tefn/pems_traffic/epoch15/mr0.3_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: pems_traffic | mr0.3_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | pems_traffic | mr0.4_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=96, N_FEATURES=228)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 10:59:38 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+2025-08-23 10:59:38 [INFO]: You're using dataset pems_traffic, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/pems_traffic
+2025-08-23 10:59:38 [INFO]: Dataset pems_traffic has already been downloaded. Processing directly...
+2025-08-23 10:59:38 [INFO]: Dataset pems_traffic has already been cached. Loading from cache directly...
+2025-08-23 10:59:38 [INFO]: Loaded successfully!
+2025-08-23 10:59:38 [INFO]: months selected as train set are <PeriodArray>
+['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06', '2015-07',
+ '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01', '2016-02',
+ '2016-03']
+Length: 15, dtype: period[M]
+2025-08-23 10:59:38 [INFO]: months selected as val set are <PeriodArray>
+['2016-04', '2016-05', '2016-06', '2016-07']
+Length: 4, dtype: period[M]
+2025-08-23 10:59:38 [INFO]: months selected as test set are <PeriodArray>
+['2016-08', '2016-09', '2016-10', '2016-11', '2016-12']
+Length: 5, dtype: period[M]
+2025-08-23 10:59:38 [INFO]: Total sample number: 182
+2025-08-23 10:59:38 [INFO]: Training set size: 114 (62.64%)
+2025-08-23 10:59:38 [INFO]: Validation set size: 30 (16.48%)
+2025-08-23 10:59:38 [INFO]: Test set size: 38 (20.88%)
+2025-08-23 10:59:38 [INFO]: Number of steps: 96
+2025-08-23 10:59:38 [INFO]: Number of features: 862
+2025-08-23 10:59:38 [INFO]: Train set missing rate: 40.01%
+2025-08-23 10:59:38 [INFO]: Validating set missing rate: 39.94%
+2025-08-23 10:59:38 [INFO]: Test set missing rate: 40.04%
+✅ Dataset 'pems_traffic' with missing rate 0.4 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.4
+🚀 Starting TEFN training pipeline...
+2025-08-23 10:59:38 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 10:59:38 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 10:59:38 [INFO]: Model files will be saved to output/imputation/cuda/tefn/pems_traffic/epoch15/mr0.4_bs32_fod2_mit1.0_ort0.1
+2025-08-23 10:59:38 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/pems_traffic/epoch15/mr0.4_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 10:59:38 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 10:59:38 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 10:59:39 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 10:59:39 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 1,494,614
+ ├─ Trainable parameters: 1,494,614
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 10:59:50 [INFO]: Epoch 001 - training loss (MAE): 5.6261, validation MSE: 23.2631
+2025-08-23 10:59:59 [INFO]: Epoch 002 - training loss (MAE): 5.3899, validation MSE: 21.5071
+2025-08-23 11:00:07 [INFO]: Epoch 003 - training loss (MAE): 5.2641, validation MSE: 19.9443
+2025-08-23 11:00:15 [INFO]: Epoch 004 - training loss (MAE): 5.1631, validation MSE: 19.4260
+2025-08-23 11:00:22 [INFO]: Epoch 005 - training loss (MAE): 5.0839, validation MSE: 19.1730
+2025-08-23 11:00:27 [INFO]: Epoch 006 - training loss (MAE): 5.0171, validation MSE: 18.7831
+2025-08-23 11:00:35 [INFO]: Epoch 007 - training loss (MAE): 4.9504, validation MSE: 18.4912
+2025-08-23 11:00:43 [INFO]: Epoch 008 - training loss (MAE): 4.8839, validation MSE: 18.0655
+2025-08-23 11:00:51 [INFO]: Epoch 009 - training loss (MAE): 4.8273, validation MSE: 17.7991
+2025-08-23 11:00:58 [INFO]: Epoch 010 - training loss (MAE): 4.7663, validation MSE: 17.5928
+2025-08-23 11:01:06 [INFO]: Epoch 011 - training loss (MAE): 4.7123, validation MSE: 17.2851
+2025-08-23 11:01:15 [INFO]: Epoch 012 - training loss (MAE): 4.6499, validation MSE: 17.0611
+2025-08-23 11:01:23 [INFO]: Epoch 013 - training loss (MAE): 4.5965, validation MSE: 16.8100
+2025-08-23 11:01:31 [INFO]: Epoch 014 - training loss (MAE): 4.5441, validation MSE: 16.5800
+2025-08-23 11:01:39 [INFO]: Epoch 015 - training loss (MAE): 4.4972, validation MSE: 16.3592
+2025-08-23 11:01:39 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 11:01:39 [INFO]: Saved the model to output/imputation/cuda/tefn/pems_traffic/epoch15/mr0.4_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 2.2062| MSE: 8.6291| RMSE: 2.9375| MRE: 2.7381| 
+📊 Metrics saved to: output/imputation/cuda/tefn/pems_traffic/epoch15/mr0.4_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: pems_traffic | mr0.4_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | pems_traffic | mr0.5_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=96, N_FEATURES=228)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-23 11:01:50 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 11:01:50 [INFO]: You're using dataset pems_traffic, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/pems_traffic
+2025-08-23 11:01:50 [INFO]: Dataset pems_traffic has already been downloaded. Processing directly...
+2025-08-23 11:01:50 [INFO]: Dataset pems_traffic has already been cached. Loading from cache directly...
+2025-08-23 11:01:50 [INFO]: Loaded successfully!
+2025-08-23 11:01:50 [INFO]: months selected as train set are <PeriodArray>
+['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06', '2015-07',
+ '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01', '2016-02',
+ '2016-03']
+Length: 15, dtype: period[M]
+2025-08-23 11:01:50 [INFO]: months selected as val set are <PeriodArray>
+['2016-04', '2016-05', '2016-06', '2016-07']
+Length: 4, dtype: period[M]
+2025-08-23 11:01:50 [INFO]: months selected as test set are <PeriodArray>
+['2016-08', '2016-09', '2016-10', '2016-11', '2016-12']
+Length: 5, dtype: period[M]
+2025-08-23 11:01:50 [INFO]: Total sample number: 182
+2025-08-23 11:01:50 [INFO]: Training set size: 114 (62.64%)
+2025-08-23 11:01:50 [INFO]: Validation set size: 30 (16.48%)
+2025-08-23 11:01:50 [INFO]: Test set size: 38 (20.88%)
+2025-08-23 11:01:50 [INFO]: Number of steps: 96
+2025-08-23 11:01:50 [INFO]: Number of features: 862
+2025-08-23 11:01:50 [INFO]: Train set missing rate: 50.01%
+2025-08-23 11:01:50 [INFO]: Validating set missing rate: 49.93%
+2025-08-23 11:01:50 [INFO]: Test set missing rate: 50.04%
+✅ Dataset 'pems_traffic' with missing rate 0.5 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.5
+🚀 Starting TEFN training pipeline...
+2025-08-23 11:01:50 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 11:01:50 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 11:01:51 [INFO]: Model files will be saved to output/imputation/cuda/tefn/pems_traffic/epoch15/mr0.5_bs32_fod2_mit1.0_ort0.1
+2025-08-23 11:01:51 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/pems_traffic/epoch15/mr0.5_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 11:01:51 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 11:01:51 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 11:01:51 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 11:01:51 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 1,494,614
+ ├─ Trainable parameters: 1,494,614
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 11:02:03 [INFO]: Epoch 001 - training loss (MAE): 5.5894, validation MSE: 22.5056
+2025-08-23 11:02:12 [INFO]: Epoch 002 - training loss (MAE): 5.3606, validation MSE: 21.5340
+2025-08-23 11:02:22 [INFO]: Epoch 003 - training loss (MAE): 5.2421, validation MSE: 20.0337
+2025-08-23 11:02:34 [INFO]: Epoch 004 - training loss (MAE): 5.1407, validation MSE: 19.3182
+2025-08-23 11:02:45 [INFO]: Epoch 005 - training loss (MAE): 5.0580, validation MSE: 19.0076
+2025-08-23 11:02:53 [INFO]: Epoch 006 - training loss (MAE): 4.9922, validation MSE: 18.6872
+2025-08-23 11:03:02 [INFO]: Epoch 007 - training loss (MAE): 4.9206, validation MSE: 18.4446
+2025-08-23 11:03:12 [INFO]: Epoch 008 - training loss (MAE): 4.8535, validation MSE: 18.1506
+2025-08-23 11:03:24 [INFO]: Epoch 009 - training loss (MAE): 4.7972, validation MSE: 17.8013
+2025-08-23 11:03:33 [INFO]: Epoch 010 - training loss (MAE): 4.7288, validation MSE: 17.5498
+2025-08-23 11:03:44 [INFO]: Epoch 011 - training loss (MAE): 4.6729, validation MSE: 17.3092
+2025-08-23 11:03:54 [INFO]: Epoch 012 - training loss (MAE): 4.6071, validation MSE: 17.1076
+2025-08-23 11:04:06 [INFO]: Epoch 013 - training loss (MAE): 4.5494, validation MSE: 16.8768
+2025-08-23 11:04:19 [INFO]: Epoch 014 - training loss (MAE): 4.4968, validation MSE: 16.6165
+2025-08-23 11:04:30 [INFO]: Epoch 015 - training loss (MAE): 4.4493, validation MSE: 16.4209
+2025-08-23 11:04:30 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 11:04:30 [INFO]: Saved the model to output/imputation/cuda/tefn/pems_traffic/epoch15/mr0.5_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 2.2112| MSE: 8.6345| RMSE: 2.9385| MRE: 2.7460| 
+📊 Metrics saved to: output/imputation/cuda/tefn/pems_traffic/epoch15/mr0.5_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: pems_traffic | mr0.5_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | solar_alabama | mr0.1_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=96, N_FEATURES=137)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-23 11:04:41 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 11:04:41 [INFO]: You're using dataset solar_alabama, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/solar_alabama
+2025-08-23 11:04:41 [INFO]: Dataset solar_alabama has already been downloaded. Processing directly...
+2025-08-23 11:04:41 [INFO]: Dataset solar_alabama has already been cached. Loading from cache directly...
+2025-08-23 11:04:41 [INFO]: Loaded successfully!
+2025-08-23 11:04:41 [INFO]: months selected as train set are <PeriodArray>
+['2006-01', '2006-02', '2006-03', '2006-04', '2006-05', '2006-06']
+Length: 6, dtype: period[M]
+2025-08-23 11:04:41 [INFO]: months selected as val set are <PeriodArray>
+['2006-07', '2006-08', '2006-09']
+Length: 3, dtype: period[M]
+2025-08-23 11:04:41 [INFO]: months selected as test set are <PeriodArray>
+['2006-10', '2006-11', '2006-12']
+Length: 3, dtype: period[M]
+2025-08-23 11:04:41 [INFO]: Total sample number: 547
+2025-08-23 11:04:41 [INFO]: Training set size: 271 (49.54%)
+2025-08-23 11:04:41 [INFO]: Validation set size: 138 (25.23%)
+2025-08-23 11:04:41 [INFO]: Test set size: 138 (25.23%)
+2025-08-23 11:04:41 [INFO]: Number of steps: 96
+2025-08-23 11:04:41 [INFO]: Number of features: 137
+2025-08-23 11:04:41 [INFO]: Train set missing rate: 9.98%
+2025-08-23 11:04:41 [INFO]: Validating set missing rate: 9.94%
+2025-08-23 11:04:41 [INFO]: Test set missing rate: 9.99%
+✅ Dataset 'solar_alabama' with missing rate 0.1 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.1
+🚀 Starting TEFN training pipeline...
+2025-08-23 11:04:41 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 11:04:41 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 11:04:42 [INFO]: Model files will be saved to output/imputation/cuda/tefn/solar_alabama/epoch15/mr0.1_bs32_fod2_mit1.0_ort0.1
+2025-08-23 11:04:42 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/solar_alabama/epoch15/mr0.1_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 11:04:42 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 11:04:42 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 11:04:42 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 11:04:42 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 39,539
+ ├─ Trainable parameters: 39,539
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 11:04:44 [INFO]: Epoch 001 - training loss (MAE): 5.0474, validation MSE: 15.4750
+2025-08-23 11:04:45 [INFO]: Epoch 002 - training loss (MAE): 4.6765, validation MSE: 14.8420
+2025-08-23 11:04:46 [INFO]: Epoch 003 - training loss (MAE): 4.5418, validation MSE: 13.9552
+2025-08-23 11:04:46 [INFO]: Epoch 004 - training loss (MAE): 4.4279, validation MSE: 13.1976
+2025-08-23 11:04:47 [INFO]: Epoch 005 - training loss (MAE): 4.3279, validation MSE: 12.7323
+2025-08-23 11:04:47 [INFO]: Epoch 006 - training loss (MAE): 4.2249, validation MSE: 12.2639
+2025-08-23 11:04:48 [INFO]: Epoch 007 - training loss (MAE): 4.1223, validation MSE: 11.8427
+2025-08-23 11:04:48 [INFO]: Epoch 008 - training loss (MAE): 4.0252, validation MSE: 11.3973
+2025-08-23 11:04:49 [INFO]: Epoch 009 - training loss (MAE): 3.9311, validation MSE: 10.9663
+2025-08-23 11:04:49 [INFO]: Epoch 010 - training loss (MAE): 3.8323, validation MSE: 10.5890
+2025-08-23 11:04:50 [INFO]: Epoch 011 - training loss (MAE): 3.7445, validation MSE: 10.1621
+2025-08-23 11:04:50 [INFO]: Epoch 012 - training loss (MAE): 3.6533, validation MSE: 9.8154
+2025-08-23 11:04:51 [INFO]: Epoch 013 - training loss (MAE): 3.5503, validation MSE: 9.4084
+2025-08-23 11:04:51 [INFO]: Epoch 014 - training loss (MAE): 3.4598, validation MSE: 9.0774
+2025-08-23 11:04:52 [INFO]: Epoch 015 - training loss (MAE): 3.3671, validation MSE: 8.6969
+2025-08-23 11:04:52 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 11:04:52 [INFO]: Saved the model to output/imputation/cuda/tefn/solar_alabama/epoch15/mr0.1_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 1.4842| MSE: 4.2250| RMSE: 2.0555| MRE: 1.9150| 
+📊 Metrics saved to: output/imputation/cuda/tefn/solar_alabama/epoch15/mr0.1_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: solar_alabama | mr0.1_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | solar_alabama | mr0.2_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=96, N_FEATURES=137)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 11:05:04 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+2025-08-23 11:05:04 [INFO]: You're using dataset solar_alabama, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/solar_alabama
+2025-08-23 11:05:04 [INFO]: Dataset solar_alabama has already been downloaded. Processing directly...
+2025-08-23 11:05:04 [INFO]: Dataset solar_alabama has already been cached. Loading from cache directly...
+2025-08-23 11:05:04 [INFO]: Loaded successfully!
+2025-08-23 11:05:05 [INFO]: months selected as train set are <PeriodArray>
+['2006-01', '2006-02', '2006-03', '2006-04', '2006-05', '2006-06']
+Length: 6, dtype: period[M]
+2025-08-23 11:05:05 [INFO]: months selected as val set are <PeriodArray>
+['2006-07', '2006-08', '2006-09']
+Length: 3, dtype: period[M]
+2025-08-23 11:05:05 [INFO]: months selected as test set are <PeriodArray>
+['2006-10', '2006-11', '2006-12']
+Length: 3, dtype: period[M]
+2025-08-23 11:05:05 [INFO]: Total sample number: 547
+2025-08-23 11:05:05 [INFO]: Training set size: 271 (49.54%)
+2025-08-23 11:05:05 [INFO]: Validation set size: 138 (25.23%)
+2025-08-23 11:05:05 [INFO]: Test set size: 138 (25.23%)
+2025-08-23 11:05:05 [INFO]: Number of steps: 96
+2025-08-23 11:05:05 [INFO]: Number of features: 137
+2025-08-23 11:05:05 [INFO]: Train set missing rate: 20.00%
+2025-08-23 11:05:05 [INFO]: Validating set missing rate: 19.95%
+2025-08-23 11:05:05 [INFO]: Test set missing rate: 20.01%
+✅ Dataset 'solar_alabama' with missing rate 0.2 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.2
+🚀 Starting TEFN training pipeline...
+2025-08-23 11:05:05 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 11:05:05 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 11:05:05 [INFO]: Model files will be saved to output/imputation/cuda/tefn/solar_alabama/epoch15/mr0.2_bs32_fod2_mit1.0_ort0.1
+2025-08-23 11:05:05 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/solar_alabama/epoch15/mr0.2_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 11:05:05 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 11:05:05 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 11:05:06 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 11:05:06 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 39,539
+ ├─ Trainable parameters: 39,539
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 11:05:08 [INFO]: Epoch 001 - training loss (MAE): 5.0560, validation MSE: 15.6154
+2025-08-23 11:05:09 [INFO]: Epoch 002 - training loss (MAE): 4.6893, validation MSE: 14.9924
+2025-08-23 11:05:10 [INFO]: Epoch 003 - training loss (MAE): 4.5579, validation MSE: 14.2307
+2025-08-23 11:05:10 [INFO]: Epoch 004 - training loss (MAE): 4.4436, validation MSE: 13.4477
+2025-08-23 11:05:11 [INFO]: Epoch 005 - training loss (MAE): 4.3431, validation MSE: 12.9180
+2025-08-23 11:05:11 [INFO]: Epoch 006 - training loss (MAE): 4.2344, validation MSE: 12.4315
+2025-08-23 11:05:12 [INFO]: Epoch 007 - training loss (MAE): 4.1299, validation MSE: 11.9951
+2025-08-23 11:05:13 [INFO]: Epoch 008 - training loss (MAE): 4.0286, validation MSE: 11.5218
+2025-08-23 11:05:13 [INFO]: Epoch 009 - training loss (MAE): 3.9345, validation MSE: 11.0791
+2025-08-23 11:05:14 [INFO]: Epoch 010 - training loss (MAE): 3.8306, validation MSE: 10.6727
+2025-08-23 11:05:15 [INFO]: Epoch 011 - training loss (MAE): 3.7427, validation MSE: 10.2372
+2025-08-23 11:05:15 [INFO]: Epoch 012 - training loss (MAE): 3.6479, validation MSE: 9.8426
+2025-08-23 11:05:16 [INFO]: Epoch 013 - training loss (MAE): 3.5442, validation MSE: 9.4491
+2025-08-23 11:05:17 [INFO]: Epoch 014 - training loss (MAE): 3.4518, validation MSE: 9.1122
+2025-08-23 11:05:17 [INFO]: Epoch 015 - training loss (MAE): 3.3573, validation MSE: 8.7214
+2025-08-23 11:05:17 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 11:05:17 [INFO]: Saved the model to output/imputation/cuda/tefn/solar_alabama/epoch15/mr0.2_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 1.4998| MSE: 4.2972| RMSE: 2.0730| MRE: 1.9367| 
+📊 Metrics saved to: output/imputation/cuda/tefn/solar_alabama/epoch15/mr0.2_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: solar_alabama | mr0.2_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | solar_alabama | mr0.3_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=96, N_FEATURES=137)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-23 11:05:33 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 11:05:33 [INFO]: You're using dataset solar_alabama, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/solar_alabama
+2025-08-23 11:05:33 [INFO]: Dataset solar_alabama has already been downloaded. Processing directly...
+2025-08-23 11:05:33 [INFO]: Dataset solar_alabama has already been cached. Loading from cache directly...
+2025-08-23 11:05:33 [INFO]: Loaded successfully!
+2025-08-23 11:05:33 [INFO]: months selected as train set are <PeriodArray>
+['2006-01', '2006-02', '2006-03', '2006-04', '2006-05', '2006-06']
+Length: 6, dtype: period[M]
+2025-08-23 11:05:33 [INFO]: months selected as val set are <PeriodArray>
+['2006-07', '2006-08', '2006-09']
+Length: 3, dtype: period[M]
+2025-08-23 11:05:33 [INFO]: months selected as test set are <PeriodArray>
+['2006-10', '2006-11', '2006-12']
+Length: 3, dtype: period[M]
+2025-08-23 11:05:34 [INFO]: Total sample number: 547
+2025-08-23 11:05:34 [INFO]: Training set size: 271 (49.54%)
+2025-08-23 11:05:34 [INFO]: Validation set size: 138 (25.23%)
+2025-08-23 11:05:34 [INFO]: Test set size: 138 (25.23%)
+2025-08-23 11:05:34 [INFO]: Number of steps: 96
+2025-08-23 11:05:34 [INFO]: Number of features: 137
+2025-08-23 11:05:34 [INFO]: Train set missing rate: 30.02%
+2025-08-23 11:05:34 [INFO]: Validating set missing rate: 29.94%
+2025-08-23 11:05:34 [INFO]: Test set missing rate: 30.02%
+✅ Dataset 'solar_alabama' with missing rate 0.3 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.3
+🚀 Starting TEFN training pipeline...
+2025-08-23 11:05:34 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 11:05:34 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 11:05:34 [INFO]: Model files will be saved to output/imputation/cuda/tefn/solar_alabama/epoch15/mr0.3_bs32_fod2_mit1.0_ort0.1
+2025-08-23 11:05:34 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/solar_alabama/epoch15/mr0.3_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 11:05:34 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 11:05:34 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 11:05:34 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 11:05:34 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 39,539
+ ├─ Trainable parameters: 39,539
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 11:05:37 [INFO]: Epoch 001 - training loss (MAE): 5.0555, validation MSE: 15.7185
+2025-08-23 11:05:37 [INFO]: Epoch 002 - training loss (MAE): 4.6952, validation MSE: 15.1019
+2025-08-23 11:05:38 [INFO]: Epoch 003 - training loss (MAE): 4.5583, validation MSE: 14.3863
+2025-08-23 11:05:39 [INFO]: Epoch 004 - training loss (MAE): 4.4465, validation MSE: 13.6603
+2025-08-23 11:05:39 [INFO]: Epoch 005 - training loss (MAE): 4.3432, validation MSE: 13.0542
+2025-08-23 11:05:40 [INFO]: Epoch 006 - training loss (MAE): 4.2350, validation MSE: 12.5217
+2025-08-23 11:05:40 [INFO]: Epoch 007 - training loss (MAE): 4.1298, validation MSE: 12.0800
+2025-08-23 11:05:41 [INFO]: Epoch 008 - training loss (MAE): 4.0247, validation MSE: 11.6055
+2025-08-23 11:05:42 [INFO]: Epoch 009 - training loss (MAE): 3.9263, validation MSE: 11.1343
+2025-08-23 11:05:42 [INFO]: Epoch 010 - training loss (MAE): 3.8227, validation MSE: 10.7170
+2025-08-23 11:05:43 [INFO]: Epoch 011 - training loss (MAE): 3.7296, validation MSE: 10.2773
+2025-08-23 11:05:44 [INFO]: Epoch 012 - training loss (MAE): 3.6370, validation MSE: 9.8950
+2025-08-23 11:05:44 [INFO]: Epoch 013 - training loss (MAE): 3.5328, validation MSE: 9.4680
+2025-08-23 11:05:45 [INFO]: Epoch 014 - training loss (MAE): 3.4401, validation MSE: 9.1283
+2025-08-23 11:05:46 [INFO]: Epoch 015 - training loss (MAE): 3.3445, validation MSE: 8.7524
+2025-08-23 11:05:46 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 11:05:46 [INFO]: Saved the model to output/imputation/cuda/tefn/solar_alabama/epoch15/mr0.3_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 1.5016| MSE: 4.3096| RMSE: 2.0760| MRE: 1.9386| 
+📊 Metrics saved to: output/imputation/cuda/tefn/solar_alabama/epoch15/mr0.3_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: solar_alabama | mr0.3_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | solar_alabama | mr0.4_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=96, N_FEATURES=137)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-23 11:06:03 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 11:06:03 [INFO]: You're using dataset solar_alabama, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/solar_alabama
+2025-08-23 11:06:03 [INFO]: Dataset solar_alabama has already been downloaded. Processing directly...
+2025-08-23 11:06:03 [INFO]: Dataset solar_alabama has already been cached. Loading from cache directly...
+2025-08-23 11:06:03 [INFO]: Loaded successfully!
+2025-08-23 11:06:03 [INFO]: months selected as train set are <PeriodArray>
+['2006-01', '2006-02', '2006-03', '2006-04', '2006-05', '2006-06']
+Length: 6, dtype: period[M]
+2025-08-23 11:06:03 [INFO]: months selected as val set are <PeriodArray>
+['2006-07', '2006-08', '2006-09']
+Length: 3, dtype: period[M]
+2025-08-23 11:06:03 [INFO]: months selected as test set are <PeriodArray>
+['2006-10', '2006-11', '2006-12']
+Length: 3, dtype: period[M]
+2025-08-23 11:06:03 [INFO]: Total sample number: 547
+2025-08-23 11:06:03 [INFO]: Training set size: 271 (49.54%)
+2025-08-23 11:06:03 [INFO]: Validation set size: 138 (25.23%)
+2025-08-23 11:06:03 [INFO]: Test set size: 138 (25.23%)
+2025-08-23 11:06:03 [INFO]: Number of steps: 96
+2025-08-23 11:06:03 [INFO]: Number of features: 137
+2025-08-23 11:06:03 [INFO]: Train set missing rate: 40.00%
+2025-08-23 11:06:03 [INFO]: Validating set missing rate: 39.97%
+2025-08-23 11:06:03 [INFO]: Test set missing rate: 40.00%
+✅ Dataset 'solar_alabama' with missing rate 0.4 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.4
+🚀 Starting TEFN training pipeline...
+2025-08-23 11:06:03 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 11:06:03 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 11:06:04 [INFO]: Model files will be saved to output/imputation/cuda/tefn/solar_alabama/epoch15/mr0.4_bs32_fod2_mit1.0_ort0.1
+2025-08-23 11:06:04 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/solar_alabama/epoch15/mr0.4_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 11:06:04 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 11:06:04 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 11:06:04 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 11:06:04 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 39,539
+ ├─ Trainable parameters: 39,539
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 11:06:07 [INFO]: Epoch 001 - training loss (MAE): 5.0495, validation MSE: 15.6781
+2025-08-23 11:06:08 [INFO]: Epoch 002 - training loss (MAE): 4.6959, validation MSE: 15.1333
+2025-08-23 11:06:08 [INFO]: Epoch 003 - training loss (MAE): 4.5542, validation MSE: 14.4451
+2025-08-23 11:06:09 [INFO]: Epoch 004 - training loss (MAE): 4.4435, validation MSE: 13.7643
+2025-08-23 11:06:09 [INFO]: Epoch 005 - training loss (MAE): 4.3387, validation MSE: 13.1442
+2025-08-23 11:06:10 [INFO]: Epoch 006 - training loss (MAE): 4.2311, validation MSE: 12.5555
+2025-08-23 11:06:11 [INFO]: Epoch 007 - training loss (MAE): 4.1215, validation MSE: 12.0939
+2025-08-23 11:06:11 [INFO]: Epoch 008 - training loss (MAE): 4.0181, validation MSE: 11.6453
+2025-08-23 11:06:12 [INFO]: Epoch 009 - training loss (MAE): 3.9125, validation MSE: 11.1460
+2025-08-23 11:06:13 [INFO]: Epoch 010 - training loss (MAE): 3.8116, validation MSE: 10.7298
+2025-08-23 11:06:13 [INFO]: Epoch 011 - training loss (MAE): 3.7187, validation MSE: 10.3023
+2025-08-23 11:06:14 [INFO]: Epoch 012 - training loss (MAE): 3.6221, validation MSE: 9.8937
+2025-08-23 11:06:15 [INFO]: Epoch 013 - training loss (MAE): 3.5181, validation MSE: 9.4722
+2025-08-23 11:06:15 [INFO]: Epoch 014 - training loss (MAE): 3.4234, validation MSE: 9.1221
+2025-08-23 11:06:16 [INFO]: Epoch 015 - training loss (MAE): 3.3280, validation MSE: 8.7421
+2025-08-23 11:06:16 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 11:06:16 [INFO]: Saved the model to output/imputation/cuda/tefn/solar_alabama/epoch15/mr0.4_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 1.5002| MSE: 4.3031| RMSE: 2.0744| MRE: 1.9376| 
+📊 Metrics saved to: output/imputation/cuda/tefn/solar_alabama/epoch15/mr0.4_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: solar_alabama | mr0.4_bs32_fod2_mit1.0_ort0.1
+🔥 RUN: tefn | solar_alabama | mr0.5_bs32_fod2_mit1.0_ort0.1 (DEVICE=cuda:1 cuda:6, N_STEPS=96, N_FEATURES=137)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-23 11:06:34 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: tefn
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-23 11:06:34 [INFO]: You're using dataset solar_alabama, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/solar_alabama
+2025-08-23 11:06:34 [INFO]: Dataset solar_alabama has already been downloaded. Processing directly...
+2025-08-23 11:06:34 [INFO]: Dataset solar_alabama has already been cached. Loading from cache directly...
+2025-08-23 11:06:34 [INFO]: Loaded successfully!
+2025-08-23 11:06:34 [INFO]: months selected as train set are <PeriodArray>
+['2006-01', '2006-02', '2006-03', '2006-04', '2006-05', '2006-06']
+Length: 6, dtype: period[M]
+2025-08-23 11:06:34 [INFO]: months selected as val set are <PeriodArray>
+['2006-07', '2006-08', '2006-09']
+Length: 3, dtype: period[M]
+2025-08-23 11:06:34 [INFO]: months selected as test set are <PeriodArray>
+['2006-10', '2006-11', '2006-12']
+Length: 3, dtype: period[M]
+2025-08-23 11:06:34 [INFO]: Total sample number: 547
+2025-08-23 11:06:34 [INFO]: Training set size: 271 (49.54%)
+2025-08-23 11:06:34 [INFO]: Validation set size: 138 (25.23%)
+2025-08-23 11:06:34 [INFO]: Test set size: 138 (25.23%)
+2025-08-23 11:06:34 [INFO]: Number of steps: 96
+2025-08-23 11:06:34 [INFO]: Number of features: 137
+2025-08-23 11:06:34 [INFO]: Train set missing rate: 49.99%
+2025-08-23 11:06:34 [INFO]: Validating set missing rate: 50.03%
+2025-08-23 11:06:34 [INFO]: Test set missing rate: 50.02%
+✅ Dataset 'solar_alabama' with missing rate 0.5 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.5
+🚀 Starting TEFN training pipeline...
+2025-08-23 11:06:34 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:1', 'cuda:6']
+2025-08-23 11:06:34 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=1), device(type='cuda', index=6)]
+2025-08-23 11:06:35 [INFO]: Model files will be saved to output/imputation/cuda/tefn/solar_alabama/epoch15/mr0.5_bs32_fod2_mit1.0_ort0.1
+2025-08-23 11:06:35 [INFO]: Tensorboard file will be saved to output/imputation/cuda/tefn/solar_alabama/epoch15/mr0.5_bs32_fod2_mit1.0_ort0.1/tensorboard
+2025-08-23 11:06:35 [INFO]: Using customized MAE as the training loss function.
+2025-08-23 11:06:35 [INFO]: Using customized MSE as the validation metric function.
+2025-08-23 11:06:35 [INFO]: Model placed on CUDA devices [1, 6]
+2025-08-23 11:06:35 [INFO]: TEFN initialized with the given hyperparameters.
+ ├─ Total parameters: 39,539
+ ├─ Trainable parameters: 39,539
+ └─ Trainable ratio: 100.00%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+2025-08-23 11:06:38 [INFO]: Epoch 001 - training loss (MAE): 5.0445, validation MSE: 15.5835
+2025-08-23 11:06:39 [INFO]: Epoch 002 - training loss (MAE): 4.6967, validation MSE: 15.1081
+2025-08-23 11:06:39 [INFO]: Epoch 003 - training loss (MAE): 4.5448, validation MSE: 14.4303
+2025-08-23 11:06:40 [INFO]: Epoch 004 - training loss (MAE): 4.4343, validation MSE: 13.7843
+2025-08-23 11:06:41 [INFO]: Epoch 005 - training loss (MAE): 4.3267, validation MSE: 13.2032
+2025-08-23 11:06:41 [INFO]: Epoch 006 - training loss (MAE): 4.2155, validation MSE: 12.6303
+2025-08-23 11:06:42 [INFO]: Epoch 007 - training loss (MAE): 4.1083, validation MSE: 12.0987
+2025-08-23 11:06:42 [INFO]: Epoch 008 - training loss (MAE): 4.0022, validation MSE: 11.6606
+2025-08-23 11:06:43 [INFO]: Epoch 009 - training loss (MAE): 3.8975, validation MSE: 11.1826
+2025-08-23 11:06:44 [INFO]: Epoch 010 - training loss (MAE): 3.7966, validation MSE: 10.7578
+2025-08-23 11:06:45 [INFO]: Epoch 011 - training loss (MAE): 3.7055, validation MSE: 10.3338
+2025-08-23 11:06:45 [INFO]: Epoch 012 - training loss (MAE): 3.6106, validation MSE: 9.9049
+2025-08-23 11:06:46 [INFO]: Epoch 013 - training loss (MAE): 3.5033, validation MSE: 9.4972
+2025-08-23 11:06:46 [INFO]: Epoch 014 - training loss (MAE): 3.4142, validation MSE: 9.1430
+2025-08-23 11:06:47 [INFO]: Epoch 015 - training loss (MAE): 3.3137, validation MSE: 8.7508
+2025-08-23 11:06:47 [INFO]: Finished training. The best model is from epoch#15.
+2025-08-23 11:06:47 [INFO]: Saved the model to output/imputation/cuda/tefn/solar_alabama/epoch15/mr0.5_bs32_fod2_mit1.0_ort0.1/TEFN.pypots
+[TEFN] Testing —— MAE: 1.5012| MSE: 4.3040| RMSE: 2.0746| MRE: 1.9376| 
+📊 Metrics saved to: output/imputation/cuda/tefn/solar_alabama/epoch15/mr0.5_bs32_fod2_mit1.0_ort0.1/metrics/tefn_metrics.json
+✅ DONE: solar_alabama | mr0.5_bs32_fod2_mit1.0_ort0.1
+✅ All tefn runs completed at 2025-08-23T11:06:49+09:00.

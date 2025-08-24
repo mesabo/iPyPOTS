@@ -1,0 +1,1996 @@
+ai-gpgpu14
+Visible GPUs (physical): 0,1,2,3,4,5,6,7
+Using devices (logical): cuda:3 cuda:4 cuda:5
+Backend: cuda
+Session log: output/imputation/cuda/session_timellm_20250824T124615.log
+⏭️  Skip (done): physionet_2012 | mr0.1_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+⏭️  Skip (done): physionet_2012 | mr0.2_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+⏭️  Skip (done): physionet_2012 | mr0.3_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+⏭️  Skip (done): physionet_2012 | mr0.4_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+⏭️  Skip (done): physionet_2012 | mr0.5_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+🔥 RUN: timellm | beijing_multisite_air_quality | mr0.1_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse (DEVICE=cuda:3 cuda:4 cuda:5, N_STEPS=48, N_FEATURES=36)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-24 12:46:28 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: timellm
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-24 12:46:28 [INFO]: You're using dataset beijing_multisite_air_quality, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/beijing_multisite_air_quality
+2025-08-24 12:46:28 [INFO]: Dataset beijing_multisite_air_quality has already been downloaded. Processing directly...
+2025-08-24 12:46:28 [INFO]: Dataset beijing_multisite_air_quality has already been cached. Loading from cache directly...
+2025-08-24 12:46:28 [INFO]: Loaded successfully!
+2025-08-24 12:46:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:28 [INFO]: There are total 12 stations, they are ['Aotizhongxin', 'Changping', 'Dingling', 'Dongsi', 'Guanyuan', 'Gucheng', 'Huairou', 'Nongzhanguan', 'Shunyi', 'Tiantan', 'Wanliu', 'Wanshouxigong']
+2025-08-24 12:46:28 [INFO]: Original df missing rate: 0.016
+2025-08-24 12:46:28 [INFO]: months selected as train set are <PeriodArray>
+['2013-03', '2013-04', '2013-05', '2013-06', '2013-07', '2013-08', '2013-09',
+ '2013-10', '2013-11', '2013-12', '2014-01', '2014-02', '2014-03', '2014-04',
+ '2014-05', '2014-06', '2014-07', '2014-08', '2014-09', '2014-10', '2014-11',
+ '2014-12', '2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06']
+Length: 28, dtype: period[M]
+2025-08-24 12:46:28 [INFO]: months selected as val set are <PeriodArray>
+['2015-07', '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01',
+ '2016-02', '2016-03', '2016-04']
+Length: 10, dtype: period[M]
+2025-08-24 12:46:28 [INFO]: months selected as test set are <PeriodArray>
+['2016-05', '2016-06', '2016-07', '2016-08', '2016-09', '2016-10', '2016-11',
+ '2016-12', '2017-01', '2017-02']
+Length: 10, dtype: period[M]
+2025-08-24 12:46:28 [INFO]: Total sample number: 730
+2025-08-24 12:46:28 [INFO]: Training set size: 426 (58.36%)
+2025-08-24 12:46:28 [INFO]: Validation set size: 152 (20.82%)
+2025-08-24 12:46:28 [INFO]: Test set size: 152 (20.82%)
+2025-08-24 12:46:28 [INFO]: Number of steps: 48
+2025-08-24 12:46:28 [INFO]: Number of features: 132
+2025-08-24 12:46:28 [INFO]: Train set missing rate: 11.67%
+2025-08-24 12:46:28 [INFO]: Validating set missing rate: 10.80%
+2025-08-24 12:46:28 [INFO]: Test set missing rate: 11.13%
+✅ Dataset 'beijing_multisite_air_quality' with missing rate 0.1 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.1
+2025-08-24 12:46:28 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:3', 'cuda:4', 'cuda:5']
+2025-08-24 12:46:28 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=3), device(type='cuda', index=4), device(type='cuda', index=5)]
+2025-08-24 12:46:29 [INFO]: Model files will be saved to output/imputation/cuda/timellm/BERT/beijing_multisite_air_quality/epoch15/mr0.1_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+2025-08-24 12:46:29 [INFO]: Tensorboard file will be saved to output/imputation/cuda/timellm/BERT/beijing_multisite_air_quality/epoch15/mr0.1_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse/tensorboard
+2025-08-24 12:46:29 [INFO]: Using customized MAE as the training loss function.
+2025-08-24 12:46:29 [INFO]: Using customized MSE as the validation metric function.
+2025-08-24 12:46:30 [INFO]: Model placed on CUDA devices [3, 4, 5]
+2025-08-24 12:46:30 [INFO]: TimeLLM initialized with the given hyperparameters.
+ ├─ Total parameters: 96,909,120
+ ├─ Trainable parameters: 50,435,904
+ └─ Trainable ratio: 52.04%
+2025-08-24 12:46:46 [ERROR]: ❌ Exception: Caught OutOfMemoryError in replica 0 on device 3.
+Original Traceback (most recent call last):
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 96, in _worker
+    output = module(*input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/core.py", line 73, in forward
+    reconstruction = self.backbone(X, missing_mask)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/nn/modules/timellm/backbone.py", line 219, in forward
+    dec_out = self.llm_model(inputs_embeds=llama_enc_out).last_hidden_state
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 917, in forward
+    outputs = block(
+              ^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 404, in forward
+    attn_output, self_attn_weights = self.attn(
+                                     ^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 348, in forward
+    attn_output = attn_output.reshape(*attn_output.shape[:-2], -1).contiguous()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.02 GiB. GPU 3 has a total capacity of 23.58 GiB of which 627.75 MiB is free. Process 2794191 has 760.00 MiB memory in use. Including non-PyTorch memory, this process has 22.21 GiB memory in use. Of the allocated memory 20.82 GiB is allocated by PyTorch, and 1019.39 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+Traceback (most recent call last):
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/base.py", line 748, in _train_model
+    results = self.model(inputs, calc_criterion=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/data_parallel.py", line 193, in forward
+    outputs = self.parallel_apply(replicas, inputs, module_kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/data_parallel.py", line 212, in parallel_apply
+    return parallel_apply(
+           ^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 126, in parallel_apply
+    output.reraise()
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/_utils.py", line 715, in reraise
+    raise exception
+torch.OutOfMemoryError: Caught OutOfMemoryError in replica 0 on device 3.
+Original Traceback (most recent call last):
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 96, in _worker
+    output = module(*input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/core.py", line 73, in forward
+    reconstruction = self.backbone(X, missing_mask)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/nn/modules/timellm/backbone.py", line 219, in forward
+    dec_out = self.llm_model(inputs_embeds=llama_enc_out).last_hidden_state
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 917, in forward
+    outputs = block(
+              ^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 404, in forward
+    attn_output, self_attn_weights = self.attn(
+                                     ^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 348, in forward
+    attn_output = attn_output.reshape(*attn_output.shape[:-2], -1).contiguous()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.02 GiB. GPU 3 has a total capacity of 23.58 GiB of which 627.75 MiB is free. Process 2794191 has 760.00 MiB memory in use. Including non-PyTorch memory, this process has 22.21 GiB memory in use. Of the allocated memory 20.82 GiB is allocated by PyTorch, and 1019.39 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/23r8105_messou/lab/iPyPOTS/main.py", line 80, in <module>
+    main(args)
+  File "/home/23r8105_messou/lab/iPyPOTS/main.py", line 59, in main
+    mae, mse, rmse, mre = MODEL_PIPELINES[model_name](dataset, args)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pipeline/imputations/timellm.py", line 65, in train_and_evaluate_timellm
+    timellm.fit(
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/model.py", line 287, in fit
+    self._train_model(train_dataloader, val_dataloader)
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/base.py", line 825, in _train_model
+    raise RuntimeError(
+RuntimeError: Training got interrupted. Model was not trained. Please investigate the error printed above.
+srun: error: ai-gpgpu14: task 0: Exited with exit code 1
+❌ FAIL(1): beijing_multisite_air_quality | mr0.1_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+🔥 RUN: timellm | beijing_multisite_air_quality | mr0.2_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse (DEVICE=cuda:3 cuda:4 cuda:5, N_STEPS=48, N_FEATURES=36)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-24 12:46:54 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: timellm
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-24 12:46:54 [INFO]: You're using dataset beijing_multisite_air_quality, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/beijing_multisite_air_quality
+2025-08-24 12:46:54 [INFO]: Dataset beijing_multisite_air_quality has already been downloaded. Processing directly...
+2025-08-24 12:46:54 [INFO]: Dataset beijing_multisite_air_quality has already been cached. Loading from cache directly...
+2025-08-24 12:46:54 [INFO]: Loaded successfully!
+2025-08-24 12:46:54 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:54 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:55 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:55 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:55 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:55 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:55 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:55 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:55 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:55 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:55 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:55 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:46:55 [INFO]: There are total 12 stations, they are ['Aotizhongxin', 'Changping', 'Dingling', 'Dongsi', 'Guanyuan', 'Gucheng', 'Huairou', 'Nongzhanguan', 'Shunyi', 'Tiantan', 'Wanliu', 'Wanshouxigong']
+2025-08-24 12:46:55 [INFO]: Original df missing rate: 0.016
+2025-08-24 12:46:55 [INFO]: months selected as train set are <PeriodArray>
+['2013-03', '2013-04', '2013-05', '2013-06', '2013-07', '2013-08', '2013-09',
+ '2013-10', '2013-11', '2013-12', '2014-01', '2014-02', '2014-03', '2014-04',
+ '2014-05', '2014-06', '2014-07', '2014-08', '2014-09', '2014-10', '2014-11',
+ '2014-12', '2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06']
+Length: 28, dtype: period[M]
+2025-08-24 12:46:55 [INFO]: months selected as val set are <PeriodArray>
+['2015-07', '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01',
+ '2016-02', '2016-03', '2016-04']
+Length: 10, dtype: period[M]
+2025-08-24 12:46:55 [INFO]: months selected as test set are <PeriodArray>
+['2016-05', '2016-06', '2016-07', '2016-08', '2016-09', '2016-10', '2016-11',
+ '2016-12', '2017-01', '2017-02']
+Length: 10, dtype: period[M]
+2025-08-24 12:46:55 [INFO]: Total sample number: 730
+2025-08-24 12:46:55 [INFO]: Training set size: 426 (58.36%)
+2025-08-24 12:46:55 [INFO]: Validation set size: 152 (20.82%)
+2025-08-24 12:46:55 [INFO]: Test set size: 152 (20.82%)
+2025-08-24 12:46:55 [INFO]: Number of steps: 48
+2025-08-24 12:46:55 [INFO]: Number of features: 132
+2025-08-24 12:46:55 [INFO]: Train set missing rate: 21.51%
+2025-08-24 12:46:55 [INFO]: Validating set missing rate: 20.70%
+2025-08-24 12:46:55 [INFO]: Test set missing rate: 20.98%
+✅ Dataset 'beijing_multisite_air_quality' with missing rate 0.2 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.2
+2025-08-24 12:46:55 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:3', 'cuda:4', 'cuda:5']
+2025-08-24 12:46:55 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=3), device(type='cuda', index=4), device(type='cuda', index=5)]
+2025-08-24 12:46:55 [INFO]: Model files will be saved to output/imputation/cuda/timellm/BERT/beijing_multisite_air_quality/epoch15/mr0.2_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+2025-08-24 12:46:55 [INFO]: Tensorboard file will be saved to output/imputation/cuda/timellm/BERT/beijing_multisite_air_quality/epoch15/mr0.2_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse/tensorboard
+2025-08-24 12:46:55 [INFO]: Using customized MAE as the training loss function.
+2025-08-24 12:46:55 [INFO]: Using customized MSE as the validation metric function.
+2025-08-24 12:46:57 [INFO]: Model placed on CUDA devices [3, 4, 5]
+2025-08-24 12:46:57 [INFO]: TimeLLM initialized with the given hyperparameters.
+ ├─ Total parameters: 96,909,120
+ ├─ Trainable parameters: 50,435,904
+ └─ Trainable ratio: 52.04%
+2025-08-24 12:47:14 [ERROR]: ❌ Exception: Caught OutOfMemoryError in replica 0 on device 3.
+Original Traceback (most recent call last):
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 96, in _worker
+    output = module(*input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/core.py", line 73, in forward
+    reconstruction = self.backbone(X, missing_mask)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/nn/modules/timellm/backbone.py", line 219, in forward
+    dec_out = self.llm_model(inputs_embeds=llama_enc_out).last_hidden_state
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 917, in forward
+    outputs = block(
+              ^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 404, in forward
+    attn_output, self_attn_weights = self.attn(
+                                     ^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 348, in forward
+    attn_output = attn_output.reshape(*attn_output.shape[:-2], -1).contiguous()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.02 GiB. GPU 3 has a total capacity of 23.58 GiB of which 765.75 MiB is free. Process 2794191 has 760.00 MiB memory in use. Including non-PyTorch memory, this process has 22.08 GiB memory in use. Of the allocated memory 20.71 GiB is allocated by PyTorch, and 1002.91 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+Traceback (most recent call last):
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/base.py", line 748, in _train_model
+    results = self.model(inputs, calc_criterion=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/data_parallel.py", line 193, in forward
+    outputs = self.parallel_apply(replicas, inputs, module_kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/data_parallel.py", line 212, in parallel_apply
+    return parallel_apply(
+           ^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 126, in parallel_apply
+    output.reraise()
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/_utils.py", line 715, in reraise
+    raise exception
+torch.OutOfMemoryError: Caught OutOfMemoryError in replica 0 on device 3.
+Original Traceback (most recent call last):
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 96, in _worker
+    output = module(*input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/core.py", line 73, in forward
+    reconstruction = self.backbone(X, missing_mask)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/nn/modules/timellm/backbone.py", line 219, in forward
+    dec_out = self.llm_model(inputs_embeds=llama_enc_out).last_hidden_state
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 917, in forward
+    outputs = block(
+              ^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 404, in forward
+    attn_output, self_attn_weights = self.attn(
+                                     ^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 348, in forward
+    attn_output = attn_output.reshape(*attn_output.shape[:-2], -1).contiguous()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.02 GiB. GPU 3 has a total capacity of 23.58 GiB of which 765.75 MiB is free. Process 2794191 has 760.00 MiB memory in use. Including non-PyTorch memory, this process has 22.08 GiB memory in use. Of the allocated memory 20.71 GiB is allocated by PyTorch, and 1002.91 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/23r8105_messou/lab/iPyPOTS/main.py", line 80, in <module>
+    main(args)
+  File "/home/23r8105_messou/lab/iPyPOTS/main.py", line 59, in main
+    mae, mse, rmse, mre = MODEL_PIPELINES[model_name](dataset, args)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pipeline/imputations/timellm.py", line 65, in train_and_evaluate_timellm
+    timellm.fit(
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/model.py", line 287, in fit
+    self._train_model(train_dataloader, val_dataloader)
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/base.py", line 825, in _train_model
+    raise RuntimeError(
+RuntimeError: Training got interrupted. Model was not trained. Please investigate the error printed above.
+srun: error: ai-gpgpu14: task 0: Exited with exit code 1
+❌ FAIL(1): beijing_multisite_air_quality | mr0.2_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+🔥 RUN: timellm | beijing_multisite_air_quality | mr0.3_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse (DEVICE=cuda:3 cuda:4 cuda:5, N_STEPS=48, N_FEATURES=36)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-24 12:47:27 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: timellm
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-24 12:47:27 [INFO]: You're using dataset beijing_multisite_air_quality, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/beijing_multisite_air_quality
+2025-08-24 12:47:27 [INFO]: Dataset beijing_multisite_air_quality has already been downloaded. Processing directly...
+2025-08-24 12:47:27 [INFO]: Dataset beijing_multisite_air_quality has already been cached. Loading from cache directly...
+2025-08-24 12:47:27 [INFO]: Loaded successfully!
+2025-08-24 12:47:27 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:47:27 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:47:27 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:47:27 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:47:27 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:47:27 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:47:27 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:47:27 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:47:27 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:47:27 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:47:27 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:47:27 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:47:28 [INFO]: There are total 12 stations, they are ['Aotizhongxin', 'Changping', 'Dingling', 'Dongsi', 'Guanyuan', 'Gucheng', 'Huairou', 'Nongzhanguan', 'Shunyi', 'Tiantan', 'Wanliu', 'Wanshouxigong']
+2025-08-24 12:47:28 [INFO]: Original df missing rate: 0.016
+2025-08-24 12:47:28 [INFO]: months selected as train set are <PeriodArray>
+['2013-03', '2013-04', '2013-05', '2013-06', '2013-07', '2013-08', '2013-09',
+ '2013-10', '2013-11', '2013-12', '2014-01', '2014-02', '2014-03', '2014-04',
+ '2014-05', '2014-06', '2014-07', '2014-08', '2014-09', '2014-10', '2014-11',
+ '2014-12', '2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06']
+Length: 28, dtype: period[M]
+2025-08-24 12:47:28 [INFO]: months selected as val set are <PeriodArray>
+['2015-07', '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01',
+ '2016-02', '2016-03', '2016-04']
+Length: 10, dtype: period[M]
+2025-08-24 12:47:28 [INFO]: months selected as test set are <PeriodArray>
+['2016-05', '2016-06', '2016-07', '2016-08', '2016-09', '2016-10', '2016-11',
+ '2016-12', '2017-01', '2017-02']
+Length: 10, dtype: period[M]
+2025-08-24 12:47:28 [INFO]: Total sample number: 730
+2025-08-24 12:47:28 [INFO]: Training set size: 426 (58.36%)
+2025-08-24 12:47:28 [INFO]: Validation set size: 152 (20.82%)
+2025-08-24 12:47:28 [INFO]: Test set size: 152 (20.82%)
+2025-08-24 12:47:28 [INFO]: Number of steps: 48
+2025-08-24 12:47:28 [INFO]: Number of features: 132
+2025-08-24 12:47:28 [INFO]: Train set missing rate: 31.34%
+2025-08-24 12:47:28 [INFO]: Validating set missing rate: 30.61%
+2025-08-24 12:47:28 [INFO]: Test set missing rate: 30.86%
+✅ Dataset 'beijing_multisite_air_quality' with missing rate 0.3 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.3
+2025-08-24 12:47:28 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:3', 'cuda:4', 'cuda:5']
+2025-08-24 12:47:28 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=3), device(type='cuda', index=4), device(type='cuda', index=5)]
+2025-08-24 12:47:28 [INFO]: Model files will be saved to output/imputation/cuda/timellm/BERT/beijing_multisite_air_quality/epoch15/mr0.3_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+2025-08-24 12:47:28 [INFO]: Tensorboard file will be saved to output/imputation/cuda/timellm/BERT/beijing_multisite_air_quality/epoch15/mr0.3_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse/tensorboard
+2025-08-24 12:47:28 [INFO]: Using customized MAE as the training loss function.
+2025-08-24 12:47:28 [INFO]: Using customized MSE as the validation metric function.
+2025-08-24 12:47:30 [INFO]: Model placed on CUDA devices [3, 4, 5]
+2025-08-24 12:47:30 [INFO]: TimeLLM initialized with the given hyperparameters.
+ ├─ Total parameters: 96,909,120
+ ├─ Trainable parameters: 50,435,904
+ └─ Trainable ratio: 52.04%
+2025-08-24 12:47:48 [ERROR]: ❌ Exception: Caught OutOfMemoryError in replica 0 on device 3.
+Original Traceback (most recent call last):
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 96, in _worker
+    output = module(*input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/core.py", line 73, in forward
+    reconstruction = self.backbone(X, missing_mask)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/nn/modules/timellm/backbone.py", line 219, in forward
+    dec_out = self.llm_model(inputs_embeds=llama_enc_out).last_hidden_state
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 917, in forward
+    outputs = block(
+              ^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 404, in forward
+    attn_output, self_attn_weights = self.attn(
+                                     ^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 348, in forward
+    attn_output = attn_output.reshape(*attn_output.shape[:-2], -1).contiguous()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.02 GiB. GPU 3 has a total capacity of 23.58 GiB of which 627.75 MiB is free. Process 2794191 has 760.00 MiB memory in use. Including non-PyTorch memory, this process has 22.21 GiB memory in use. Of the allocated memory 20.82 GiB is allocated by PyTorch, and 1019.39 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+Traceback (most recent call last):
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/base.py", line 748, in _train_model
+    results = self.model(inputs, calc_criterion=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/data_parallel.py", line 193, in forward
+    outputs = self.parallel_apply(replicas, inputs, module_kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/data_parallel.py", line 212, in parallel_apply
+    return parallel_apply(
+           ^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 126, in parallel_apply
+    output.reraise()
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/_utils.py", line 715, in reraise
+    raise exception
+torch.OutOfMemoryError: Caught OutOfMemoryError in replica 0 on device 3.
+Original Traceback (most recent call last):
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 96, in _worker
+    output = module(*input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/core.py", line 73, in forward
+    reconstruction = self.backbone(X, missing_mask)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/nn/modules/timellm/backbone.py", line 219, in forward
+    dec_out = self.llm_model(inputs_embeds=llama_enc_out).last_hidden_state
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 917, in forward
+    outputs = block(
+              ^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 404, in forward
+    attn_output, self_attn_weights = self.attn(
+                                     ^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 348, in forward
+    attn_output = attn_output.reshape(*attn_output.shape[:-2], -1).contiguous()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.02 GiB. GPU 3 has a total capacity of 23.58 GiB of which 627.75 MiB is free. Process 2794191 has 760.00 MiB memory in use. Including non-PyTorch memory, this process has 22.21 GiB memory in use. Of the allocated memory 20.82 GiB is allocated by PyTorch, and 1019.39 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/23r8105_messou/lab/iPyPOTS/main.py", line 80, in <module>
+    main(args)
+  File "/home/23r8105_messou/lab/iPyPOTS/main.py", line 59, in main
+    mae, mse, rmse, mre = MODEL_PIPELINES[model_name](dataset, args)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pipeline/imputations/timellm.py", line 65, in train_and_evaluate_timellm
+    timellm.fit(
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/model.py", line 287, in fit
+    self._train_model(train_dataloader, val_dataloader)
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/base.py", line 825, in _train_model
+    raise RuntimeError(
+RuntimeError: Training got interrupted. Model was not trained. Please investigate the error printed above.
+srun: error: ai-gpgpu14: task 0: Exited with exit code 1
+❌ FAIL(1): beijing_multisite_air_quality | mr0.3_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+🔥 RUN: timellm | beijing_multisite_air_quality | mr0.4_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse (DEVICE=cuda:3 cuda:4 cuda:5, N_STEPS=48, N_FEATURES=36)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-24 12:48:01 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: timellm
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-24 12:48:01 [INFO]: You're using dataset beijing_multisite_air_quality, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/beijing_multisite_air_quality
+2025-08-24 12:48:01 [INFO]: Dataset beijing_multisite_air_quality has already been downloaded. Processing directly...
+2025-08-24 12:48:01 [INFO]: Dataset beijing_multisite_air_quality has already been cached. Loading from cache directly...
+2025-08-24 12:48:01 [INFO]: Loaded successfully!
+2025-08-24 12:48:01 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:01 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:01 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:01 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:01 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:01 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:01 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:01 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:01 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:01 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:01 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:01 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:01 [INFO]: There are total 12 stations, they are ['Aotizhongxin', 'Changping', 'Dingling', 'Dongsi', 'Guanyuan', 'Gucheng', 'Huairou', 'Nongzhanguan', 'Shunyi', 'Tiantan', 'Wanliu', 'Wanshouxigong']
+2025-08-24 12:48:01 [INFO]: Original df missing rate: 0.016
+2025-08-24 12:48:01 [INFO]: months selected as train set are <PeriodArray>
+['2013-03', '2013-04', '2013-05', '2013-06', '2013-07', '2013-08', '2013-09',
+ '2013-10', '2013-11', '2013-12', '2014-01', '2014-02', '2014-03', '2014-04',
+ '2014-05', '2014-06', '2014-07', '2014-08', '2014-09', '2014-10', '2014-11',
+ '2014-12', '2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06']
+Length: 28, dtype: period[M]
+2025-08-24 12:48:01 [INFO]: months selected as val set are <PeriodArray>
+['2015-07', '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01',
+ '2016-02', '2016-03', '2016-04']
+Length: 10, dtype: period[M]
+2025-08-24 12:48:01 [INFO]: months selected as test set are <PeriodArray>
+['2016-05', '2016-06', '2016-07', '2016-08', '2016-09', '2016-10', '2016-11',
+ '2016-12', '2017-01', '2017-02']
+Length: 10, dtype: period[M]
+2025-08-24 12:48:02 [INFO]: Total sample number: 730
+2025-08-24 12:48:02 [INFO]: Training set size: 426 (58.36%)
+2025-08-24 12:48:02 [INFO]: Validation set size: 152 (20.82%)
+2025-08-24 12:48:02 [INFO]: Test set size: 152 (20.82%)
+2025-08-24 12:48:02 [INFO]: Number of steps: 48
+2025-08-24 12:48:02 [INFO]: Number of features: 132
+2025-08-24 12:48:02 [INFO]: Train set missing rate: 41.13%
+2025-08-24 12:48:02 [INFO]: Validating set missing rate: 40.51%
+2025-08-24 12:48:02 [INFO]: Test set missing rate: 40.77%
+✅ Dataset 'beijing_multisite_air_quality' with missing rate 0.4 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.4
+2025-08-24 12:48:02 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:3', 'cuda:4', 'cuda:5']
+2025-08-24 12:48:02 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=3), device(type='cuda', index=4), device(type='cuda', index=5)]
+2025-08-24 12:48:02 [INFO]: Model files will be saved to output/imputation/cuda/timellm/BERT/beijing_multisite_air_quality/epoch15/mr0.4_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+2025-08-24 12:48:02 [INFO]: Tensorboard file will be saved to output/imputation/cuda/timellm/BERT/beijing_multisite_air_quality/epoch15/mr0.4_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse/tensorboard
+2025-08-24 12:48:02 [INFO]: Using customized MAE as the training loss function.
+2025-08-24 12:48:02 [INFO]: Using customized MSE as the validation metric function.
+2025-08-24 12:48:04 [INFO]: Model placed on CUDA devices [3, 4, 5]
+2025-08-24 12:48:04 [INFO]: TimeLLM initialized with the given hyperparameters.
+ ├─ Total parameters: 96,909,120
+ ├─ Trainable parameters: 50,435,904
+ └─ Trainable ratio: 52.04%
+2025-08-24 12:48:19 [ERROR]: ❌ Exception: Caught OutOfMemoryError in replica 0 on device 3.
+Original Traceback (most recent call last):
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 96, in _worker
+    output = module(*input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/core.py", line 73, in forward
+    reconstruction = self.backbone(X, missing_mask)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/nn/modules/timellm/backbone.py", line 219, in forward
+    dec_out = self.llm_model(inputs_embeds=llama_enc_out).last_hidden_state
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 917, in forward
+    outputs = block(
+              ^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 404, in forward
+    attn_output, self_attn_weights = self.attn(
+                                     ^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 348, in forward
+    attn_output = attn_output.reshape(*attn_output.shape[:-2], -1).contiguous()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.02 GiB. GPU 3 has a total capacity of 23.58 GiB of which 627.75 MiB is free. Process 2794191 has 760.00 MiB memory in use. Including non-PyTorch memory, this process has 22.21 GiB memory in use. Of the allocated memory 20.82 GiB is allocated by PyTorch, and 1019.39 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+Traceback (most recent call last):
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/base.py", line 748, in _train_model
+    results = self.model(inputs, calc_criterion=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/data_parallel.py", line 193, in forward
+    outputs = self.parallel_apply(replicas, inputs, module_kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/data_parallel.py", line 212, in parallel_apply
+    return parallel_apply(
+           ^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 126, in parallel_apply
+    output.reraise()
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/_utils.py", line 715, in reraise
+    raise exception
+torch.OutOfMemoryError: Caught OutOfMemoryError in replica 0 on device 3.
+Original Traceback (most recent call last):
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 96, in _worker
+    output = module(*input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/core.py", line 73, in forward
+    reconstruction = self.backbone(X, missing_mask)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/nn/modules/timellm/backbone.py", line 219, in forward
+    dec_out = self.llm_model(inputs_embeds=llama_enc_out).last_hidden_state
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 917, in forward
+    outputs = block(
+              ^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 404, in forward
+    attn_output, self_attn_weights = self.attn(
+                                     ^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 348, in forward
+    attn_output = attn_output.reshape(*attn_output.shape[:-2], -1).contiguous()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.02 GiB. GPU 3 has a total capacity of 23.58 GiB of which 627.75 MiB is free. Process 2794191 has 760.00 MiB memory in use. Including non-PyTorch memory, this process has 22.21 GiB memory in use. Of the allocated memory 20.82 GiB is allocated by PyTorch, and 1019.39 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/23r8105_messou/lab/iPyPOTS/main.py", line 80, in <module>
+    main(args)
+  File "/home/23r8105_messou/lab/iPyPOTS/main.py", line 59, in main
+    mae, mse, rmse, mre = MODEL_PIPELINES[model_name](dataset, args)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pipeline/imputations/timellm.py", line 65, in train_and_evaluate_timellm
+    timellm.fit(
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/model.py", line 287, in fit
+    self._train_model(train_dataloader, val_dataloader)
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/base.py", line 825, in _train_model
+    raise RuntimeError(
+RuntimeError: Training got interrupted. Model was not trained. Please investigate the error printed above.
+srun: error: ai-gpgpu14: task 0: Exited with exit code 1
+❌ FAIL(1): beijing_multisite_air_quality | mr0.4_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+🔥 RUN: timellm | beijing_multisite_air_quality | mr0.5_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse (DEVICE=cuda:3 cuda:4 cuda:5, N_STEPS=48, N_FEATURES=36)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-24 12:48:28 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: timellm
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-24 12:48:28 [INFO]: You're using dataset beijing_multisite_air_quality, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/beijing_multisite_air_quality
+2025-08-24 12:48:28 [INFO]: Dataset beijing_multisite_air_quality has already been downloaded. Processing directly...
+2025-08-24 12:48:28 [INFO]: Dataset beijing_multisite_air_quality has already been cached. Loading from cache directly...
+2025-08-24 12:48:28 [INFO]: Loaded successfully!
+2025-08-24 12:48:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:28 [INFO]: Current dataframe shape: (35064, 18)
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/beijing_multisite_air_quality.py:60: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  current_df["date_time"] = pd.to_datetime(
+2025-08-24 12:48:28 [INFO]: There are total 12 stations, they are ['Aotizhongxin', 'Changping', 'Dingling', 'Dongsi', 'Guanyuan', 'Gucheng', 'Huairou', 'Nongzhanguan', 'Shunyi', 'Tiantan', 'Wanliu', 'Wanshouxigong']
+2025-08-24 12:48:28 [INFO]: Original df missing rate: 0.016
+2025-08-24 12:48:28 [INFO]: months selected as train set are <PeriodArray>
+['2013-03', '2013-04', '2013-05', '2013-06', '2013-07', '2013-08', '2013-09',
+ '2013-10', '2013-11', '2013-12', '2014-01', '2014-02', '2014-03', '2014-04',
+ '2014-05', '2014-06', '2014-07', '2014-08', '2014-09', '2014-10', '2014-11',
+ '2014-12', '2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06']
+Length: 28, dtype: period[M]
+2025-08-24 12:48:28 [INFO]: months selected as val set are <PeriodArray>
+['2015-07', '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01',
+ '2016-02', '2016-03', '2016-04']
+Length: 10, dtype: period[M]
+2025-08-24 12:48:28 [INFO]: months selected as test set are <PeriodArray>
+['2016-05', '2016-06', '2016-07', '2016-08', '2016-09', '2016-10', '2016-11',
+ '2016-12', '2017-01', '2017-02']
+Length: 10, dtype: period[M]
+2025-08-24 12:48:28 [INFO]: Total sample number: 730
+2025-08-24 12:48:28 [INFO]: Training set size: 426 (58.36%)
+2025-08-24 12:48:28 [INFO]: Validation set size: 152 (20.82%)
+2025-08-24 12:48:28 [INFO]: Test set size: 152 (20.82%)
+2025-08-24 12:48:28 [INFO]: Number of steps: 48
+2025-08-24 12:48:28 [INFO]: Number of features: 132
+2025-08-24 12:48:28 [INFO]: Train set missing rate: 50.93%
+2025-08-24 12:48:28 [INFO]: Validating set missing rate: 50.44%
+2025-08-24 12:48:28 [INFO]: Test set missing rate: 50.71%
+✅ Dataset 'beijing_multisite_air_quality' with missing rate 0.5 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.5
+2025-08-24 12:48:28 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:3', 'cuda:4', 'cuda:5']
+2025-08-24 12:48:28 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=3), device(type='cuda', index=4), device(type='cuda', index=5)]
+2025-08-24 12:48:29 [INFO]: Model files will be saved to output/imputation/cuda/timellm/BERT/beijing_multisite_air_quality/epoch15/mr0.5_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+2025-08-24 12:48:29 [INFO]: Tensorboard file will be saved to output/imputation/cuda/timellm/BERT/beijing_multisite_air_quality/epoch15/mr0.5_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse/tensorboard
+2025-08-24 12:48:29 [INFO]: Using customized MAE as the training loss function.
+2025-08-24 12:48:29 [INFO]: Using customized MSE as the validation metric function.
+2025-08-24 12:48:30 [INFO]: Model placed on CUDA devices [3, 4, 5]
+2025-08-24 12:48:30 [INFO]: TimeLLM initialized with the given hyperparameters.
+ ├─ Total parameters: 96,909,120
+ ├─ Trainable parameters: 50,435,904
+ └─ Trainable ratio: 52.04%
+2025-08-24 12:48:45 [ERROR]: ❌ Exception: Caught OutOfMemoryError in replica 0 on device 3.
+Original Traceback (most recent call last):
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 96, in _worker
+    output = module(*input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/core.py", line 73, in forward
+    reconstruction = self.backbone(X, missing_mask)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/nn/modules/timellm/backbone.py", line 219, in forward
+    dec_out = self.llm_model(inputs_embeds=llama_enc_out).last_hidden_state
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 917, in forward
+    outputs = block(
+              ^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 404, in forward
+    attn_output, self_attn_weights = self.attn(
+                                     ^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 348, in forward
+    attn_output = attn_output.reshape(*attn_output.shape[:-2], -1).contiguous()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.02 GiB. GPU 3 has a total capacity of 23.58 GiB of which 765.75 MiB is free. Process 2794191 has 760.00 MiB memory in use. Including non-PyTorch memory, this process has 22.08 GiB memory in use. Of the allocated memory 20.71 GiB is allocated by PyTorch, and 1002.91 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+Traceback (most recent call last):
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/base.py", line 748, in _train_model
+    results = self.model(inputs, calc_criterion=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/data_parallel.py", line 193, in forward
+    outputs = self.parallel_apply(replicas, inputs, module_kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/data_parallel.py", line 212, in parallel_apply
+    return parallel_apply(
+           ^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 126, in parallel_apply
+    output.reraise()
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/_utils.py", line 715, in reraise
+    raise exception
+torch.OutOfMemoryError: Caught OutOfMemoryError in replica 0 on device 3.
+Original Traceback (most recent call last):
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 96, in _worker
+    output = module(*input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/core.py", line 73, in forward
+    reconstruction = self.backbone(X, missing_mask)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/nn/modules/timellm/backbone.py", line 219, in forward
+    dec_out = self.llm_model(inputs_embeds=llama_enc_out).last_hidden_state
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 917, in forward
+    outputs = block(
+              ^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 404, in forward
+    attn_output, self_attn_weights = self.attn(
+                                     ^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 348, in forward
+    attn_output = attn_output.reshape(*attn_output.shape[:-2], -1).contiguous()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.02 GiB. GPU 3 has a total capacity of 23.58 GiB of which 765.75 MiB is free. Process 2794191 has 760.00 MiB memory in use. Including non-PyTorch memory, this process has 22.08 GiB memory in use. Of the allocated memory 20.71 GiB is allocated by PyTorch, and 1002.91 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/23r8105_messou/lab/iPyPOTS/main.py", line 80, in <module>
+    main(args)
+  File "/home/23r8105_messou/lab/iPyPOTS/main.py", line 59, in main
+    mae, mse, rmse, mre = MODEL_PIPELINES[model_name](dataset, args)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pipeline/imputations/timellm.py", line 65, in train_and_evaluate_timellm
+    timellm.fit(
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/model.py", line 287, in fit
+    self._train_model(train_dataloader, val_dataloader)
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/base.py", line 825, in _train_model
+    raise RuntimeError(
+RuntimeError: Training got interrupted. Model was not trained. Please investigate the error printed above.
+srun: error: ai-gpgpu14: task 0: Exited with exit code 1
+❌ FAIL(1): beijing_multisite_air_quality | mr0.5_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+🔥 RUN: timellm | pems_traffic | mr0.1_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse (DEVICE=cuda:3 cuda:4 cuda:5, N_STEPS=96, N_FEATURES=228)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+2025-08-24 12:48:53 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+🚀 Running imputation pipeline for model: timellm
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-24 12:48:53 [INFO]: You're using dataset pems_traffic, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/pems_traffic
+2025-08-24 12:48:53 [INFO]: Dataset pems_traffic has already been downloaded. Processing directly...
+2025-08-24 12:48:53 [INFO]: Dataset pems_traffic has already been cached. Loading from cache directly...
+2025-08-24 12:48:53 [INFO]: Loaded successfully!
+2025-08-24 12:48:53 [INFO]: months selected as train set are <PeriodArray>
+['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06', '2015-07',
+ '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01', '2016-02',
+ '2016-03']
+Length: 15, dtype: period[M]
+2025-08-24 12:48:53 [INFO]: months selected as val set are <PeriodArray>
+['2016-04', '2016-05', '2016-06', '2016-07']
+Length: 4, dtype: period[M]
+2025-08-24 12:48:53 [INFO]: months selected as test set are <PeriodArray>
+['2016-08', '2016-09', '2016-10', '2016-11', '2016-12']
+Length: 5, dtype: period[M]
+2025-08-24 12:48:54 [INFO]: Total sample number: 182
+2025-08-24 12:48:54 [INFO]: Training set size: 114 (62.64%)
+2025-08-24 12:48:54 [INFO]: Validation set size: 30 (16.48%)
+2025-08-24 12:48:54 [INFO]: Test set size: 38 (20.88%)
+2025-08-24 12:48:54 [INFO]: Number of steps: 96
+2025-08-24 12:48:54 [INFO]: Number of features: 862
+✅ Dataset 'pems_traffic' with missing rate 0.1 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.1
+2025-08-24 12:48:54 [INFO]: Train set missing rate: 9.98%
+2025-08-24 12:48:54 [INFO]: Validating set missing rate: 10.03%
+2025-08-24 12:48:54 [INFO]: Test set missing rate: 10.00%
+2025-08-24 12:48:54 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:3', 'cuda:4', 'cuda:5']
+2025-08-24 12:48:54 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=3), device(type='cuda', index=4), device(type='cuda', index=5)]
+2025-08-24 12:48:54 [INFO]: Model files will be saved to output/imputation/cuda/timellm/BERT/pems_traffic/epoch15/mr0.1_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+2025-08-24 12:48:54 [INFO]: Tensorboard file will be saved to output/imputation/cuda/timellm/BERT/pems_traffic/epoch15/mr0.1_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse/tensorboard
+2025-08-24 12:48:54 [INFO]: Using customized MAE as the training loss function.
+2025-08-24 12:48:54 [INFO]: Using customized MSE as the validation metric function.
+2025-08-24 12:48:56 [INFO]: Model placed on CUDA devices [3, 4, 5]
+2025-08-24 12:48:56 [INFO]: TimeLLM initialized with the given hyperparameters.
+ ├─ Total parameters: 96,982,896
+ ├─ Trainable parameters: 50,509,680
+ └─ Trainable ratio: 52.08%
+2025-08-24 12:51:40 [ERROR]: ❌ Exception: Caught OutOfMemoryError in replica 0 on device 3.
+Original Traceback (most recent call last):
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 96, in _worker
+    output = module(*input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/core.py", line 73, in forward
+    reconstruction = self.backbone(X, missing_mask)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/nn/modules/timellm/backbone.py", line 218, in forward
+    llama_enc_out = torch.cat([prompt_embeddings, enc_out], dim=1)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 10.15 GiB. GPU 3 has a total capacity of 23.58 GiB of which 9.81 GiB is free. Process 2794191 has 760.00 MiB memory in use. Including non-PyTorch memory, this process has 13.02 GiB memory in use. Of the allocated memory 11.96 GiB is allocated by PyTorch, and 673.04 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+Traceback (most recent call last):
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/base.py", line 748, in _train_model
+    results = self.model(inputs, calc_criterion=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/data_parallel.py", line 193, in forward
+    outputs = self.parallel_apply(replicas, inputs, module_kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/data_parallel.py", line 212, in parallel_apply
+    return parallel_apply(
+           ^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 126, in parallel_apply
+    output.reraise()
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/_utils.py", line 715, in reraise
+    raise exception
+torch.OutOfMemoryError: Caught OutOfMemoryError in replica 0 on device 3.
+Original Traceback (most recent call last):
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 96, in _worker
+    output = module(*input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/core.py", line 73, in forward
+    reconstruction = self.backbone(X, missing_mask)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/nn/modules/timellm/backbone.py", line 218, in forward
+    llama_enc_out = torch.cat([prompt_embeddings, enc_out], dim=1)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 10.15 GiB. GPU 3 has a total capacity of 23.58 GiB of which 9.81 GiB is free. Process 2794191 has 760.00 MiB memory in use. Including non-PyTorch memory, this process has 13.02 GiB memory in use. Of the allocated memory 11.96 GiB is allocated by PyTorch, and 673.04 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/23r8105_messou/lab/iPyPOTS/main.py", line 80, in <module>
+    main(args)
+  File "/home/23r8105_messou/lab/iPyPOTS/main.py", line 59, in main
+    mae, mse, rmse, mre = MODEL_PIPELINES[model_name](dataset, args)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pipeline/imputations/timellm.py", line 65, in train_and_evaluate_timellm
+    timellm.fit(
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/model.py", line 287, in fit
+    self._train_model(train_dataloader, val_dataloader)
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/base.py", line 825, in _train_model
+    raise RuntimeError(
+RuntimeError: Training got interrupted. Model was not trained. Please investigate the error printed above.
+srun: error: ai-gpgpu14: task 0: Exited with exit code 1
+❌ FAIL(1): pems_traffic | mr0.1_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+🔥 RUN: timellm | pems_traffic | mr0.2_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse (DEVICE=cuda:3 cuda:4 cuda:5, N_STEPS=96, N_FEATURES=228)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+🚀 Running imputation pipeline for model: timellm
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-24 12:52:01 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+2025-08-24 12:52:01 [INFO]: You're using dataset pems_traffic, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/pems_traffic
+2025-08-24 12:52:01 [INFO]: Dataset pems_traffic has already been downloaded. Processing directly...
+2025-08-24 12:52:01 [INFO]: Dataset pems_traffic has already been cached. Loading from cache directly...
+2025-08-24 12:52:01 [INFO]: Loaded successfully!
+2025-08-24 12:52:01 [INFO]: months selected as train set are <PeriodArray>
+['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06', '2015-07',
+ '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01', '2016-02',
+ '2016-03']
+Length: 15, dtype: period[M]
+2025-08-24 12:52:01 [INFO]: months selected as val set are <PeriodArray>
+['2016-04', '2016-05', '2016-06', '2016-07']
+Length: 4, dtype: period[M]
+2025-08-24 12:52:01 [INFO]: months selected as test set are <PeriodArray>
+['2016-08', '2016-09', '2016-10', '2016-11', '2016-12']
+Length: 5, dtype: period[M]
+2025-08-24 12:52:02 [INFO]: Total sample number: 182
+2025-08-24 12:52:02 [INFO]: Training set size: 114 (62.64%)
+2025-08-24 12:52:02 [INFO]: Validation set size: 30 (16.48%)
+2025-08-24 12:52:02 [INFO]: Test set size: 38 (20.88%)
+2025-08-24 12:52:02 [INFO]: Number of steps: 96
+2025-08-24 12:52:02 [INFO]: Number of features: 862
+2025-08-24 12:52:02 [INFO]: Train set missing rate: 20.00%
+2025-08-24 12:52:02 [INFO]: Validating set missing rate: 20.00%
+2025-08-24 12:52:02 [INFO]: Test set missing rate: 20.01%
+✅ Dataset 'pems_traffic' with missing rate 0.2 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.2
+2025-08-24 12:52:02 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:3', 'cuda:4', 'cuda:5']
+2025-08-24 12:52:02 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=3), device(type='cuda', index=4), device(type='cuda', index=5)]
+2025-08-24 12:52:03 [INFO]: Model files will be saved to output/imputation/cuda/timellm/BERT/pems_traffic/epoch15/mr0.2_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+2025-08-24 12:52:03 [INFO]: Tensorboard file will be saved to output/imputation/cuda/timellm/BERT/pems_traffic/epoch15/mr0.2_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse/tensorboard
+2025-08-24 12:52:03 [INFO]: Using customized MAE as the training loss function.
+2025-08-24 12:52:03 [INFO]: Using customized MSE as the validation metric function.
+2025-08-24 12:52:05 [INFO]: Model placed on CUDA devices [3, 4, 5]
+2025-08-24 12:52:05 [INFO]: TimeLLM initialized with the given hyperparameters.
+ ├─ Total parameters: 96,982,896
+ ├─ Trainable parameters: 50,509,680
+ └─ Trainable ratio: 52.08%
+2025-08-24 12:54:38 [ERROR]: ❌ Exception: Caught OutOfMemoryError in replica 0 on device 3.
+Original Traceback (most recent call last):
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 96, in _worker
+    output = module(*input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/core.py", line 73, in forward
+    reconstruction = self.backbone(X, missing_mask)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/nn/modules/timellm/backbone.py", line 218, in forward
+    llama_enc_out = torch.cat([prompt_embeddings, enc_out], dim=1)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 10.17 GiB. GPU 3 has a total capacity of 23.58 GiB of which 9.78 GiB is free. Process 2794191 has 760.00 MiB memory in use. Including non-PyTorch memory, this process has 13.04 GiB memory in use. Of the allocated memory 11.99 GiB is allocated by PyTorch, and 673.26 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+Traceback (most recent call last):
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/base.py", line 748, in _train_model
+    results = self.model(inputs, calc_criterion=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/data_parallel.py", line 193, in forward
+    outputs = self.parallel_apply(replicas, inputs, module_kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/data_parallel.py", line 212, in parallel_apply
+    return parallel_apply(
+           ^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 126, in parallel_apply
+    output.reraise()
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/_utils.py", line 715, in reraise
+    raise exception
+torch.OutOfMemoryError: Caught OutOfMemoryError in replica 0 on device 3.
+Original Traceback (most recent call last):
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 96, in _worker
+    output = module(*input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/core.py", line 73, in forward
+    reconstruction = self.backbone(X, missing_mask)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/nn/modules/timellm/backbone.py", line 218, in forward
+    llama_enc_out = torch.cat([prompt_embeddings, enc_out], dim=1)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 10.17 GiB. GPU 3 has a total capacity of 23.58 GiB of which 9.78 GiB is free. Process 2794191 has 760.00 MiB memory in use. Including non-PyTorch memory, this process has 13.04 GiB memory in use. Of the allocated memory 11.99 GiB is allocated by PyTorch, and 673.26 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/23r8105_messou/lab/iPyPOTS/main.py", line 80, in <module>
+    main(args)
+  File "/home/23r8105_messou/lab/iPyPOTS/main.py", line 59, in main
+    mae, mse, rmse, mre = MODEL_PIPELINES[model_name](dataset, args)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pipeline/imputations/timellm.py", line 65, in train_and_evaluate_timellm
+    timellm.fit(
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/model.py", line 287, in fit
+    self._train_model(train_dataloader, val_dataloader)
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/base.py", line 825, in _train_model
+    raise RuntimeError(
+RuntimeError: Training got interrupted. Model was not trained. Please investigate the error printed above.
+srun: error: ai-gpgpu14: task 0: Exited with exit code 1
+❌ FAIL(1): pems_traffic | mr0.2_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+🔥 RUN: timellm | pems_traffic | mr0.3_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse (DEVICE=cuda:3 cuda:4 cuda:5, N_STEPS=96, N_FEATURES=228)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+🚀 Running imputation pipeline for model: timellm
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-24 12:54:49 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+2025-08-24 12:54:49 [INFO]: You're using dataset pems_traffic, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/pems_traffic
+2025-08-24 12:54:49 [INFO]: Dataset pems_traffic has already been downloaded. Processing directly...
+2025-08-24 12:54:49 [INFO]: Dataset pems_traffic has already been cached. Loading from cache directly...
+2025-08-24 12:54:49 [INFO]: Loaded successfully!
+2025-08-24 12:54:49 [INFO]: months selected as train set are <PeriodArray>
+['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06', '2015-07',
+ '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01', '2016-02',
+ '2016-03']
+Length: 15, dtype: period[M]
+2025-08-24 12:54:49 [INFO]: months selected as val set are <PeriodArray>
+['2016-04', '2016-05', '2016-06', '2016-07']
+Length: 4, dtype: period[M]
+2025-08-24 12:54:49 [INFO]: months selected as test set are <PeriodArray>
+['2016-08', '2016-09', '2016-10', '2016-11', '2016-12']
+Length: 5, dtype: period[M]
+2025-08-24 12:54:50 [INFO]: Total sample number: 182
+2025-08-24 12:54:50 [INFO]: Training set size: 114 (62.64%)
+2025-08-24 12:54:50 [INFO]: Validation set size: 30 (16.48%)
+2025-08-24 12:54:50 [INFO]: Test set size: 38 (20.88%)
+2025-08-24 12:54:50 [INFO]: Number of steps: 96
+2025-08-24 12:54:50 [INFO]: Number of features: 862
+2025-08-24 12:54:50 [INFO]: Train set missing rate: 30.01%
+2025-08-24 12:54:50 [INFO]: Validating set missing rate: 29.97%
+2025-08-24 12:54:50 [INFO]: Test set missing rate: 30.02%
+✅ Dataset 'pems_traffic' with missing rate 0.3 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.3
+2025-08-24 12:54:50 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:3', 'cuda:4', 'cuda:5']
+2025-08-24 12:54:50 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=3), device(type='cuda', index=4), device(type='cuda', index=5)]
+2025-08-24 12:54:50 [INFO]: Model files will be saved to output/imputation/cuda/timellm/BERT/pems_traffic/epoch15/mr0.3_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+2025-08-24 12:54:50 [INFO]: Tensorboard file will be saved to output/imputation/cuda/timellm/BERT/pems_traffic/epoch15/mr0.3_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse/tensorboard
+2025-08-24 12:54:50 [INFO]: Using customized MAE as the training loss function.
+2025-08-24 12:54:50 [INFO]: Using customized MSE as the validation metric function.
+2025-08-24 12:54:52 [INFO]: Model placed on CUDA devices [3, 4, 5]
+2025-08-24 12:54:52 [INFO]: TimeLLM initialized with the given hyperparameters.
+ ├─ Total parameters: 96,982,896
+ ├─ Trainable parameters: 50,509,680
+ └─ Trainable ratio: 52.08%
+2025-08-24 12:57:21 [ERROR]: ❌ Exception: Caught OutOfMemoryError in replica 0 on device 3.
+Original Traceback (most recent call last):
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 96, in _worker
+    output = module(*input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/core.py", line 73, in forward
+    reconstruction = self.backbone(X, missing_mask)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/nn/modules/timellm/backbone.py", line 218, in forward
+    llama_enc_out = torch.cat([prompt_embeddings, enc_out], dim=1)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 10.15 GiB. GPU 3 has a total capacity of 23.58 GiB of which 9.81 GiB is free. Process 2794191 has 760.00 MiB memory in use. Including non-PyTorch memory, this process has 13.02 GiB memory in use. Of the allocated memory 11.96 GiB is allocated by PyTorch, and 673.04 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+Traceback (most recent call last):
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/base.py", line 748, in _train_model
+    results = self.model(inputs, calc_criterion=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/data_parallel.py", line 193, in forward
+    outputs = self.parallel_apply(replicas, inputs, module_kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/data_parallel.py", line 212, in parallel_apply
+    return parallel_apply(
+           ^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 126, in parallel_apply
+    output.reraise()
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/_utils.py", line 715, in reraise
+    raise exception
+torch.OutOfMemoryError: Caught OutOfMemoryError in replica 0 on device 3.
+Original Traceback (most recent call last):
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 96, in _worker
+    output = module(*input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/core.py", line 73, in forward
+    reconstruction = self.backbone(X, missing_mask)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/nn/modules/timellm/backbone.py", line 218, in forward
+    llama_enc_out = torch.cat([prompt_embeddings, enc_out], dim=1)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 10.15 GiB. GPU 3 has a total capacity of 23.58 GiB of which 9.81 GiB is free. Process 2794191 has 760.00 MiB memory in use. Including non-PyTorch memory, this process has 13.02 GiB memory in use. Of the allocated memory 11.96 GiB is allocated by PyTorch, and 673.04 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/23r8105_messou/lab/iPyPOTS/main.py", line 80, in <module>
+    main(args)
+  File "/home/23r8105_messou/lab/iPyPOTS/main.py", line 59, in main
+    mae, mse, rmse, mre = MODEL_PIPELINES[model_name](dataset, args)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pipeline/imputations/timellm.py", line 65, in train_and_evaluate_timellm
+    timellm.fit(
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/model.py", line 287, in fit
+    self._train_model(train_dataloader, val_dataloader)
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/base.py", line 825, in _train_model
+    raise RuntimeError(
+RuntimeError: Training got interrupted. Model was not trained. Please investigate the error printed above.
+srun: error: ai-gpgpu14: task 0: Exited with exit code 1
+❌ FAIL(1): pems_traffic | mr0.3_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+🔥 RUN: timellm | pems_traffic | mr0.4_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse (DEVICE=cuda:3 cuda:4 cuda:5, N_STEPS=96, N_FEATURES=228)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+🚀 Running imputation pipeline for model: timellm
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-24 12:57:41 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+2025-08-24 12:57:41 [INFO]: You're using dataset pems_traffic, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/pems_traffic
+2025-08-24 12:57:41 [INFO]: Dataset pems_traffic has already been downloaded. Processing directly...
+2025-08-24 12:57:41 [INFO]: Dataset pems_traffic has already been cached. Loading from cache directly...
+2025-08-24 12:57:41 [INFO]: Loaded successfully!
+2025-08-24 12:57:41 [INFO]: months selected as train set are <PeriodArray>
+['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06', '2015-07',
+ '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01', '2016-02',
+ '2016-03']
+Length: 15, dtype: period[M]
+2025-08-24 12:57:41 [INFO]: months selected as val set are <PeriodArray>
+['2016-04', '2016-05', '2016-06', '2016-07']
+Length: 4, dtype: period[M]
+2025-08-24 12:57:41 [INFO]: months selected as test set are <PeriodArray>
+['2016-08', '2016-09', '2016-10', '2016-11', '2016-12']
+Length: 5, dtype: period[M]
+2025-08-24 12:57:41 [INFO]: Total sample number: 182
+2025-08-24 12:57:41 [INFO]: Training set size: 114 (62.64%)
+2025-08-24 12:57:41 [INFO]: Validation set size: 30 (16.48%)
+2025-08-24 12:57:41 [INFO]: Test set size: 38 (20.88%)
+2025-08-24 12:57:41 [INFO]: Number of steps: 96
+2025-08-24 12:57:41 [INFO]: Number of features: 862
+2025-08-24 12:57:41 [INFO]: Train set missing rate: 40.01%
+2025-08-24 12:57:41 [INFO]: Validating set missing rate: 39.94%
+2025-08-24 12:57:41 [INFO]: Test set missing rate: 40.04%
+✅ Dataset 'pems_traffic' with missing rate 0.4 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.4
+2025-08-24 12:57:41 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:3', 'cuda:4', 'cuda:5']
+2025-08-24 12:57:41 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=3), device(type='cuda', index=4), device(type='cuda', index=5)]
+2025-08-24 12:57:42 [INFO]: Model files will be saved to output/imputation/cuda/timellm/BERT/pems_traffic/epoch15/mr0.4_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+2025-08-24 12:57:42 [INFO]: Tensorboard file will be saved to output/imputation/cuda/timellm/BERT/pems_traffic/epoch15/mr0.4_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse/tensorboard
+2025-08-24 12:57:42 [INFO]: Using customized MAE as the training loss function.
+2025-08-24 12:57:42 [INFO]: Using customized MSE as the validation metric function.
+2025-08-24 12:57:43 [INFO]: Model placed on CUDA devices [3, 4, 5]
+2025-08-24 12:57:43 [INFO]: TimeLLM initialized with the given hyperparameters.
+ ├─ Total parameters: 96,982,896
+ ├─ Trainable parameters: 50,509,680
+ └─ Trainable ratio: 52.08%

@@ -28,7 +28,6 @@ class _LLMSAITS(ModelCore):
         n_layers: int,
         dropout: float,
         prompt_template: str,
-        device: str,
         training_loss: Criterion,
         validation_metric: Criterion,
         train_gpt_mlp: bool = False,
@@ -64,7 +63,7 @@ class _LLMSAITS(ModelCore):
             profiling_path=profiling_path,
             profiling_prefix=profiling_prefix,
             use_hann_window=use_hann_window,
-        ).to(device)
+        )
 
     def forward(
         self, inputs: dict, calc_criterion: bool = False, diagonal_attention_mask: bool = True  # ✅ Add this

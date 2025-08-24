@@ -88,7 +88,6 @@ class LLMSAITS(BaseNNImputer):
             n_layers=n_layers,
             dropout=dropout,
             prompt_template=prompt_template,
-            device=self.device,
             training_loss=self.training_loss,
             validation_metric=self.validation_metric,
             train_gpt_mlp=train_gpt_mlp,

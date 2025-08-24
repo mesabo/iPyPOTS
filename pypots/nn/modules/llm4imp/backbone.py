@@ -3,9 +3,9 @@
 
 import torch
 import torch.nn as nn
-from transformers import AutoTokenizer, AutoModel, GPT2Model
+from transformers import AutoTokenizer, AutoModel
 from peft import get_peft_model, LoraConfig, TaskType
-import os
+
 from ..patchtst.layers import PatchEmbedding, FlattenHead
 from .layers import ReprogrammingLayer
 from ..revin import RevIN
@@ -33,12 +33,13 @@ class BackboneLLM4IMP(nn.Module):
         use_hann_window: bool = False,
         llm_model_type: str = "gpt2",
         n_layers: int = 2,
-        num_soft_prompt_tokens: int = 30,
-        use_prompt: bool = True,      
+        num_soft_prompt_tokens: int = 500,
+        use_prompt: bool = True,
         use_reprogramming: bool = True,
     ):
         super().__init__()
 
+        # ---------------- core hparams ----------------
         self.n_steps = n_steps
         self.n_features = n_features
         self.patch_size = patch_size
@@ -60,32 +61,36 @@ class BackboneLLM4IMP(nn.Module):
         self.use_prompt = use_prompt
         self.use_reprogramming = use_reprogramming
 
+        # Track whether we've moved submodules to the input device
+        self._device_bound = False
+
+        # ---------------- tokenizer & backbone ----------------
         model_name = "distilgpt2" if llm_model_type == "distilgpt2" else "openai-community/gpt2"
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.tokenizer.pad_token = self.tokenizer.eos_token
         self.llm = AutoModel.from_pretrained(model_name, output_hidden_states=True)
+        self.llm.eval()
 
-        for param in self.llm.parameters():
-            param.requires_grad = False
+        # Freeze all LLM params by default
+        for p in self.llm.parameters():
+            p.requires_grad = False
 
+        # Unfreeze last n_layers blocks if requested
         blocks = getattr(self.llm, "transformer", self.llm).h
         for i, block in enumerate(reversed(blocks)):
             if i < n_layers:
-                for name, param in block.named_parameters():
+                for _, param in block.named_parameters():
                     param.requires_grad = True
 
+        # Optional LoRA
         if self.use_lora:
-            print("LoRA is compiling")
             lora_config = LoraConfig(
-                r=8,
-                lora_alpha=32,
-                target_modules=["c_attn", "c_proj", "c_fc"],
-                lora_dropout=0.05,
-                bias="none",
-                task_type=TaskType.FEATURE_EXTRACTION,
+                r=8, lora_alpha=32, target_modules=["c_attn", "c_proj", "c_fc"], lora_dropout=0.05,
+                bias="none", task_type=TaskType.FEATURE_EXTRACTION
             )
             self.llm = get_peft_model(self.llm, lora_config)
 
+        # Optional soft prompt
         if num_soft_prompt_tokens > 0:
             self.soft_prompt = nn.Parameter(
                 torch.randn(num_soft_prompt_tokens, self.llm.config.n_embd)
@@ -93,6 +98,7 @@ class BackboneLLM4IMP(nn.Module):
         else:
             self.soft_prompt = None
 
+        # ---------------- numeric path ----------------
         self.patch_embedding = PatchEmbedding(
             d_model=d_model,
             patch_size=patch_size,
@@ -102,6 +108,7 @@ class BackboneLLM4IMP(nn.Module):
             positional_embedding=True,
         )
 
+        # Cross-domain attention reprogramming
         self.reprogramming = ReprogrammingLayer(
             d_model=d_model,
             n_heads=n_heads,
@@ -109,43 +116,71 @@ class BackboneLLM4IMP(nn.Module):
             d_llm=d_llm,
         )
 
-        self.prompt_proj = nn.Linear(self.llm.config.n_embd, d_model)
-        self.reprogramming_proj = nn.Linear(d_model, d_llm)  # used if reprogramming is disabled
+        # PROJECTION FIX:
+        # Project LLM token embeddings (n_embd) → d_llm for use as K/V in the reprogramming layer
+        self.prompt_to_llm = nn.Linear(self.llm.config.n_embd, d_llm)
+
+        # Used only when reprogramming is disabled: project numeric features → d_llm
+        self.reprogramming_proj = nn.Linear(d_model, d_llm)
+
         self.revin = RevIN(n_features=n_features, affine=False)
 
         self.output_head = None
         self.output_head_dropout = dropout
 
+    # --- util: ensure submodules are on the same device as inputs (first call only) ---
+    def _bind_to_input_device(self, x: torch.Tensor):
+        if self._device_bound:
+            return
+        dev = x.device
+        # NOTE: .to(dev) will move parameters & buffers; DataParallel wrapping is upstream in the trainer
+        self.patch_embedding.to(dev)
+        self.reprogramming.to(dev)
+        self.prompt_to_llm.to(dev)
+        self.reprogramming_proj.to(dev)
+        self.revin.to(dev)
+        if self.output_head is not None:
+            self.output_head.to(dev)
+        # move LLM too
+        self.llm.to(dev)
+        self._device_bound = True
+
+    # ---------------- prompt builder (device-safe) ----------------
     def build_prompts(self, X: torch.Tensor, missing_mask: torch.Tensor) -> torch.Tensor:
+        """
+        Returns LLM input embeddings for B prompts: [B, L_prompt, n_embd],
+        on the SAME device as X (no CPU detours).
+        """
+        B, T, D = X.shape
+
         if not self.use_prompt:
-            B = X.size(0)
-            L = self.num_soft_prompt_tokens
+            L = self.num_soft_prompt_tokens if self.num_soft_prompt_tokens > 0 else 1
             E = self.llm.config.n_embd
             return torch.zeros(B, L, E, device=X.device)
 
-        assert X.dim() == 3, f"Expected [B, T, D], got {X.shape}"
-        B, T, D = X.shape
-
+        # If soft prompt exists, just tile it (already a Parameter and will be on correct device)
         if self.soft_prompt is not None:
             return self.soft_prompt.unsqueeze(0).expand(B, -1, -1)
 
         prompts = []
+        # All ops stay on X.device (no .cpu())
         for b in range(B):
-            x_sample = X[b].cpu()
-            mask_sample = missing_mask[b].cpu()
+            x_sample = X[b]           # [T, D]
+            mask_sample = missing_mask[b]
+
             mean = x_sample.mean(dim=0, keepdim=True)
             std = x_sample.std(dim=0, keepdim=True) + 1e-6
             x_norm = (x_sample - mean) / std
 
             if self.use_hann_window:
-                window = torch.hann_window(T).unsqueeze(1).to(x_norm.device)
+                window = torch.hann_window(T, device=X.device).unsqueeze(1)
                 x_windowed = x_norm * window
             else:
                 x_windowed = x_norm
 
             var_per_dim = x_sample.var(dim=0)
             top_dims = torch.topk(var_per_dim, k=min(5, D)).indices
-            x_top = x_windowed[:, top_dims]
+            x_top = x_windowed[:, top_dims]  # [T, d_top]
 
             fft = torch.fft.rfft(x_top, dim=0)
             power = fft * torch.conj(fft)
@@ -159,8 +194,8 @@ class BackboneLLM4IMP(nn.Module):
             trend = torch.sum(x_sample[1:] - x_sample[:-1]).item()
             trend_desc = "upward" if trend > 0 else "downward"
 
-            miss_idx_flat = (missing_mask[b] == 0).nonzero(as_tuple=False)
-            miss_idx_str = ", ".join([f"({t},{d})" for t, d in miss_idx_flat.tolist()])
+            miss_idx_flat = (mask_sample == 0).nonzero(as_tuple=False).tolist()
+            miss_idx_str = ", ".join([f"({t},{d})" for t, d in miss_idx_flat])
 
             prompt = (
                 f"<|start_prompt|>Task: {self.prompt_template} "
@@ -173,10 +208,13 @@ class BackboneLLM4IMP(nn.Module):
             )
             prompts.append(prompt)
 
-        tokenized = self.tokenizer(prompts, return_tensors="pt", padding=True, truncation=True, max_length=512)
-        embeds = self.llm.get_input_embeddings()(tokenized.input_ids.to(X.device))
+        # Tokenize on CPU (OK), then move IDs to X.device for embedding lookup on-GPU
+        tok = self.tokenizer(prompts, return_tensors="pt", padding=True, truncation=True, max_length=512)
+        input_ids = tok.input_ids.to(X.device)
+        embeds = self.llm.get_input_embeddings()(input_ids)  # [B, L_prompt, n_embd] on X.device
         return embeds
 
+    # ---------------- public forward ----------------
     def forward(self, X, missing_mask):
         if self.enable_profiling:
             result_container = {}
@@ -186,39 +224,47 @@ class BackboneLLM4IMP(nn.Module):
                 result_container["output"] = out
                 return out
 
-            profiling_result = measure_runtime_memory(forward_wrapper, X, missing_mask,
-                                                      save_path=self.profiling_path,
-                                                      prefix=self.profiling_prefix)
+            profiling_result = measure_runtime_memory(
+                forward_wrapper, X, missing_mask,
+                save_path=self.profiling_path, prefix=self.profiling_prefix
+            )
             self._last_profiling_result = profiling_result
             return result_container["output"]
         else:
             return self._forward_internal(X, missing_mask)
 
+    # ---------------- internal forward (device-safe) ----------------
     def _forward_internal(self, X, missing_mask):
-        #print(f"USE REPROGRAMMING: {self.use_reprogramming}  |  USE PROMPT: {self.use_prompt}")
-        X = self.revin(X, mode="norm")
+        # Lazily move all submodules to the first input's device once
+        self._bind_to_input_device(X)
+
+        # RevIN norm
+        X = self.revin(X, mode="norm")  # [B, T, D]
         B, T, D = X.shape
 
-        llm_embeds = self.build_prompts(X, missing_mask)
-        llm_embeds = llm_embeds.unsqueeze(1).expand(-1, D, -1, -1)
-        prompts_proj = self.prompt_proj(llm_embeds)
+        # Build prompts on the same device as X
+        llm_embeds = self.build_prompts(X, missing_mask)  # [B, Lp, n_embd] @ X.device
+        # Expand per-feature (still on-device)
+        llm_embeds = llm_embeds.unsqueeze(1).expand(-1, D, -1, -1)  # [B, D, Lp, n_embd]
 
-        X = X.permute(0, 2, 1).contiguous()
-        X = X.view(B * D, 1, T)
-        X = self.patch_embedding(X)
-        P = X.shape[1]
-        X = X.view(B, D, P, self.d_model)
+        # Numeric path → patch tokens
+        Xn = X.permute(0, 2, 1).contiguous()  # [B, D, T]
+        Xn = Xn.view(B * D, 1, T)            # [B*D, 1, T]
+        Xn = self.patch_embedding(Xn)        # [B*D, P, d_model]
+        P = Xn.shape[1]
+        Xn = Xn.view(B, D, P, self.d_model)  # [B, D, P, d_model]
 
         if self.use_reprogramming:
-            reprogrammed = self.reprogramming(
-                X.flatten(0, 1),
-                llm_embeds.flatten(0, 1),
-                llm_embeds.flatten(0, 1)
-            )
+            # Project LLM embeddings to d_llm for KV — FIX
+            kv = self.prompt_to_llm(llm_embeds.flatten(0, 1))  # [(B*D), Lp, d_llm]
+            q = Xn.flatten(0, 1)                               # [(B*D), P, d_model]
+            reprogrammed = self.reprogramming(q, kv, kv)       # [(B*D), P, d_llm]
         else:
-            reprogrammed = self.reprogramming_proj(X.flatten(0, 1))
+            # No cross-attn: map numeric d_model → d_llm
+            reprogrammed = self.reprogramming_proj(Xn.flatten(0, 1))  # [(B*D), P, d_llm]
 
-        input_repr = reprogrammed.view(B, D, self.d_llm, P).permute(0, 1, 3, 2).contiguous()
+        input_repr = reprogrammed.view(B, D, P, self.d_llm).permute(0, 1, 2, 3).contiguous()
+        # FlattenHead expects [B, D, P, d_llm] → outputs [B, D, n_steps]
 
         if self.output_head is None:
             self.output_head = FlattenHead(
@@ -226,9 +272,12 @@ class BackboneLLM4IMP(nn.Module):
                 d_output=self.n_steps,
                 n_features=self.n_features,
                 head_dropout=self.output_head_dropout,
-            )
+            ).to(X.device)
 
-        output = self.output_head(input_repr)
-        output = output.permute(0, 2, 1).contiguous()
+        output = self.output_head(input_repr)  # [B, D, n_steps]
+        output = output.permute(0, 2, 1).contiguous()  # [B, n_steps, D]
+
+        # RevIN denorm
         output = self.revin(output, mode="denorm")
         return output
+    

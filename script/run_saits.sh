@@ -8,7 +8,7 @@ hostname
 export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 
 # 2) Choose a subset of the visible GPUs by *logical* indices ("" → CPU)
-USE_GPUS="0"        # e.g., "0" or "0,1"; set "" to force CPU
+USE_GPUS="1"        # e.g., "0" or "0,1"; set "" to force CPU
 
 # 3) Build DEVICE list and BACKEND tag
 DEVICE=()
@@ -36,10 +36,10 @@ MODEL="saits"
 DATASETS=("physionet_2012" "beijing_multisite_air_quality" "italy_air_quality" "pems_traffic" "solar_alabama")
 MISSING_RATES=("0.1" "0.2" "0.3" "0.4" "0.5")
 BATCH_SIZES=("32")
-D_MODELS=("64")
-D_FFNS=("128")
-N_HEADS=("3")
-N_LAYERS=("2")
+D_MODELS=("32")
+D_FFNS=("32")
+N_HEADS=("1")
+N_LAYERS=("1")
 
 ENABLE_PROFILING_VALUES=("true")
 
@@ -50,7 +50,7 @@ PROFILING_PREFIX="backbone_saits"
 mkdir -p "${ROOT_OUT}" "${PROFILING_PATH}"
 
 # Fixed
-EPOCH=10
+EPOCH=15
 PATIENCE=5
 
 # Session log

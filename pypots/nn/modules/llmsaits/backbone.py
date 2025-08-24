@@ -50,87 +50,81 @@ class BackboneLLMSAITS(nn.Module):
         self.profiling_path = profiling_path
         self.use_hann_window = use_hann_window
 
+        self._device_bound = False  # <-- NEW
+
         self.tokenizer = GPT2Tokenizer.from_pretrained("openai-community/gpt2")
         self.tokenizer.pad_token = self.tokenizer.eos_token
-        self.llm = GPT2Model.from_pretrained(
-            "openai-community/gpt2",
-            output_hidden_states=True,
-        )
+        self.llm = GPT2Model.from_pretrained("openai-community/gpt2", output_hidden_states=True)
+        self.llm.eval()
 
-        for param in self.llm.parameters():
-            param.requires_grad = False
+        # freeze by default
+        for p in self.llm.parameters():
+            p.requires_grad = False
 
         if self.use_lora:
-            print("✅ Applying LoRA to LLM")
             lora_config = LoraConfig(
-                r=8,
-                lora_alpha=32,
-                target_modules=["c_fc", "c_proj"],
-                lora_dropout=0.05,
-                bias="none",
-                task_type=TaskType.FEATURE_EXTRACTION,
+                r=8, lora_alpha=32, target_modules=["c_fc", "c_proj"],
+                lora_dropout=0.05, bias="none", task_type=TaskType.FEATURE_EXTRACTION
             )
             self.llm = get_peft_model(self.llm, lora_config)
 
         if self.train_gpt_mlp:
-            print("✅ Unfreezing GPT MLP layers")
             for block in self.llm.h:
-                for name, param in block.mlp.named_parameters():
+                for _, param in block.mlp.named_parameters():
                     param.requires_grad = True
 
         self.patch_embedding_1 = PatchEmbedding(
-            d_model=d_model,
-            patch_size=patch_size,
-            patch_stride=patch_stride,
-            padding=patch_stride,
-            dropout=dropout,
-            positional_embedding=True,
+            d_model=d_model, patch_size=patch_size, patch_stride=patch_stride,
+            padding=patch_stride, dropout=dropout, positional_embedding=True,
         )
-
         self.patch_embedding_2 = PatchEmbedding(
-            d_model=d_model,
-            patch_size=patch_size,
-            patch_stride=patch_stride,
-            padding=patch_stride,
-            dropout=dropout,
-            positional_embedding=True,
+            d_model=d_model, patch_size=patch_size, patch_stride=patch_stride,
+            padding=patch_stride, dropout=dropout, positional_embedding=True,
         )
 
-        self.reprogramming_1 = ReprogrammingLayer(
-            d_model=d_model,
-            n_heads=n_heads,
-            d_k=d_ffn,
-            d_llm=d_llm,
-        )
-        self.reprogramming_2 = ReprogrammingLayer(
-            d_model=d_model,
-            n_heads=n_heads,
-            d_k=d_ffn,
-            d_llm=d_llm,
-        )
+        self.reprogramming_1 = ReprogrammingLayer(d_model=d_model, n_heads=n_heads, d_k=d_ffn, d_llm=d_llm)
+        self.reprogramming_2 = ReprogrammingLayer(d_model=d_model, n_heads=n_heads, d_k=d_ffn, d_llm=d_llm)
 
-        self.prompt_proj = nn.Linear(self.llm.config.n_embd, d_model)
+        self.prompt_proj = nn.Linear(self.llm.config.n_embd, d_model)  # (optional) not strictly needed below
         self.revin = RevIN(n_features=n_features, affine=False)
         self.output_head = None
         self.output_head_dropout = dropout
 
-        # ✅ FIXED HERE
         self.combiner = nn.Sequential(
             nn.Linear(2 * n_features, n_features),
             nn.Sigmoid()
         )
 
+    # ---- NEW: bind all modules (incl. LLM) to the input device once ----
+    def _bind_to_input_device(self, x: torch.Tensor):
+        if self._device_bound:
+            return
+        dev = x.device
+        self.llm.to(dev)
+        self.patch_embedding_1.to(dev)
+        self.patch_embedding_2.to(dev)
+        self.reprogramming_1.to(dev)
+        self.reprogramming_2.to(dev)
+        self.prompt_proj.to(dev)
+        self.revin.to(dev)
+        self.combiner.to(dev)
+        if self.output_head is not None:
+            self.output_head.to(dev)
+        self._device_bound = True
+
     def build_prompts(self, X: torch.Tensor, missing_mask: torch.Tensor) -> torch.Tensor:
         B, T, D = X.shape
         prompts = []
+        # keep everything on X.device (no .cpu())
         for b in range(B):
-            x_sample = X[b].cpu()
-            mask_sample = missing_mask[b].cpu()
+            x_sample = X[b]
+            mask_sample = missing_mask[b]
             mean = x_sample.mean(dim=0, keepdim=True)
             std = x_sample.std(dim=0, keepdim=True) + 1e-6
             x_norm = (x_sample - mean) / std
+
             if self.use_hann_window:
-                window = torch.hann_window(T).unsqueeze(1).to(x_norm.device)
+                window = torch.hann_window(T, device=X.device).unsqueeze(1)
                 x_windowed = x_norm * window
             else:
                 x_windowed = x_norm
@@ -151,8 +145,8 @@ class BackboneLLMSAITS(nn.Module):
             trend = torch.sum(x_sample[1:] - x_sample[:-1]).item()
             trend_desc = "upward" if trend > 0 else "downward"
 
-            miss_idx_flat = (missing_mask[b] == 0).nonzero(as_tuple=False)
-            miss_idx_str = ", ".join([f"({t},{d})" for t, d in miss_idx_flat.tolist()])
+            miss_idx_flat = (mask_sample == 0).nonzero(as_tuple=False).tolist()
+            miss_idx_str = ", ".join([f"({t},{d})" for t, d in miss_idx_flat])
 
             prompt = (
                 f"<|start_prompt|>Task: {self.prompt_template} "
@@ -165,30 +159,32 @@ class BackboneLLMSAITS(nn.Module):
             )
             prompts.append(prompt)
 
-        tokenized = self.tokenizer(prompts, return_tensors="pt", padding=True, truncation=True, max_length=512)
-        embeds = self.llm.get_input_embeddings()(tokenized.input_ids.to(X.device))
+        tok = self.tokenizer(prompts, return_tensors="pt", padding=True, truncation=True, max_length=512)
+        input_ids = tok.input_ids.to(X.device)  # move IDs to the same device
+        embeds = self.llm.get_input_embeddings()(input_ids)  # [B, L, n_embd] on X.device
         return embeds
 
     def forward(self, X, missing_mask):
         if self.enable_profiling:
-            result_container = {}
+            outbox = {}
             def wrapper(x, m):
-                out = self._forward_internal(x, m)
-                result_container["output"] = out
-                return out
-            profiling_result = measure_runtime_memory(wrapper, X, missing_mask, save_path=self.profiling_path, prefix=self.profiling_prefix)
-            self._last_profiling_result = profiling_result
-            return result_container["output"]
-        else:
-            return self._forward_internal(X, missing_mask)
+                y = self._forward_internal(x, m)
+                outbox["y"] = y
+                return y
+            _ = measure_runtime_memory(wrapper, X, missing_mask, save_path=self.profiling_path, prefix=self.profiling_prefix)
+            return outbox["y"]
+        return self._forward_internal(X, missing_mask)
 
     def _forward_internal(self, X, missing_mask):
+        # <<< FIX: ensure *all* modules (incl. LLM) are on X.device >>>
+        self._bind_to_input_device(X)
+
         X = self.revin(X, mode="norm")
         B, T, D = X.shape
 
-        llm_embeds = self.build_prompts(X, missing_mask)
-        llm_embeds = llm_embeds.unsqueeze(1).expand(-1, D, -1, -1)
-        prompts_proj = self.prompt_proj(llm_embeds)
+        llm_embeds = self.build_prompts(X, missing_mask)               # [B, Lp, n_embd] @ X.device
+        llm_embeds = llm_embeds.unsqueeze(1).expand(-1, D, -1, -1)     # [B, D, Lp, n_embd]
+        _ = self.prompt_proj(llm_embeds)                                # optional; ensures layer is device-bound
 
         X_input = X.permute(0, 2, 1).contiguous().view(B * D, 1, T)
         patches_1 = self.patch_embedding_1(X_input).view(B, D, -1, self.d_model)
@@ -203,21 +199,25 @@ class BackboneLLMSAITS(nn.Module):
                 d_output=self.n_steps,
                 n_features=self.n_features,
                 head_dropout=self.output_head_dropout,
-            )
+            ).to(X.device)
 
-        X_tilde_1 = self.output_head(repr_1).permute(0, 2, 1).contiguous()
+        X_tilde_1 = self.output_head(repr_1).permute(0, 2, 1).contiguous()  # [B, T, D]
         X_prime = missing_mask * X + (1 - missing_mask) * X_tilde_1
 
         X_prime_input = X_prime.permute(0, 2, 1).contiguous().view(B * D, 1, T)
         patches_2 = self.patch_embedding_2(X_prime_input).view(B, D, -1, self.d_model)
-        reprogrammed_2 = self.reprogramming_2(
+        reprogramming_2 = self.reprogramming_2(
             patches_2.flatten(0, 1), llm_embeds.flatten(0, 1), llm_embeds.flatten(0, 1)
         )
-        repr_2 = reprogrammed_2.view(B, D, -1, self.d_llm).permute(0, 1, 3, 2).contiguous()
-        X_tilde_2 = self.output_head(repr_2).permute(0, 2, 1).contiguous()
+        repr_2 = reprogramming_2.view(B, D, -1, self.d_llm).permute(0, 1, 3, 2).contiguous()
+        X_tilde_2 = self.output_head(repr_2).permute(0, 2, 1).contiguous()  # [B, T, D]
 
-        # ✅ FIXED: concat dimension should match Linear(in=2 * n_features)
-        weights = self.combiner(torch.cat([missing_mask, torch.sigmoid(X_tilde_2)], dim=2))
+        # Make sure mask is float on the same device
+        if missing_mask.dtype != torch.float32:
+            missing_mask = missing_mask.float()
+        missing_mask = missing_mask.to(X.device)
+
+        weights = self.combiner(torch.cat([missing_mask, torch.sigmoid(X_tilde_2)], dim=2))  # [B, T, D]
         X_final = weights * X_tilde_1 + (1 - weights) * X_tilde_2
 
         X_tilde_1 = self.revin(X_tilde_1, mode="denorm")

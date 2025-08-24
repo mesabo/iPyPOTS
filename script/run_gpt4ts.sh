@@ -7,7 +7,7 @@ hostname
 export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 
 # 2) Choose a subset of the visible GPUs
-USE_GPUS="0"    # adjust as needed, e.g. "0,1" or "" for CPU
+USE_GPUS="6"    # adjust as needed, e.g. "0,1" or "" for CPU
 
 # 3) Build DEVICE array
 DEVICE=()
@@ -44,9 +44,9 @@ DATASETS=("physionet_2012" "beijing_multisite_air_quality" "italy_air_quality" "
 MISSING_RATES=("0.1" "0.2" "0.3" "0.4" "0.5")
 BATCH_SIZES=("32")
 D_MODELS=("64")
-D_FFNS=("128")
-N_HEADS=("4")
-N_LAYERS=("2")
+D_FFNS=("64")
+N_HEADS=("2")
+N_LAYERS=("1")
 ENABLE_PROFILING_VALUES=("true")
 
 # Paths
@@ -56,7 +56,7 @@ PROFILING_PREFIX="backbone_gpt4ts"
 mkdir -p "${ROOT_OUT}" "${PROFILING_PATH}"
 
 # Fixed config
-EPOCH=10
+EPOCH=15
 PATIENCE=5
 
 # Session log

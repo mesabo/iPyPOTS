@@ -644,18 +644,25 @@ class BaseNNModel(BaseModel):
         self.num_workers = num_workers
 
         self.model = None
+        self.total_params = None
         self.num_params = None
+        self.trainable_ratio = None
         self.optimizer = None
         self.best_model_dict = None
         self.best_loss = float("inf")
         self.best_epoch = -1
 
     def _print_model_size(self) -> None:
-        """Print the number of trainable parameters in the initialized NN model."""
+        """Print total and trainable parameters, with percentage."""
+        self.total_params = sum(p.numel() for p in self.model.parameters())
         self.num_params = sum(p.numel() for p in self.model.parameters() if p.requires_grad)
+        self.trainable_ratio = (self.num_params / self.total_params * 100) if self.total_params > 0 else 0.0
+
         logger.info(
-            f"{self.__class__.__name__} initialized with the given hyperparameters, "
-            f"the number of trainable parameters: {self.num_params:,}"
+            f"{self.__class__.__name__} initialized with the given hyperparameters.\n"
+            f" ├─ Total parameters: {self.total_params:,}\n"
+            f" ├─ Trainable parameters: {self.num_params:,}\n"
+            f" └─ Trainable ratio: {self.trainable_ratio:.2f}%"
         )
 
     @abstractmethod

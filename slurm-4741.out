@@ -1,0 +1,30 @@
+ai-gpgpu14
+Visible GPUs: 0,1,2,3,4,5,6,7
+Using devices: cuda:1
+Session log: output/imputation/cuda/session_saits_20250824T015704.log
+⏭️  Skip (done): physionet_2012 | mr0.1_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): physionet_2012 | mr0.2_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): physionet_2012 | mr0.3_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): physionet_2012 | mr0.4_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): physionet_2012 | mr0.5_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): beijing_multisite_air_quality | mr0.1_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): beijing_multisite_air_quality | mr0.2_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): beijing_multisite_air_quality | mr0.3_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): beijing_multisite_air_quality | mr0.4_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): beijing_multisite_air_quality | mr0.5_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): italy_air_quality | mr0.1_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): italy_air_quality | mr0.2_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): italy_air_quality | mr0.3_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): italy_air_quality | mr0.4_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): italy_air_quality | mr0.5_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): pems_traffic | mr0.1_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): pems_traffic | mr0.2_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): pems_traffic | mr0.3_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): pems_traffic | mr0.4_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): pems_traffic | mr0.5_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): solar_alabama | mr0.1_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): solar_alabama | mr0.2_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): solar_alabama | mr0.3_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): solar_alabama | mr0.4_bs32_dm32_ffn32_h1_ly1_proftrue
+⏭️  Skip (done): solar_alabama | mr0.5_bs32_dm32_ffn32_h1_ly1_proftrue
+✅ All saits runs completed at 2025-08-24T01:57:04+09:00.

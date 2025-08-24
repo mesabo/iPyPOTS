@@ -43,17 +43,17 @@ fi
 
 # ================== EXPERIMENT CONFIGS ==================
 MODEL="timellm"
-LLM_MODELS=("gpt2")              # feeds TimeLLM(llm_model_type="GPT2")
+LLM_MODELS=("BERT")              # feeds TimeLLM(llm_model_type="GPT2")
 
 # Datasets & grid
-DATASETS=("physionet_2012" "beijing_multisite_air_quality" "italy_air_quality" "pems_traffic" "solar_alabama")
+DATASETS=("physionet_2012" "beijing_multisite_air_quality" "pems_traffic" "solar_alabama" "italy_air_quality" )
 MISSING_RATES=("0.1" "0.2" "0.3" "0.4" "0.5")
 BATCH_SIZES=("32")
 
 # Architecture
 D_MODELS=("64")
 D_FFNS=("64")
-N_HEADS=("2")
+N_HEADS=("1")
 N_LAYERS=("1")
 D_LLM=("768")                    # GPT-2 hidden size
 PATCH_SIZES=("12")

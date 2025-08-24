@@ -46,7 +46,7 @@ def get_args():
     parser.add_argument("--prompt_template", type=str,
                         default="Impute missing values at time steps where mask=0",
                         help="Instruction prompt template")
-    parser.add_argument("--llm_model_type", type=str, default="GPT2", help="LLM model type: GPT2 | LLaMA | BERT | ...")
+    parser.add_argument("--llm_model_type", type=str, default="BERT", help="LLM model type: GPT2 | LLaMA | BERT | ...")
     parser.add_argument("--train_gpt_mlp", type=lambda x: bool(strtobool(x)), default=False,
                         help="Whether to train the MLP layers in GPT2.")
     parser.add_argument("--use_lora", type=lambda x: bool(strtobool(x)), default=False,
