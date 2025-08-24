@@ -1994,3 +1994,144 @@ Length: 5, dtype: period[M]
  ├─ Total parameters: 96,982,896
  ├─ Trainable parameters: 50,509,680
  └─ Trainable ratio: 52.08%
+2025-08-24 12:59:58 [ERROR]: ❌ Exception: Caught OutOfMemoryError in replica 0 on device 3.
+Original Traceback (most recent call last):
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 96, in _worker
+    output = module(*input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/core.py", line 73, in forward
+    reconstruction = self.backbone(X, missing_mask)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/nn/modules/timellm/backbone.py", line 218, in forward
+    llama_enc_out = torch.cat([prompt_embeddings, enc_out], dim=1)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 10.15 GiB. GPU 3 has a total capacity of 23.58 GiB of which 9.32 GiB is free. Process 2794191 has 760.00 MiB memory in use. Including non-PyTorch memory, this process has 13.02 GiB memory in use. Process 2932126 has 500.00 MiB memory in use. Of the allocated memory 11.96 GiB is allocated by PyTorch, and 673.04 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+Traceback (most recent call last):
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/base.py", line 748, in _train_model
+    results = self.model(inputs, calc_criterion=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/data_parallel.py", line 193, in forward
+    outputs = self.parallel_apply(replicas, inputs, module_kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/data_parallel.py", line 212, in parallel_apply
+    return parallel_apply(
+           ^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 126, in parallel_apply
+    output.reraise()
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/_utils.py", line 715, in reraise
+    raise exception
+torch.OutOfMemoryError: Caught OutOfMemoryError in replica 0 on device 3.
+Original Traceback (most recent call last):
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 96, in _worker
+    output = module(*input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/core.py", line 73, in forward
+    reconstruction = self.backbone(X, missing_mask)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/nn/modules/timellm/backbone.py", line 218, in forward
+    llama_enc_out = torch.cat([prompt_embeddings, enc_out], dim=1)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 10.15 GiB. GPU 3 has a total capacity of 23.58 GiB of which 9.32 GiB is free. Process 2794191 has 760.00 MiB memory in use. Including non-PyTorch memory, this process has 13.02 GiB memory in use. Process 2932126 has 500.00 MiB memory in use. Of the allocated memory 11.96 GiB is allocated by PyTorch, and 673.04 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/23r8105_messou/lab/iPyPOTS/main.py", line 80, in <module>
+    main(args)
+  File "/home/23r8105_messou/lab/iPyPOTS/main.py", line 59, in main
+    mae, mse, rmse, mre = MODEL_PIPELINES[model_name](dataset, args)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pipeline/imputations/timellm.py", line 65, in train_and_evaluate_timellm
+    timellm.fit(
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/timellm/model.py", line 287, in fit
+    self._train_model(train_dataloader, val_dataloader)
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/base.py", line 825, in _train_model
+    raise RuntimeError(
+RuntimeError: Training got interrupted. Model was not trained. Please investigate the error printed above.
+srun: error: ai-gpgpu14: task 0: Exited with exit code 1
+❌ FAIL(1): pems_traffic | mr0.4_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+🔥 RUN: timellm | pems_traffic | mr0.5_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse (DEVICE=cuda:3 cuda:4 cuda:5, N_STEPS=96, N_FEATURES=228)
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+🚀 Running imputation pipeline for model: timellm
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-24 13:00:11 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+2025-08-24 13:00:11 [INFO]: You're using dataset pems_traffic, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/pems_traffic
+2025-08-24 13:00:11 [INFO]: Dataset pems_traffic has already been downloaded. Processing directly...
+2025-08-24 13:00:11 [INFO]: Dataset pems_traffic has already been cached. Loading from cache directly...
+2025-08-24 13:00:12 [INFO]: Loaded successfully!
+2025-08-24 13:00:12 [INFO]: months selected as train set are <PeriodArray>
+['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06', '2015-07',
+ '2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01', '2016-02',
+ '2016-03']
+Length: 15, dtype: period[M]
+2025-08-24 13:00:12 [INFO]: months selected as val set are <PeriodArray>
+['2016-04', '2016-05', '2016-06', '2016-07']
+Length: 4, dtype: period[M]
+2025-08-24 13:00:12 [INFO]: months selected as test set are <PeriodArray>
+['2016-08', '2016-09', '2016-10', '2016-11', '2016-12']
+Length: 5, dtype: period[M]
+2025-08-24 13:00:12 [INFO]: Total sample number: 182
+2025-08-24 13:00:12 [INFO]: Training set size: 114 (62.64%)
+2025-08-24 13:00:12 [INFO]: Validation set size: 30 (16.48%)
+2025-08-24 13:00:12 [INFO]: Test set size: 38 (20.88%)
+2025-08-24 13:00:12 [INFO]: Number of steps: 96
+2025-08-24 13:00:12 [INFO]: Number of features: 862
+2025-08-24 13:00:12 [INFO]: Train set missing rate: 50.01%
+2025-08-24 13:00:12 [INFO]: Validating set missing rate: 49.93%
+2025-08-24 13:00:12 [INFO]: Test set missing rate: 50.04%
+✅ Dataset 'pems_traffic' with missing rate 0.5 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.5
+2025-08-24 13:00:12 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:3', 'cuda:4', 'cuda:5']
+2025-08-24 13:00:12 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=3), device(type='cuda', index=4), device(type='cuda', index=5)]
+2025-08-24 13:00:12 [INFO]: Model files will be saved to output/imputation/cuda/timellm/BERT/pems_traffic/epoch15/mr0.5_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse
+2025-08-24 13:00:12 [INFO]: Tensorboard file will be saved to output/imputation/cuda/timellm/BERT/pems_traffic/epoch15/mr0.5_bs32_dm64_ffn64_h1_ly1_dllm768_ps12_st6_dp0.1_mit1.0_ort0.1_proffalse/tensorboard
+2025-08-24 13:00:12 [INFO]: Using customized MAE as the training loss function.
+2025-08-24 13:00:12 [INFO]: Using customized MSE as the validation metric function.
+2025-08-24 13:00:14 [INFO]: Model placed on CUDA devices [3, 4, 5]
+2025-08-24 13:00:14 [INFO]: TimeLLM initialized with the given hyperparameters.
+ ├─ Total parameters: 96,982,896
+ ├─ Trainable parameters: 50,509,680
+ └─ Trainable ratio: 52.08%

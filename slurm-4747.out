@@ -49,3 +49,113 @@ https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/physionet_2012
 2025-08-24 12:59:43 [INFO]: Tensorboard file will be saved to output/imputation/cuda/llm4imp/gpt2/physionet_2012/epoch15/h6_ly1/mr0.1_bs32_dm64_ffn128/hanntrue/prompttrue_reprogtrue/tensorboard
 2025-08-24 12:59:43 [INFO]: Using customized MAE as the training loss function.
 2025-08-24 12:59:43 [INFO]: Using customized MSE as the validation metric function.
+2025-08-24 12:59:50 [INFO]: Model placed on CUDA devices [0, 2, 3, 4, 5]
+2025-08-24 12:59:50 [INFO]: LLM4IMP initialized with the given hyperparameters.
+ ├─ Total parameters: 128,520,192
+ ├─ Trainable parameters: 11,168,256
+ └─ Trainable ratio: 8.69%
+2025-08-24 12:59:53 [ERROR]: ❌ Exception: CUDA out of memory. Tried to allocate 20.00 MiB. GPU 4 has a total capacity of 23.58 GiB of which 5.75 MiB is free. Process 2930538 has 23.02 GiB memory in use. Including non-PyTorch memory, this process has 554.00 MiB memory in use. Of the allocated memory 160.91 MiB is allocated by PyTorch, and 5.09 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/base.py", line 748, in _train_model
+    results = self.model(inputs, calc_criterion=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/data_parallel.py", line 192, in forward
+    replicas = self.replicate(self.module, self.device_ids[: len(inputs)])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/data_parallel.py", line 199, in replicate
+    return replicate(module, device_ids, not torch.is_grad_enabled())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/replicate.py", line 134, in replicate
+    param_copies = _broadcast_coalesced_reshape(params, devices, detach)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/replicate.py", line 103, in _broadcast_coalesced_reshape
+    tensor_copies = Broadcast.apply(devices, *tensors)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/autograd/function.py", line 575, in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py", line 22, in forward
+    outputs = comm.broadcast_coalesced(inputs, ctx.target_gpus)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/comm.py", line 67, in broadcast_coalesced
+    return torch._C._broadcast_coalesced(tensors, devices, buffer_size)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB. GPU 4 has a total capacity of 23.58 GiB of which 5.75 MiB is free. Process 2930538 has 23.02 GiB memory in use. Including non-PyTorch memory, this process has 554.00 MiB memory in use. Of the allocated memory 160.91 MiB is allocated by PyTorch, and 5.09 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/23r8105_messou/lab/iPyPOTS/main.py", line 80, in <module>
+    main(args)
+  File "/home/23r8105_messou/lab/iPyPOTS/main.py", line 59, in main
+    mae, mse, rmse, mre = MODEL_PIPELINES[model_name](dataset, args)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/23r8105_messou/lab/iPyPOTS/pipeline/imputations/llm4imp.py", line 70, in train_and_evaluate_llm4imp
+    model.fit(
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/imputation/llm4imp/model.py", line 305, in fit
+    self._train_model(train_dataloader, val_dataloader)
+  File "/home/23r8105_messou/lab/iPyPOTS/pypots/base.py", line 825, in _train_model
+    raise RuntimeError(
+RuntimeError: Training got interrupted. Model was not trained. Please investigate the error printed above.
+srun: error: ai-gpgpu14: task 0: Exited with exit code 1
+❌ FAIL(1): physionet_2012 | h6_ly1/mr0.1_bs32_dm64_ffn128/hanntrue_prompttrue_reprogtrue
+🔥 RUN: llm4imp | physionet_2012 | h6_ly1/mr0.1_bs32_dm64_ffn128/hanntrue_prompttrue_reprogfalse (DEVICE=cuda:0 cuda:2 cuda:3 cuda:4 cuda:5, N_STEPS=48, N_FEATURES=35)
+/var/spool/slurm-llnl/slurmd/job04747/slurm_script: line 160: output/imputation/cuda/llm4imp/gpt2/physionet_2012/epoch15/h6_ly1/mr0.1_bs32_dm64_ffn128/hanntrue/prompttrue_reprogfalse/logs/run_h6_ly1/mr0.1_bs32_dm64_ffn128/hanntrue_prompttrue_reprogfalse.log: No such file or directory
+/var/spool/slurm-llnl/slurmd/job04747/slurm_script: line 161: output/imputation/cuda/llm4imp/gpt2/physionet_2012/epoch15/h6_ly1/mr0.1_bs32_dm64_ffn128/hanntrue/prompttrue_reprogfalse/logs/run_h6_ly1/mr0.1_bs32_dm64_ffn128/hanntrue_prompttrue_reprogfalse.log: No such file or directory
+/var/spool/slurm-llnl/slurmd/job04747/slurm_script: line 161: output/imputation/cuda/llm4imp/gpt2/physionet_2012/epoch15/h6_ly1/mr0.1_bs32_dm64_ffn128/hanntrue/prompttrue_reprogfalse/logs/run_h6_ly1/mr0.1_bs32_dm64_ffn128/hanntrue_prompttrue_reprogfalse.log: No such file or directory
+/var/spool/slurm-llnl/slurmd/job04747/slurm_script: line 162: output/imputation/cuda/llm4imp/gpt2/physionet_2012/epoch15/h6_ly1/mr0.1_bs32_dm64_ffn128/hanntrue/prompttrue_reprogfalse/logs/run_h6_ly1/mr0.1_bs32_dm64_ffn128/hanntrue_prompttrue_reprogfalse.log: No such file or directory
+tee: output/imputation/cuda/llm4imp/gpt2/physionet_2012/epoch15/h6_ly1/mr0.1_bs32_dm64_ffn128/hanntrue/prompttrue_reprogfalse/logs/run_h6_ly1/mr0.1_bs32_dm64_ffn128/hanntrue_prompttrue_reprogfalse.log: No such file or directory
+[34m
+████████╗██╗███╗   ███╗███████╗    ███████╗███████╗██████╗ ██╗███████╗███████╗    █████╗ ██╗
+╚══██╔══╝██║████╗ ████║██╔════╝    ██╔════╝██╔════╝██╔══██╗██║██╔════╝██╔════╝   ██╔══██╗██║
+   ██║   ██║██╔████╔██║█████╗█████╗███████╗█████╗  ██████╔╝██║█████╗  ███████╗   ███████║██║
+   ██║   ██║██║╚██╔╝██║██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗██║██╔══╝  ╚════██║   ██╔══██║██║
+   ██║   ██║██║ ╚═╝ ██║███████╗    ███████║███████╗██║  ██║██║███████╗███████║██╗██║  ██║██║
+   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝
+ai4ts v0.0.3 - building AI for unified time-series analysis, https://time-series.ai [0m
+
+Use Train GPT: False
+Use Lora: False
+Use Profiling: False
+🚀 Running imputation pipeline for model: llm4imp
+ℹ️ TSDB migration not needed, directory exists: /home/23r8105_messou/lab/iPyPOTS/datasets
+2025-08-24 13:00:02 [INFO]: Have set the random seed as 2025 for numpy and pytorch.
+2025-08-24 13:00:02 [INFO]: You're using dataset physionet_2012, please cite it properly in your work. You can find its reference information at the below link: 
+https://github.com/WenjieDu/TSDB/tree/main/dataset_profiles/physionet_2012
+2025-08-24 13:00:02 [INFO]: Dataset physionet_2012 has already been downloaded. Processing directly...
+2025-08-24 13:00:02 [INFO]: Dataset physionet_2012 has already been cached. Loading from cache directly...
+2025-08-24 13:00:02 [INFO]: Loaded successfully!
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/benchpots/datasets/physionet_2012.py:109: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  X = X.groupby("RecordID").apply(apply_func)
+2025-08-24 13:00:11 [WARNING]: Note that physionet_2012 has sparse observations in the time series, hence we don't add additional missing values to the training dataset. 
+2025-08-24 13:00:11 [INFO]: 22947 values masked out in the val set as ground truth, take 9.91% of the original observed values
+2025-08-24 13:00:11 [INFO]: 28724 values masked out in the test set as ground truth, take 10.08% of the original observed values
+2025-08-24 13:00:11 [INFO]: Total sample number: 3997
+2025-08-24 13:00:11 [INFO]: Training set size: 2557 (63.97%)
+2025-08-24 13:00:11 [INFO]: Validation set size: 640 (16.01%)
+2025-08-24 13:00:11 [INFO]: Test set size: 800 (20.02%)
+2025-08-24 13:00:11 [INFO]: Number of steps: 48
+2025-08-24 13:00:11 [INFO]: Number of features: 37
+2025-08-24 13:00:11 [INFO]: Train set missing rate: 79.68%
+2025-08-24 13:00:11 [INFO]: Validating set missing rate: 81.65%
+2025-08-24 13:00:11 [INFO]: Test set missing rate: 81.96%
+✅ Dataset 'physionet_2012' with missing rate 0.1 loaded at: /home/23r8105_messou/lab/iPyPOTS/datasets/rate_0.1
+2025-08-24 13:00:11 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using device list: ['cuda:0', 'cuda:2', 'cuda:3', 'cuda:4', 'cuda:5']
+2025-08-24 13:00:11 [INFO]: 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥Using the given device: [device(type='cuda', index=0), device(type='cuda', index=2), device(type='cuda', index=3), device(type='cuda', index=4), device(type='cuda', index=5)]
+2025-08-24 13:00:12 [INFO]: Model files will be saved to output/imputation/cuda/llm4imp/gpt2/physionet_2012/epoch15/h6_ly1/mr0.1_bs32_dm64_ffn128/hanntrue/prompttrue_reprogfalse
+2025-08-24 13:00:12 [INFO]: Tensorboard file will be saved to output/imputation/cuda/llm4imp/gpt2/physionet_2012/epoch15/h6_ly1/mr0.1_bs32_dm64_ffn128/hanntrue/prompttrue_reprogfalse/tensorboard
+2025-08-24 13:00:12 [INFO]: Using customized MAE as the training loss function.
+2025-08-24 13:00:12 [INFO]: Using customized MSE as the validation metric function.
+2025-08-24 13:00:15 [INFO]: Model placed on CUDA devices [0, 2, 3, 4, 5]
+2025-08-24 13:00:15 [INFO]: LLM4IMP initialized with the given hyperparameters.
+ ├─ Total parameters: 128,520,192
+ ├─ Trainable parameters: 11,168,256
+ └─ Trainable ratio: 8.69%
+/home/23r8105_messou/anaconda3/envs/pypots/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
