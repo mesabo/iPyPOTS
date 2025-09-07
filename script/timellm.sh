@@ -9,7 +9,7 @@ export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 
 # 2) Pick a subset of those (by logical indices after the export above).
 #    Leave empty to force CPU.
-USE_GPUS="3,4,5"      # e.g., use logical cuda:3,cuda:4,cuda:5
+USE_GPUS="0,2,3,4"      # e.g., use logical cuda:3,cuda:4,cuda:5
 # USE_GPUS=""         # CPU only
 
 # Build DEVICE (array) and BACKEND label
@@ -43,10 +43,10 @@ fi
 
 # ================== EXPERIMENT CONFIGS ==================
 MODEL="timellm"
-LLM_MODELS=("BERT")              # feeds TimeLLM(llm_model_type="GPT2")
+LLM_MODELS=("GPT2")              # feeds TimeLLM(llm_model_type="BERT")
 
 # Datasets & grid
-DATASETS=("physionet_2012" "beijing_multisite_air_quality" "pems_traffic" "solar_alabama" "italy_air_quality" )
+DATASETS=("beijing_multisite_air_quality" "pems_traffic" "solar_alabama")
 MISSING_RATES=("0.1" "0.2" "0.3" "0.4" "0.5")
 BATCH_SIZES=("32")
 

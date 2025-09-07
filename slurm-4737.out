@@ -1,6 +1,0 @@
-ai-gpgpu14
-Visible GPUs: 0,1,2,3,4,5,6,7
-Using devices: cuda:6
-Session log: output/imputation/cuda:6/session_gpt4ts_20250823T102556.log
-🔥 RUN: gpt4ts | physionet_2012 | mr0.1_bs32_dm64_ffn64_h2_ly1_proftrue (DEVICE=cuda:6, N_STEPS=48, N_FEATURES=35)
-slurmstepd-ai-gpgpu14: error: *** JOB 4737 ON ai-gpgpu14 CANCELLED AT 2025-08-23T10:26:00 ***

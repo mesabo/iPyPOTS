@@ -1,5 +1,0 @@
-ai-gpgpu11
-Visible GPUs (physical): 0,1,2,3,4,5,6,7
-Using devices (logical): cuda:3 cuda:4 cuda:5
-Backend: cuda
-/home/23r8105_messou/anaconda3/envs/pypots/etc/conda/activate.d/libblas_mkl_activate.sh: line 1: MKL_INTERFACE_LAYER: unbound variable

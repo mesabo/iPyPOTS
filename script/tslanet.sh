@@ -40,7 +40,7 @@ MISSING_RATES=("0.1" "0.2" "0.3" "0.4" "0.5")
 BATCH_SIZES=("32")
 PATCH_SIZES=("24")
 D_EMBEDDINGS=("128")
-N_LAYERS_LIST=("3")
+N_LAYERS_LIST=("2" "3" "4")
 
 # Paths (device-aware: cuda/cpu)
 ROOT_OUT="output/imputation/${BACKEND}"
